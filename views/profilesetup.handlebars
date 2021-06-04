@@ -1,0 +1,132 @@
+
+<link rel="stylesheet" href="/profilesetup.css">
+
+  <div class="container">
+    <div class="title">Profile</div>
+    <div class="content">
+      <form action="/setup" method="POST">
+        <div class="user-details">
+          <div class="input-box">
+            <label for="gender">Gender</label>
+              <select name="gender" id="gender">
+                <option value="gender">-Select-</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+          </div>
+          <div class="input-box">
+            <!-- <label for="birthday">Birthday</label>
+            <div id="bithday_dmy">
+              <select name="birthday_day" id="birthday_day">
+                <option value="birthday_day">Day</option>
+              </select>
+              <select name="birthday_month" id="birthday_month">
+                <option value="birthday_month">Month</option>
+              </select>
+              <select name="birthday_year" id="birthday_year">
+                <option value="birthday_year">Year</option>
+              </select> -->
+              <!-- <input type="number" min="18" max="100" value="18">  -->
+              <label for="birthday">Birthday</label>
+              <input type="date" id="start" name="birthday" max="">
+            </div>
+
+            <div class="input-box">
+              <label for="height">Height</label>
+              <select name="height" id="height">
+                <option value="height">-Select-</option>
+              </select>
+            </div>
+
+            <div class="input-box">
+              <label for="education">Education</label>
+              <select name="education" id="education">
+                <option value="education">-Select-</option>
+              </select>
+            </div>
+
+            <div class="input-box">
+              <label for="ethnicity">Ethnicity</label>
+              <select name="ethnicity" id="ethnicity">
+                <option value="ethnicity">-Select-</option>
+              </select>
+            </div>
+
+            <div class="input-box">
+              <label for="religion">Religion</label>
+              <select name="religion" id="religion">
+                <option value="religion">-Select-</option>
+              </select>
+            </div>
+
+            <div class="input-box">
+              <span class="details">Job Title</span>
+              <input type="text" name="work" placeholder="Enter your job tilte">
+            </div>
+
+            <div class="input-box">
+              <span class="details">Home Town</span>
+              <input type="text" name="hometown" placeholder="Enter your location">
+            </div>
+
+            <div class="input-box">
+              <input type="text" name="location" id="location" required>
+            </div>
+
+          </div>
+        
+          <label for="aboutme">About Me</label>
+          <textarea id="aboutme" name="aboutme" rows="5" cols="78" ></textarea>
+
+        <div class="button">
+          <input type="submit" value="Register">
+        </div>
+      </form>
+    </div>
+  </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+document.getElementById('start').max = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0];
+
+// $('#age').append([...Array(100).keys()].map((i,j) => `<option value="${i}">${i}</option >`)) 
+ for(let i =18;i<100;i++){
+    $('#age').append(`<option value="${i}">${i}</option >`)
+  }
+
+  for(let i =122;i<250;i++){
+    $('#height').append(`<option value="${i}">${i}</option >`)
+  }
+
+  eduArr = ['Secondary','Associate','Bachelor','Master','Doctor'];
+  for(let i = 0;i<eduArr.length;i++){
+    $('#education').append(`<option value="${i}">${eduArr[i]}</option >`)
+  }
+
+  ethArr = ['Asian','Arab','Black/Agrican-descent','Hispanic/Latino','Native American','Pacific Islander','South Asian','White/Caucasian','Other'];
+  for(let i = 0;i<ethArr.length;i++){
+    $('#ethnicity').append(`<option value="${ethArr[i]}">${ethArr[i]}</option >`)
+  }
+
+  relArr = ['Buddhist','Christian','Catholic','Hindu','Jewish','Muslim','Sikh','Shinto','Spiritual but not religious','Neither religious nor spiritual','Other'];
+  for(let i = 0;i<relArr.length;i++){
+    $('#religion').append(`<option value="${relArr[i]}">${relArr[i]}</option >`)
+  }
+
+</script>
+
+<script>
+  const successCallback = (position) => {
+    let coords = {
+      latitude:position.coords.latitude,
+      longitude:position.coords.longitude
+      }
+    document.getElementById('location').value = JSON.stringify(coords)
+  }
+
+  const errorCallback = (error) => {
+    console.error(error);
+  }
+
+  const watchId = navigator.geolocation.getCurrentPosition(successCallback,errorCallback)
+</script>
