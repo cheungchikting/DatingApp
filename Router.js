@@ -5,7 +5,6 @@ const paymentsession = require('./stripe')
 
 let user_id;
 
-
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
         user_id = req.user.id
@@ -47,14 +46,16 @@ class Router {
         router.get('/like/:id', isLoggedIn, this.like.bind(this))
         router.post('/dislike/:id', isLoggedIn, this.dislike.bind(this))
         //chatlist
-        router.get('/chat', isLoggedIn, this.chatlist.bind(this))
+        router.get('/chatlist', isLoggedIn, this.chatlist.bind(this))
         router.post('/unlike/:id', isLoggedIn, this.unlike.bind(this))
+        // Chatroom
+          router.get('/chatroom', this.chatroom.bind(this));
         //stripe
         router.post('/create-checkout-session', isLoggedIn, this.checkoutsession.bind(this))
         router.get('/success', isLoggedIn, this.success.bind(this))
         router.get('/cancel', isLoggedIn, this.cancel.bind(this))
         router.post('/addpoints', isLoggedIn, this.addpoints.bind(this))
-
+        // login/Reg
         router.get('/login', this.login.bind(this));
         router.get('/signup', this.signup.bind(this))
         router.get('/done', this.done.bind(this))
@@ -206,13 +207,14 @@ class Router {
     // chatlist
 
     chatlist(req, res) {
-        let object
-        this.Method.ChatList(user_id).then((data) => {
-            object = {
-                'chatlist': data
-            }
-            res.render('chatlist', object)
+        this.Method.ChatList(2).then((data) => {
+            res.render('chatlist', data)
         })
+    }
+
+    chatroom (req, res){
+        res.render('chatroom')
+
     }
 
     unlike(req, res) {
@@ -256,8 +258,7 @@ class Router {
         })
     }
 
-
-
+    // login & Reg
 
     login(req, res) {
         res.render("login");
@@ -280,6 +281,9 @@ class Router {
         req.logout();
         res.redirect("/login")
     }
+
+
+
 
 }
 
