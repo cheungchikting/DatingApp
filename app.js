@@ -18,6 +18,10 @@ app.use(
         saveUninitialized: true,
     })
 );
+//socket
+const http = require("http").Server(app);
+const io = require("socket.io")(http)
+require('./socket')(io)
 
 const knexFile = require('./knexfile').development;
 const knex = require('knex')(knexFile);
@@ -25,7 +29,7 @@ const Method = require("./Method")
 const Router = require("./Router")
 const method = new Method(knex)
 const router = new Router(method)
-const job = require('./randomlist')
+require('./randomlist')
 
 
 const serializeUser = require("./Passport/cookie").serializeUser;
@@ -40,10 +44,6 @@ app.use(signup.initialize());
 app.use(signup.session());
 app.use(login.initialize());
 app.use(login.session());
-app.use(facebook.initialize());
-app.use(facebook.session());
-app.use(google.initialize());
-app.use(google.session());
 
 passport.serializeUser(serializeUser);
 passport.deserializeUser(deserializeUser);
@@ -54,6 +54,8 @@ app.engine('handlebars', hb({
 }));
 
 app.set('view engine', 'handlebars');
+
+
 
 app.post('/signup', signup.authenticate('local-signup', {
     successRedirect: '/profilesetup',
@@ -81,11 +83,22 @@ app.get('/auth/google/callback', passport.authenticate('google', {
     }),
     function (req, res) {
         res.redirect('/done');
-    });
-
+    }
+);
 
 app.use("/", router.router())
 
-app.listen(8000, () => {
+
+
+
+
+
+
+
+
+
+
+
+http.listen(8000, () => {
     console.log("Application started at port:8000");
 });
