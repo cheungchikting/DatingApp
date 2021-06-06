@@ -14,22 +14,19 @@
                 <option value="Female">Female</option>
               </select>
           </div>
+
           <div class="input-box">
-            <!-- <label for="birthday">Birthday</label>
-            <div id="bithday_dmy">
-              <select name="birthday_day" id="birthday_day">
-                <option value="birthday_day">Day</option>
-              </select>
-              <select name="birthday_month" id="birthday_month">
-                <option value="birthday_month">Month</option>
-              </select>
-              <select name="birthday_year" id="birthday_year">
-                <option value="birthday_year">Year</option>
-              </select> -->
-              <!-- <input type="number" min="18" max="100" value="18">  -->
-              <label for="birthday">Birthday</label>
-              <input type="date" id="start" name="birthday" max="">
+             <div class="row" style="display: flex;">
+                <div style="width:60%">
+                  <label for="birthday">Birthday</label>
+                </div>
+
+                  <div  style="width: 40%;">
+                  <p id="now_age"></p>
+                </div>
             </div>
+              <input type="date" id="start" name="birthday" max="" value="2000-01-01">
+          </div>
 
             <div class="input-box">
               <label for="height">Height</label>
@@ -61,22 +58,24 @@
 
             <div class="input-box">
               <span class="details">Job Title</span>
-              <input type="text" name="work" placeholder="Enter your job tilte">
+              <input type="text" name="work" placeholder="Enter your job tilte" required>
             </div>
 
             <div class="input-box">
               <span class="details">Home Town</span>
-              <input type="text" name="hometown" placeholder="Enter your location">
+              <input type="text" name="hometown" placeholder="Enter your location" required>
             </div>
 
-            <div class="input-box">
+            <div class="input-box" id="input_location">
               <input type="text" name="location" id="location" required>
             </div>
 
+            <div class="input-box" >
+              <label for="aboutme">About Me</label>
+              <textarea id="aboutme" name="aboutme" rows="5" cols="78" ></textarea>
+            </div>
+
           </div>
-        
-          <label for="aboutme">About Me</label>
-          <textarea id="aboutme" name="aboutme" rows="5" cols="78" ></textarea>
 
         <div class="button">
           <input type="submit" value="Register">
@@ -129,4 +128,38 @@ document.getElementById('start').max = new Date(new Date().getTime() - new Date(
   }
 
   const watchId = navigator.geolocation.getCurrentPosition(successCallback,errorCallback)
+</script>
+
+{{!-- calculate age --}}
+<script>
+  document.getElementById("start").addEventListener("change",()=>{
+
+var birth_date = new Date(document.getElementById("start").value);
+var birth_date_day = birth_date.getDate();
+var birth_date_month = birth_date.getMonth();
+var birth_date_year = birth_date.getFullYear();
+
+var today_date =new Date();
+var today_day = today_date.getDate(); //if getDay is Monday to Sunday
+console.log(today_day)
+var today_month = today_date.getMonth();
+var today_year = today_date.getFullYear();
+
+var calculated_age;
+
+if(today_month > birth_date_month){
+  calculated_age = today_year - birth_date_year;
+}else if(today_month == birth_date_month){
+  if(today_day >= birth_date_day){
+    calculated_age = today_year - birth_date_year;
+  }else{
+    calculated_age = today_year - birth_date_year - 1;
+  }
+}else{
+    calculated_age = today_year - birth_date_year - 1;
+  }
+
+  document.getElementById("now_age").innerHTML = "Age : " + calculated_age ;
+})
+
 </script>
