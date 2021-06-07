@@ -1,0 +1,211 @@
+    <link rel="stylesheet" href="profiles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+
+
+
+<div class="navbar_container">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light top_navbar">
+              <div class="container-fluid">
+                   <div class="navbar_left">
+                         <a class="navbar-brand" >Lonely</a>
+                   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                     <span class="navbar-toggler-icon"></span>
+                   </button>
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                       <div class="navbar-nav">
+                        <a class="nav-link" href="/match">Match</a>
+                       </div>
+                     </div>
+                  </div>
+              
+                        <div class="navbar_right">
+                              <div class="action">
+
+                                 <div class="profile" onclick="menuToggle();">
+                                     <img src="https://i2-prod.mirror.co.uk/incoming/article23362081.ece/ALTERNATES/s1200c/0_DSOL_Yael_Shelbia_7.jpg">
+                                 </div>
+                                 
+                                 <div class="menu">
+                                   <h3>Sexy Girl</h3>
+                                     {{!-- <h3>Someone Famous<br><span>Website De</span></h3> --}}
+                                     <ul>
+                                         <li><img src="https://img.icons8.com/ios-glyphs/24/000000/test-account.png"/><a href="/myprofile">My Profile</a></li>
+                                         {{!-- <li><img src="https://img.icons8.com/ios-glyphs/24/000000/edit-property.png"/><a href="#">Edit Profile</a></li> --}}
+                                         <li><img src="https://img.icons8.com/ios-glyphs/24/000000/inbox.png"/><a href="#">Inbox</a></li>
+                                         {{!-- <li><img src="https://img.icons8.com/ios-glyphs/24/000000/gear.png"/><a href="#">Settings</a></li> --}}
+                                         {{!-- <li><img src="https://img.icons8.com/ios-glyphs/24/000000/help.png"/><a href="#">Help</a></li> --}}
+                                         <li><img src="https://img.icons8.com/ios-glyphs/24/000000/exit.png"/><a href="/logout">Log Out</a></li>
+                                     </ul>
+                                </div>
+
+                              </div>
+                        </div>
+              </div>
+            </nav>
+      </div>
+
+
+
+{{!-- profile file part --}}
+<div class="container">
+
+        <div class="profile-header">
+
+            <div class="profile-img">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Video-Game-Controller-Icon-IDV-green.svg/249px-Video-Game-Controller-Icon-IDV-green.svg.png" width="200" alt="">
+            </div>
+
+            <div class="profile-nav-info">
+                <h3 class="user-name">Username</h3>
+                <div class="address">
+                    {{!-- <p class="state">New York,</p> --}}
+                    <span class="country">Hong Kong</span>
+                    <p class="user-age">Age</p>
+                </div>
+            </div>
+
+            <div class="profile-option">
+                <div class="notification">
+                    <i class="fa fa-bell"></i>
+                    <span class="alert-message">1</span>
+                </div>
+            </div>
+        </div>
+
+
+            <div class="main-bd">
+
+                <div class="left-side">
+                    <div class="profile-side">
+
+                        {{!-- <p class="mobile-no">
+                            <i class="fa fa-phone"></i>
+                            +2345xxxxx6
+                        </p> --}}
+                        {{!-- <p class="user-mail"><i class="fa fa-envelope"></i>
+                            Longely@gmail.com
+                        </p>
+
+                        <div class="user-bio">
+                            <h3>Bio</h3>
+                            <p class="bio">I am happy.</p>
+                        </div> --}}
+
+                         <p class="user-height">
+                             {{!-- <i class="fa fa-height"></i> --}}
+                            Height:
+                        </p>
+
+                         <p class="user-jobTitle">
+                            Job Title:
+                        </p>
+
+                          <p class="user-education">
+                            Education:
+                        </p>
+
+                         <p class="user-ethnicity">
+                            Ethnicity:
+                        </p>
+
+                         <p class="user-religion">
+                            Religion:
+                        </p>
+                        
+                        
+
+                        <div class="profile-btn" >
+                            <button class="chatbtn" onclick="myFunction()" >
+                                <i class="far fa-heart" ></i>
+                                Like
+                            </button>
+                            <button class="createbtn">
+                                <i class="fas fa-times"></i>
+                                Pass
+                            </button>
+                        </div>
+
+                        {{!-- <div class="user-rating">
+                            <h3 class="rating">4.5</h3>
+                            <div class="rate">
+                                <div class="stars">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </div>
+                                <span class="no-user">
+                                    <span>123</span>&nbsp;&nbsp;reviews
+                                </span>
+                            </div>
+                        </div> --}}
+
+                    </div>
+                </div>
+
+                <div class="right-side">
+                    <div class="nav">
+                        <ul>
+                            <li class="user-foto active" onclick="tabs(0)">Photos</li>
+                            <li class="user-profile" onclick="tabs(1)">Profile</li>
+                            {{!-- <li class="user-Comment" onclick="tabs(2)">Comment</li> --}}
+                        </ul>
+                    </div>
+                    <div class="profile-body">
+                        <div class="profile-posts tab">
+                            <h1>Your Posts</h1>
+                            <p>HI</p>
+                        </div>
+                        <div class="profile-review tab">
+                            <h1>User Reviews</h1>
+                            <p>Why</p>
+                        </div>
+                        <div class="profile-setting tab">
+                            <h1>Account Setting</h1>
+                            <p>Bye</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+    </div>
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+{{!-- profile button toggle --}}
+ <script>
+        function menuToggle(){
+            const toggleMenu = document.querySelector(".menu");
+            toggleMenu.classList.toggle("active")
+        }
+</script>
+
+
+{{!-- right-side nav change effect --}}
+<script>
+    $('.nav ul li').click(function(){
+
+    $(this).addClass("active").siblings().removeClass('active')
+})
+
+const tabBtn = document.querySelectorAll(".nav ul li");
+const tab = document.querySelectorAll(".tab");
+
+function tabs(panelIndex) {
+    tab.forEach(function(node){
+        node.style.display = "none";
+    })
+    tab [panelIndex].style.display = "block";
+}
+tabs(0);
+
+</script>
+
+<script>
+function myFunction() {
+  alert("You have liked this person!!!");
+}
+</script>
