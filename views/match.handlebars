@@ -1,0 +1,134 @@
+<link rel="stylesheet" href="/match.css">
+
+     <div class="navbar_container">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light top_navbar">
+              <div class="container-fluid">
+                   <div class="navbar_left">
+                         <a class="navbar-brand" >Lonely</a>
+                   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                     <span class="navbar-toggler-icon"></span>
+                   </button>
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                       <div class="navbar-nav">
+                        {{!-- <a class="nav-link" href="/logout">Log out</a> --}}
+                       </div>
+                     </div>
+                  </div>
+              
+                        <div class="navbar_right">
+                              <div class="action">
+
+                                 <div class="profile" onclick="menuToggle();">
+                                     <img src="https://i2-prod.mirror.co.uk/incoming/article23362081.ece/ALTERNATES/s1200c/0_DSOL_Yael_Shelbia_7.jpg">
+                                 </div>
+                                 
+                                 <div class="menu">
+                                   <h3>Sexy Girl</h3>
+                                     {{!-- <h3>Someone Famous<br><span>Website De</span></h3> --}}
+                                     <ul>
+                                         <li><img src="https://img.icons8.com/ios-glyphs/24/000000/test-account.png"/><a href="/myprofile">My Profile</a></li>
+                                         {{!-- <li><img src="https://img.icons8.com/ios-glyphs/24/000000/edit-property.png"/><a href="#">Edit Profile</a></li> --}}
+                                         <li><img src="https://img.icons8.com/ios-glyphs/24/000000/inbox.png"/><a href="#">Inbox</a></li>
+                                         {{!-- <li><img src="https://img.icons8.com/ios-glyphs/24/000000/gear.png"/><a href="#">Settings</a></li> --}}
+                                         {{!-- <li><img src="https://img.icons8.com/ios-glyphs/24/000000/help.png"/><a href="#">Help</a></li> --}}
+                                         <li><img src="https://img.icons8.com/ios-glyphs/24/000000/exit.png"/><a href="/logout">Log Out</a></li>
+                                     </ul>
+                                </div>
+
+                              </div>
+                        </div>
+              </div>
+            </nav>
+      </div>
+
+    <div class="row">
+
+        <div class="col-9 random-card">
+            <div class="box-container">
+                <div class="container">
+{{!--         
+                    <div class="box">
+                    <div class="image">
+                        <img src="https://www.biography.com/.image/t_share/MTY2NzA3MjE1MzQyNzczNTQw/lebron-james-photo-by-streeter-lecka_getty-images.jpg">
+                      </div>
+                      <div class="name_job">Lebron James</div>
+                      <p> James was born on December 30, 1984, in Akron, Ohio. At an early age, James showed a natural talent for basketball.
+                        </p>
+                      <div class="btns">
+                        <button>Dislike</button>
+                        <button>Like</button>
+                      </div>
+                    </div> --}}
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-2 random-cardIcon">
+        <div class="avatar-group" id="avatar-group">
+
+            {{!-- <div class="avatar" id="avatarCard1">
+      
+            </div> --}}
+     
+    {{!-- <div class="avatar">
+        <img src="https://www.ocregister.com/wp-content/uploads/2020/09/1268370985-1.jpg?w=494" alt="">
+    </div>--}}
+
+   
+
+
+     {{!-- <div class="hidden-avatars">
+          <p>+10</p>
+      </div> --}}
+
+  </div>
+    </div>
+    
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+
+ 
+    let avatar_num = 7; 
+     for(let i = 1;i<avatar_num;i++){
+         $('.container').append(`
+        <div class="box" id="cardBox${i}">
+                    <div class="image">
+                        <img src="https://www.biography.com/.image/t_share/MTY2NzA3MjE1MzQyNzczNTQw/lebron-james-photo-by-streeter-lecka_getty-images.jpg">
+                      </div>
+                      <div class="name_job">
+                          <p>Lebron James</p>
+                          <button>Profile</button>
+                      </div>
+                      <p> James was born on December 30, 1984, in Akron, Ohio. At an early age, James showed a natural talent for basketball.
+                        </p>
+                      <div class="btns">
+                        <button>Dislike</button>
+                        <button>Like</button>
+                      </div>
+                    </div>`)
+        
+         $('.avatar-group').append(`
+    <div class="avatar" id="avatarCard${i}">
+        <img src="https://www.ocregister.com/wp-content/uploads/2020/09/1268370985-1.jpg?w=494" alt="">
+    </div>`)
+  }
+
+    var remaining_num = 10;
+     $('.avatar-group').append(`
+    <div class="hidden-avatars">
+          <p>+${remaining_num}</p>
+      </div>`)
+  
+</script>
+
+{{!-- profile button toggle --}}
+ <script>
+        function menuToggle(){
+            const toggleMenu = document.querySelector(".menu");
+            toggleMenu.classList.toggle("active")
+        }
+    </script>
