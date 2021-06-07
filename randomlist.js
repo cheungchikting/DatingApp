@@ -4,7 +4,7 @@ const schedule = require('node-schedule')
 const geolib = require('geolib')
 
 
-const job = schedule.scheduleJob('0 * * * *', function () {
+const job = schedule.scheduleJob('1 * * * *', function () {
     return knex.select("id").from('users').then((ids) => {
         for (let id of ids) {
             let randomList = []
@@ -32,7 +32,7 @@ const job = schedule.scheduleJob('0 * * * *', function () {
                                     })
                                     return result
                                 } else {
-                                    return null
+                                    return data2
                                 }
                             }).then((data3) => {
                                 if (data3) {
@@ -56,26 +56,25 @@ const job = schedule.scheduleJob('0 * * * *', function () {
                                         }
                                         return result
                                     } else {
-                                        return null
+                                        return data3
                                     }
                                 } else {
-                                    return null
+                                    return randomList
                                 }
                             }).then((data5) => {
                                 if (data5) {
-                                    if (data5[0]) {
-                                        for (let i = 0; i < 10; i++) {
+                                    for (let i = 0; i < 10; i++) {
+                                        if (data5[0]) {
                                             let randomIndex = Math.floor(Math.random() * data5.length)
                                             let randomItem = data5[randomIndex]
                                             data5.splice(randomIndex, 1)
                                             randomList.push(randomItem)
                                         }
-                                        return randomList
-                                    } else {
-                                        return null
                                     }
+                                    return randomList
+        
                                 } else {
-                                    return null
+                                    return randomList
                                 }
                             }).then((data6) => {
                                 if (data6) {
@@ -103,10 +102,10 @@ const job = schedule.scheduleJob('0 * * * *', function () {
                                         }
                                         return data6
                                     } else {
-                                        return null
+                                        return data6
                                     }
                                 } else {
-                                    return null
+                                    return randomList
                                 }
                             }).then((result) => {
                                 console.log(result)
@@ -117,6 +116,7 @@ const job = schedule.scheduleJob('0 * * * *', function () {
                                 }).where('matches.user_id', id.id)
                             })
                     }
+                    return data
                 })
         }
     })

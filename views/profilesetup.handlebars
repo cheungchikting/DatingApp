@@ -18,12 +18,12 @@
     </div>
 
   <div class="container">
-
+     
     <div class="top-info">
-       <div class="title">Profile</div>
+       <div class="title">Setup your profile</div>
        <div class="profile-pic-div">
         <img scr="#" id="photo">
-        <input type="file" id="picFile">
+        <input type="file" id="picFile" name="upload" accept="image/*" form="myform">
         <label for="picFile" id="uploadBtn">
           {{!-- <img src="https://img.icons8.com/material-outlined/28/000000/camera--v2.png"/> --}}
          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
@@ -36,7 +36,7 @@
    
 
     <div class="content">
-      <form action="/setup" method="POST">
+ <form action="/setup" method="POST" id="myform" enctype="multipart/form-data">
         <div class="user-details">
           <div class="input-box">
             <label for="gender">Gender</label>
@@ -99,14 +99,13 @@
             </div>
 
             <div class="input-box" id="input_location">
-              <input type="text" name="location" id="location" required>
+              <input type="text" name="location" id="location" style="display: none"required >
             </div>
 
             <div class="input-box" >
               <label for="aboutme">About Me</label>
               <textarea id="aboutme" name="aboutme" rows="5" cols="78" ></textarea>
             </div>
-
           </div>
 
         <div class="button">

@@ -23,7 +23,6 @@ passport.use('local-signup', new LocalStrategy(
                 hash: hashpassword
             }
             let userID = await knex.insert(newUser).into("users").returning("id");
-            console.log(userID)
             newUser.id = userID[0]
             return done(null, newUser)
         } catch (error) {
