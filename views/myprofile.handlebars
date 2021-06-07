@@ -1,26 +1,53 @@
 
-<link rel="stylesheet" href="/profilesetup.css">
+<link rel="stylesheet" href="/myprofile.css">
 
-    <div class="navbar_container">
+     <div class="navbar_container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light top_navbar">
-  <div class="container-fluid">
-    <a class="navbar-brand" >Lonely</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-         <a class="nav-link" href="/login">Log In</a>
+              <div class="container-fluid">
+                   <div class="navbar_left">
+                         <a class="navbar-brand" >Lonely</a>
+                   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                     <span class="navbar-toggler-icon"></span>
+                   </button>
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                       <div class="navbar-nav">
+                        <a class="nav-link" href="/match">Match</a>
+                       </div>
+                     </div>
+                  </div>
+              
+                        <div class="navbar_right">
+                              <div class="action">
+
+                                 <div class="profile" onclick="menuToggle();">
+                                     <img src="https://i2-prod.mirror.co.uk/incoming/article23362081.ece/ALTERNATES/s1200c/0_DSOL_Yael_Shelbia_7.jpg">
+                                 </div>
+                                 
+                                 <div class="menu">
+                                   <h3>Sexy Girl</h3>
+                                     {{!-- <h3>Someone Famous<br><span>Website De</span></h3> --}}
+                                     <ul>
+                                         <li><img src="https://img.icons8.com/ios-glyphs/24/000000/test-account.png"/><a href="/myprofile">My Profile</a></li>
+                                         {{!-- <li><img src="https://img.icons8.com/ios-glyphs/24/000000/edit-property.png"/><a href="#">Edit Profile</a></li> --}}
+                                         <li><img src="https://img.icons8.com/ios-glyphs/24/000000/inbox.png"/><a href="#">Inbox</a></li>
+                                         {{!-- <li><img src="https://img.icons8.com/ios-glyphs/24/000000/gear.png"/><a href="#">Settings</a></li> --}}
+                                         {{!-- <li><img src="https://img.icons8.com/ios-glyphs/24/000000/help.png"/><a href="#">Help</a></li> --}}
+                                         <li><img src="https://img.icons8.com/ios-glyphs/24/000000/exit.png"/><a href="/logout">Log Out</a></li>
+                                     </ul>
+                                </div>
+
+                              </div>
+                        </div>
+              </div>
+            </nav>
       </div>
-    </div>
-  </div>
-</nav>
-    </div>
+
+
 
   <div class="container">
 
     <div class="top-info">
-       <div class="title">Profile</div>
+       <div class="title">My Profile</div>
        <div class="profile-pic-div">
         <img scr="#" id="photo">
         <input type="file" id="picFile">
@@ -40,7 +67,7 @@
         <div class="user-details">
           <div class="input-box">
             <label for="gender">Gender</label>
-              <select name="gender" id="gender">
+              <select name="gender" id="gender"  disabled="disabled">
                 <option value="gender">-Select-</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
@@ -57,7 +84,7 @@
                   <p id="now_age"></p>
                 </div>
             </div>
-              <input type="date" id="start" name="birthday" max="" value="2000-01-01">
+              <input type="date" id="start" name="birthday" max="" disabled="disabled">
           </div>
 
             <div class="input-box">
@@ -76,7 +103,7 @@
 
             <div class="input-box">
               <label for="ethnicity">Ethnicity</label>
-              <select name="ethnicity" id="ethnicity">
+              <select name="ethnicity" id="ethnicity"  disabled="disabled">
                 <option value="ethnicity">-Select-</option>
               </select>
             </div>
@@ -110,7 +137,7 @@
           </div>
 
         <div class="button">
-          <input type="submit" value="Register">
+          <input type="submit" value="Change">
         </div>
       </form>
     </div>
@@ -119,6 +146,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
 document.getElementById('start').max = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0];
+
+var mybirthday= "1978-08-23"
+document.getElementById('start').value = mybirthday;
+
 
 // $('#age').append([...Array(100).keys()].map((i,j) => `<option value="${i}">${i}</option >`)) 
  for(let i =18;i<100;i++){
@@ -164,7 +195,7 @@ document.getElementById('start').max = new Date(new Date().getTime() - new Date(
 
 {{!-- calculate age --}}
 <script>
-  document.getElementById("start").addEventListener("change",()=>{
+
 
 var birth_date = new Date(document.getElementById("start").value);
 var birth_date_day = birth_date.getDate();
@@ -191,8 +222,7 @@ if(today_month > birth_date_month){
     calculated_age = today_year - birth_date_year - 1;
   }
 
-  document.getElementById("now_age").innerHTML = "Age : " + calculated_age ;
-})
+document.getElementById("now_age").innerHTML = "Age : " + calculated_age ;
 
 </script>
 
@@ -207,7 +237,9 @@ if(today_month > birth_date_month){
     const uploadBtn = document.querySelector("#uploadBtn");
 
 
-    uploadBtn.style.display = "block";
+    //give a default photo
+    img.setAttribute("src","https://thumbor.forbes.com/thumbor/fit-in/416x416/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F5756e7c2a7ea43396db26e8d%2F0x0.jpg%3Fbackground%3D000000%26cropX1%3D126%26cropX2%3D575%26cropY1%3D37%26cropY2%3D487");
+
     //if user hover on profile div
 
     imgDiv.addEventListener("mouseenter",function(){
@@ -236,3 +268,11 @@ if(today_month > birth_date_month){
     })
 
 </script>
+
+{{!-- profile button toggle --}}
+ <script>
+        function menuToggle(){
+            const toggleMenu = document.querySelector(".menu");
+            toggleMenu.classList.toggle("active")
+        }
+    </script>

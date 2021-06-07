@@ -61,6 +61,12 @@ class Router {
         router.get('/done', this.done.bind(this))
         router.get("/err", this.err.bind(this));
         router.get('/logout', this.logout.bind(this));
+
+        //caspar added
+        router.get('/myprofile', isLoggedIn, this.myprofile.bind(this))
+        router.get('/match', isLoggedIn, this.myMatch.bind(this))
+        router.get('/profiles', isLoggedIn, this.profiles.bind(this))
+
         return router;
     }
 
@@ -282,8 +288,18 @@ class Router {
         res.redirect("/login")
     }
 
+    //caspar added
+    myprofile(req, res) {
+        res.render('myprofile')
+    }
 
-
+    myMatch(req, res) {
+        res.render('match')
+    }
+    
+    profiles(req, res) {
+        res.render('profiles')
+    }
 
 }
 
