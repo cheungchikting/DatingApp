@@ -95,8 +95,9 @@ class Router {
     }
 
     setup(req, res) {
+        console.log(req.files)
         let profilepic = new Date().getTime().toString()
-        // let profilepicData = req.files.upload.data
+        let profilepicData = req.files.upload.data
         let gender = req.body.gender
         let birthday = req.body.birthday
         let height = req.body.height
@@ -108,10 +109,9 @@ class Router {
         let location = req.body.location
         let aboutme = req.body.aboutme
         this.Method.addProfile(user_id, profilepic, gender, birthday, height, work, education, ethnicity, religion, hometown, location, aboutme).then(() => {
-            // this.Method.writefile(profilepic, profilepicData).then(() => {
-            // res.redirect("/filter")
-            res.end()
-            // })
+            this.Method.writefile(profilepic, profilepicData).then(() => {
+                res.redirect("/filter")
+            })
         })
     }
 
@@ -217,7 +217,7 @@ class Router {
     // chatlist
 
     chatlist(req, res) {
-        this.Method.ChatList(2).then((data) => {
+        this.Method.ChatList(user_id).then((data) => {
             let object = {
                 'data': data
             }
@@ -227,7 +227,7 @@ class Router {
     }
 
     chatroom(req, res) {
-        this.Method.GetChatInfo(req.params.id, 2).then((data) => {
+        this.Method.GetChatInfo(req.params.id, user_id).then((data) => {
             client.lrange(req.params.id, 0, -1, (err, msg) => {
                 let parseMsg = msg.map(x => x = JSON.parse(x))
                 let object = {
@@ -315,7 +315,7 @@ class Router {
     myMatch(req, res) {
         res.render('match')
     }
-    
+
     profiles(req, res) {
         res.render('profiles')
     }

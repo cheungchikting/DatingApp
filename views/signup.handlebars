@@ -37,7 +37,7 @@
           </div>
           <div class="input-box">
             <span class="details">Confirm Password</span>
-            <input type="password" placeholder="Confirm your password">
+            <input type="password" placeholder="Confirm your password" id="confirm_password">
           </div>
           <div class="input-box">
             <span class="details">Email</span>
@@ -58,7 +58,19 @@
       </form>
     </div>
   </div>
-{{!-- <form action="/signup" method="POST">
-<button type="submit">dzadsf</button>
-</form> --}}
+  <script>
+    let password = document.getElementById("password")
+    let confirm_password = document.getElementById("confirm_password");
+
+    function validatePassword(){
+      if(password.value != confirm_password.value) {
+        confirm_password.setCustomValidity("Passwords Don't Match");
+      } else {
+        confirm_password.setCustomValidity('');
+      }
+    }
+
+    password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
+  </script>
 
