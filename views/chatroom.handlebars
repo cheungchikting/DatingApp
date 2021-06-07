@@ -11,7 +11,16 @@
       #messages > li { padding: 0.5rem 1rem; }
       #messages > li:nth-child(odd) { background: #efefef; }
     </style>
-    <ul id="messages"></ul>
+    <div id="echo" data-id="{{roomid}}" data-user="{{data.user.0.firstname}}">
+    </div>
+
+
+    <ul id="messages">
+      {{#each msg}}
+      <li>{{user}}: {{msg}}</li>
+      {{/each}}
+    </ul>
+ 
     <form id="form" action="">
       <input id="input" autocomplete="off" /><button>Send</button>
     </form>

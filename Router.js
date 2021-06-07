@@ -2,6 +2,11 @@ const express = require("express");
 const knexFile = require('./knexfile').development;
 const knex = require('knex')(knexFile);
 const paymentsession = require('./stripe')
+const redis = require("redis");
+const client = redis.createClient({
+    host: 'localhost',
+    port: 6379
+});
 
 let user_id;
 
@@ -46,10 +51,9 @@ class Router {
         router.get('/like/:id', isLoggedIn, this.like.bind(this))
         router.post('/dislike/:id', isLoggedIn, this.dislike.bind(this))
         //chatlist
-        router.get('/chatlist', isLoggedIn, this.chatlist.bind(this))
+        router.get('/chatlist', this.chatlist.bind(this))
         router.post('/unlike/:id', isLoggedIn, this.unlike.bind(this))
-        // Chatroom
-          router.get('/chatroom', this.chatroom.bind(this));
+        router.get('/chatroom/:id', this.chatroom.bind(this));
         //stripe
         router.post('/create-checkout-session', isLoggedIn, this.checkoutsession.bind(this))
         router.get('/success', isLoggedIn, this.success.bind(this))
@@ -105,8 +109,8 @@ class Router {
         let aboutme = req.body.aboutme
         this.Method.addProfile(user_id, profilepic, gender, birthday, height, work, education, ethnicity, religion, hometown, location, aboutme).then(() => {
             // this.Method.writefile(profilepic, profilepicData).then(() => {
-                // res.redirect("/filter")
-                res.end()
+            // res.redirect("/filter")
+            res.end()
             // })
         })
     }
@@ -214,12 +218,28 @@ class Router {
 
     chatlist(req, res) {
         this.Method.ChatList(2).then((data) => {
-            res.render('chatlist', data)
+            let object = {
+                'data': data
+            }
+            console.log(object)
+            res.render('chatlist', object)
         })
     }
 
-    chatroom (req, res){
-        res.render('chatroom')
+    chatroom(req, res) {
+        this.Method.GetChatInfo(req.params.id, 2).then((data) => {
+            client.lrange(req.params.id, 0, -1, (err, msg) => {
+                let parseMsg = msg.map(x => x = JSON.parse(x))
+                let object = {
+                    'roomid': req.params.id,
+                    'data': data,
+                    'msg': parseMsg
+                }
+                console.log(object)
+                res.render('chatroom', object)
+            })
+        })
+
 
     }
 
@@ -234,7 +254,6 @@ class Router {
 
     async checkoutsession(req, res) {
         const session = await paymentsession
-        console.log(session)
         res.json({
             id: session
         });
