@@ -481,7 +481,7 @@ class Method {
             })
     }
 
-    //chatlist
+    //chat
 
     ChatList(user_id) {
         return knex.select('*')
@@ -491,19 +491,158 @@ class Method {
                 let result
                 let matchArr = []
                 if (data[0]) {
-                    for (let each of data[0].like) {
-                        result = knex('matches').where('matches.user_id', each)
-                            .then((target) => {
-                                if (target[0].like.indexOf(user_id) > -1) {
-                                    matchArr.push(each)
+                    if (data[0].like) {
+                        if (data[0].like[0]) {
+                            for (let each of data[0].like) {
+                                result = knex('matches').where('matches.user_id', each).then((target) => {
+                                    if (target[0].like.indexOf(user_id) > -1) {
+                                        matchArr.push(each)
+                                    }
                                     return matchArr
+                                })
+                            }
+                            return result
+                        } else {
+                            return []
+                        }
+                    } else {
+                        return []
+                    }
+                } else {
+                    return []
+                }
+            }).then((data1) => {
+                let result
+                let profile = []
+                if (data1[0]) {
+                    for (let each of data1) {
+                        result = knex('usersProfile').innerJoin('users', 'users.id', 'usersProfile.user_id').where('usersProfile.user_id', each).then((data2) => {
+                            profile.push(data2[0])
+                            return profile
+                        })
+                    }
+                    return result
+                } else {
+                    return []
+                }
+            }).then((data2) => {
+                let result
+                if (data2[0]) {
+                    for (let each of data2) {
+                        result = this.getChatroom(user_id).then((data3) => {
+                            for (let x of data3) {
+                                if (JSON.parse(x.matchedPair).indexOf(each.id) > -1) {
+                                    each.chatroom = x.id
+                                }
+                            }
+                            return data2
+                        })
+                    }
+                } else {
+                    return []
+                }
+                return result
+            }).then((data3)=>{
+                return data3
+            })
+    }
+
+
+    getChatroom(user_id) {
+        let result
+        let chatrooms = []
+        return knex('matches').where('matches.user_id', user_id).then((data) => {
+            if (data[0]) {
+                if (data[0].like) {
+                    if (data[0].like[0]) {
+                        for (let each of data[0].like) {
+                            result = knex('matches').where('matches.user_id', each).then((data1) => {
+                                if (data1[0]) {
+                                    if (data1[0].like) {
+                                        if (data1[0].like[0]) {
+                                            if (data1[0].like.indexOf(data[0].user_id) > -1) {
+                                                let matchedPair = []
+                                                matchedPair.push(user_id)
+                                                matchedPair.push(each)
+                                                matchedPair.sort()
+                                                chatrooms.push(JSON.stringify(matchedPair))
+                                            }
+                                            return chatrooms
+                                        }
+                                    }
                                 }
                             })
+                        }
                     }
                 }
                 return result
-            })
+            }
+        }).then((data2) => {
+            for (let each of data2) {
+                knex('chatroom').where('matchedPair', each).then((data3) => {
+                    if (data3[0] === undefined) {
+                        knex.insert({
+                            'matchedPair': each
+                        }).into('chatroom')
+                    }
+                })
+
+            }
+            return data2
+        }).then((data4) => {
+            let result
+            let roomId = []
+            for (let each of data4) {
+                result = knex('chatroom').where('matchedPair', each).then((data5) => {
+                    roomId.push(data5[0])
+                    return roomId
+                })
+
+            }
+            return result
+        })
     }
+
+
+    // createChatroom() {
+    //     let chatrooms = []
+    //     let result
+    //     knex('matches').then((data) => {
+    //         if (data[0]) {
+    //             for (let each of data) {
+    //                 if (each.like) {
+    //                     if (each.like[0]) {
+    //                         for (let x of each.like) {
+    //                             result = knex('matches').where('user_id', x).then((data2) => {
+    //                                 if (data2[0]) {
+    //                                     if (data2[0].like) {
+    //                                         if (data2[0].like[0]) {
+    //                                             if (data2[0].like.indexOf(each.user_id) > -1) {
+    //                                                 let matchedPair = []
+    //                                                 matchedPair.push(each.user_id)
+    //                                                 matchedPair.push(x)
+    //                                                 matchedPair.sort()
+    //                                                 chatrooms.push(JSON.stringify(matchedPair))
+    //                                             }
+    //                                             return chatrooms
+    //                                         }
+    //                                     }
+    //                                 }
+    //                             })
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //         return result
+    //     }).then((data3) => {
+    //         let unique = [...new Set(data3)]
+    //         return unique
+    //     })
+    // }
+
+
+
 
     unlike(user_id, unlike_id) {
         return knex("matches")
@@ -595,3 +734,6 @@ class Method {
 }
 
 module.exports = Method;
+let test = new Method
+test.ChatList(2)
+// test.getChatroom(2)
