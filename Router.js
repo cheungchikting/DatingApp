@@ -70,6 +70,7 @@ class Router {
         router.get('/myprofile', isLoggedIn, this.myprofile.bind(this))
         router.get('/match', isLoggedIn, this.myMatch.bind(this))
         router.get('/profiles', isLoggedIn, this.profiles.bind(this))
+        router.get('/fotosetup', isLoggedIn, this.fotosetup.bind(this))
 
         return router;
     }
@@ -318,6 +319,10 @@ class Router {
 
     profiles(req, res) {
         res.render('profiles')
+    }
+
+    fotosetup(req, res) {
+        res.render('fotosetup')
     }
 
 }
