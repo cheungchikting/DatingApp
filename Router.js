@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path")
 const knexFile = require('./knexfile').development;
 const knex = require('knex')(knexFile);
 const paymentsession = require('./stripe')
@@ -46,7 +47,7 @@ class Router {
         router.get('/filter', isLoggedIn, this.filter.bind(this))
         router.post('/editfilter', isLoggedIn, this.editFilter.bind(this))
         //browse
-        router.get('/browse', isLoggedIn, this.browse.bind(this));
+        router.get('/findmatches', isLoggedIn, this.findMatches.bind(this));
         router.get('/likeme', isPaid, this.likeMe.bind(this))
         router.get('/like/:id', isLoggedIn, this.like.bind(this))
         router.post('/dislike/:id', isLoggedIn, this.dislike.bind(this))
@@ -70,6 +71,7 @@ class Router {
         router.get('/myprofile', isLoggedIn, this.myprofile.bind(this))
         router.get('/match', isLoggedIn, this.myMatch.bind(this))
         router.get('/profiles', isLoggedIn, this.profiles.bind(this))
+        router.get('/fotosetup', isLoggedIn, this.fotosetup.bind(this))
 
         return router;
     }
@@ -94,9 +96,8 @@ class Router {
         res.render('profilesetup')
     }
 
-    setup(req, res) {
-        console.log(req.files)
-        let profilepic = new Date().getTime().toString()
+    async setup(req, res) {
+        let profilepic = `${new Date().getTime().toString()}${req.files.upload.name}`
         let profilepicData = req.files.upload.data
         let gender = req.body.gender
         let birthday = req.body.birthday
@@ -108,15 +109,13 @@ class Router {
         let hometown = req.body.hometown
         let location = req.body.location
         let aboutme = req.body.aboutme
-        this.Method.addProfile(user_id, profilepic, gender, birthday, height, work, education, ethnicity, religion, hometown, location, aboutme).then(() => {
-            this.Method.writefile(profilepic, profilepicData).then(() => {
-                res.redirect("/filter")
-            })
-        })
+        await this.Method.addProfile(user_id, profilepic, gender, birthday, height, work, education, ethnicity, religion, hometown, location, aboutme)
+        await this.Method.writefile(profilepic, profilepicData)
+        res.redirect("/filter")
     }
 
     editProfile(req, res) {
-        let profilepic = new Date().getTime().toString()
+        let profilepic = `${new Date().getTime().toString()}${req.files.upload.name}`
         let profilepicData = req.files.upload.data
         let height = req.body.height
         let work = req.body.work
@@ -133,17 +132,17 @@ class Router {
 
     // filter
 
-    filter(req, res) {
-        let object
-        this.Method.myFilter(user_id).then((data) => {
-            object = {
-                'data': data
-            }
-            res.render('filter', object)
-        })
+    async filter(req, res) {
+        let data = await this.Method.myFilter(user_id)
+        let user = await this.Method.GetProfile(user_id)
+        let object = {
+            'data': data,
+            'user': user
+        }
+        res.render('filter', object)
     }
 
-    editFilter(req, res) {
+    async editFilter(req, res) {
         let preferredGender = req.body.preferredGender
         let min_age = req.body.min_age
         let max_age = req.body.max_age
@@ -152,31 +151,30 @@ class Router {
         let distance = req.body.distance
         let preferredEthnicity = req.body.preferredEthnicity
         let preferredEducation = req.body.preferredEducation
-        this.Method.editFilter(user_id, preferredGender, min_age, max_age, min_height, max_height, distance, preferredEthnicity, preferredEducation).then(() => {
-            let object
-            this.Method.myFilter(user_id).then((data) => {
-                object = {
-                    'data': data
-                }
-                res.render('filter', object)
-            })
-        })
+        await this.Method.editFilter(user_id, preferredGender, min_age, max_age, min_height, max_height, distance, preferredEthnicity, preferredEducation)
+        let data = await this.Method.myFilter(user_id)
+        let user = await this.Method.GetProfile(user_id)
+        let object = {
+            'data': data,
+            'user': user
+        }
+        res.redirect('/findmatches')
     }
 
     // browse potential matches    
 
-    browse(req, res) {
-        this.Method.grabRandomList(user_id).then((data) => {
-            if (data) {
-                if (data[0]) {
-                    res.render('browse')
-                } else {
-                    res.render('noResult')
-                }
-            } else {
-                res.render('noResult')
+    async findMatches(req, res) {
+        let data = await this.Method.grabRandomList(user_id)
+        let user = await this.Method.GetProfile(user_id)
+        if (data[0]) {
+            let object = {
+                'data': data,
+                'user': user
             }
-        })
+            res.render('findMatches', object)
+        } else {
+            res.render('noResult')
+        }
     }
 
     likeMe(req, res) {
@@ -221,7 +219,6 @@ class Router {
             let object = {
                 'data': data
             }
-            console.log(object)
             res.render('chatlist', object)
         })
     }
@@ -235,7 +232,6 @@ class Router {
                     'data': data,
                     'msg': parseMsg
                 }
-                console.log(object)
                 res.render('chatroom', object)
             })
         })
@@ -318,6 +314,10 @@ class Router {
 
     profiles(req, res) {
         res.render('profiles')
+    }
+
+    fotosetup(req, res) {
+        res.render('fotosetup')
     }
 
 }

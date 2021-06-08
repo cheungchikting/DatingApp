@@ -19,11 +19,11 @@
                               <div class="action">
 
                                  <div class="profile" onclick="menuToggle();">
-                                     <img src="https://i2-prod.mirror.co.uk/incoming/article23362081.ece/ALTERNATES/s1200c/0_DSOL_Yael_Shelbia_7.jpg">
+                                     <img src="/upload/{{user.profilepic}}">
                                  </div>
                                  
                                  <div class="menu">
-                                   <h3>Sexy Girl</h3>
+                                   <h3>{{user.firstname}}</h3>
                                      {{!-- <h3>Someone Famous<br><span>Website De</span></h3> --}}
                                      <ul>
                                          <li><img src="https://img.icons8.com/ios-glyphs/24/000000/test-account.png"/><a href="/myprofile">My Profile</a></li>
@@ -46,20 +46,19 @@
         <div class="col-9 random-card">
             <div class="box-container">
                 <div class="container">
-{{!--         
+                    {{#each data}}
                     <div class="box">
                     <div class="image">
-                        <img src="https://www.biography.com/.image/t_share/MTY2NzA3MjE1MzQyNzczNTQw/lebron-james-photo-by-streeter-lecka_getty-images.jpg">
+                        <img src={{profilepic}}>
                       </div>
-                      <div class="name_job">Lebron James</div>
-                      <p> James was born on December 30, 1984, in Akron, Ohio. At an early age, James showed a natural talent for basketball.
-                        </p>
+                      <div class="name_job">{{firstname}}</div>
+                      <p> {{aboutme}}</p>
                       <div class="btns">
                         <button>Dislike</button>
                         <button>Like</button>
                       </div>
-                    </div> --}}
-
+                    </div>
+                    {{/each}}
             </div>
         </div>
     </div>
@@ -91,31 +90,6 @@
 
 <script>
 
- 
-    let avatar_num = 7; 
-     for(let i = 1;i<avatar_num;i++){
-         $('.container').append(`
-        <div class="box" id="cardBox${i}">
-                    <div class="image">
-                        <img src="https://www.biography.com/.image/t_share/MTY2NzA3MjE1MzQyNzczNTQw/lebron-james-photo-by-streeter-lecka_getty-images.jpg">
-                      </div>
-                      <div class="name_job">
-                          <p>Lebron James</p>
-                          <button>Profile</button>
-                      </div>
-                      <p> James was born on December 30, 1984, in Akron, Ohio. At an early age, James showed a natural talent for basketball.
-                        </p>
-                      <div class="btns">
-                        <button>Dislike</button>
-                        <button>Like</button>
-                      </div>
-                    </div>`)
-        
-         $('.avatar-group').append(`
-    <div class="avatar" id="avatarCard${i}">
-        <img src="https://www.ocregister.com/wp-content/uploads/2020/09/1268370985-1.jpg?w=494" alt="">
-    </div>`)
-  }
 
     var remaining_num = 10;
      $('.avatar-group').append(`

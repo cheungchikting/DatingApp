@@ -14,11 +14,13 @@ html,body{
   height: 100%;
   place-items: center;
   background: #8e44ad;
+  width: 100%;
 }
 
 /* profile and menu */
 .navbar_container{
   width: 100%;
+  border: 1px solid red;
 }
 
 .navbar_left{

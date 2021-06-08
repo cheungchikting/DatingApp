@@ -52,6 +52,13 @@ const hb = require('express-handlebars');
 app.engine('handlebars', hb({
     defaultLayout: 'main'
 }));
+const hbs = hb.create({});
+hbs.handlebars.registerHelper('ifeq', function (a, b, options) {
+    if (a == b) {
+        return options.fn(this);
+    }
+    return options.inverse(this);
+});
 
 app.set('view engine', 'handlebars');
 
@@ -75,7 +82,6 @@ app.get("/auth/facebook/callback", passport.authenticate("facebook", {
     }),
     async function (req, res) {
         let data = await knex('usersProfile').where('user_id', req.user.id)
-        console.log(data)
         if (data[0]) {
             res.redirect('/done');
         } else {

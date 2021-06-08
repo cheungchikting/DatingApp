@@ -108,7 +108,7 @@ const job = schedule.scheduleJob('1 * * * *', function () {
                                     return randomList
                                 }
                             }).then((result) => {
-                                console.log(result)
+
                                 return result
                             }).then((list) => {
                                 return knex('matches').update({
