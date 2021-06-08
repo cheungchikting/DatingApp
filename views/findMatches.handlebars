@@ -42,7 +42,6 @@
       </div>
 
     <div class="row">
-
         <div class="col-9 random-card">
             <div class="box-container">
                 <div class="container">
@@ -52,10 +51,12 @@
                         <img src={{profilepic}}>
                       </div>
                       <div class="name_job">{{firstname}}</div>
-                      <p> {{aboutme}}</p>
+                      <p> {{aboutme}} Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum impedit odio aspernatur facere amet ea dolorem voluptatum porro labore praesentium voluptatem incidunt commodi nostrum dicta maxime tempore, recusandae iste reprehenderit?</p>
                       <div class="btns">
+                        <a href="/like/{{id}}">
                         <button>Dislike</button>
-                        <button>Like</button>
+                        </a>
+                        <button id="likeBtn" data-id={{id}}>Like</button>
                       </div>
                     </div>
                     {{/each}}
@@ -66,14 +67,11 @@
     <div class="col-2 random-cardIcon">
         <div class="avatar-group" id="avatar-group">
 
-            {{!-- <div class="avatar" id="avatarCard1">
-      
-            </div> --}}
-     
-    {{!-- <div class="avatar">
-        <img src="https://www.ocregister.com/wp-content/uploads/2020/09/1268370985-1.jpg?w=494" alt="">
-    </div>--}}
-
+     {{#each data}}
+    <div class="avatar">
+        <img src={{profilepic}} alt="">
+    </div>
+ {{/each}}
    
 
 
@@ -87,16 +85,14 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="/likeBtn.js"></script>
 
 <script>
-
-
     var remaining_num = 10;
      $('.avatar-group').append(`
     <div class="hidden-avatars">
           <p>+${remaining_num}</p>
       </div>`)
-  
 </script>
 
 {{!-- profile button toggle --}}
