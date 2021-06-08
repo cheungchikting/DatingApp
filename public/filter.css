@@ -265,13 +265,22 @@ form .input-box span.details{
     box-sizing:border-box;
   }
 
-  #age_min{
+  #min_age{
     width:50%;
   }
 
-  #age_max{
+  #max_age{
     width:50%;
   }
+
+  #min_height{
+    width:50%;
+  }
+
+  #max_height{
+    width:50%;
+  }
+  
 
  @media(max-width: 584px){
  .container{
