@@ -1,18 +1,17 @@
     <link rel="stylesheet" href="filter.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
 
-
      <div class="navbar_container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light top_navbar">
               <div class="container-fluid">
                    <div class="navbar_left">
-                         <a class="navbar-brand" >Lonely</a>
+                         <a class="navbar-brand">Lonely</a>
                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                      <span class="navbar-toggler-icon"></span>
                    </button>
                     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                        <div class="navbar-nav">
-                        <a class="nav-link" href="/match">Match</a>
+                        <a class="nav-link" href="/match">Get Matches</a>
                        </div>
                      </div>
                   </div>
@@ -21,11 +20,11 @@
                               <div class="action">
 
                                  <div class="profile" onclick="menuToggle();">
-                                     <img src="https://i2-prod.mirror.co.uk/incoming/article23362081.ece/ALTERNATES/s1200c/0_DSOL_Yael_Shelbia_7.jpg">
+                                     <img src="/upload/{{user.profilepic}}">
                                  </div>
                                  
                                  <div class="menu">
-                                   <h3>Sexy Girl</h3>
+                                   <h3>{{user.firstname}}</h3>
                                      {{!-- <h3>Someone Famous<br><span>Website De</span></h3> --}}
                                      <ul>
                                          <li><img src="https://img.icons8.com/ios-glyphs/24/000000/test-account.png"/><a href="/myprofile">My Profile</a></li>
@@ -45,13 +44,13 @@
 
 
  <div class="container">
-    <div class="title">Filter</div>
+    <div class="title">My Filter</div>
     <div class="content">
-      <form action="#">
+      <form action="/editfilter" method="POST">
         <div class="user-details">
           <div class="input-box">
             <label for="gender">Gender</label>
-              <select name="gender" id="gender">
+              <select name="preferredGender" id="gender" value={{filter.preferredGender}} required>
                 <option value="gender">-Select-</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
@@ -62,27 +61,33 @@
                 <label for="age" id="label_age">Age</label>
               </div>
 
-              <select name="age_min" id="age_min">
-              <option value="age_min">From</option>
+              <select name="min_age" id="min_age" value={{filter.min_age}} required>
+              <option value="min_age">From</option>
               </select>
 
-              <select name="age_max" id="age_max">
-                <option value="age_max">To</option>
-                </select>
-            </div>
+              <select name="max_age" id="max_age" value={{filter.max_age}} required>
+              <option value="max_age">To</option>
+              </select>
+          </div>
 
+          <div class="input-box row">
+              <div clas="col-12">
+                <label for="height">Height</label>
+              </div>
+
+              <select name="min_height" id="min_height" value={{filter.min_height}} required>
+              <option value="min_height">From</option>
+              </select>
+
+              <select name="max_height" id="max_height" value={{filter.max_height}} required>
+              <option value="max_height">To</option>
+              </select>
+          </div> 
             
 
             <div class="input-box">
-              <label for="height">Height</label>
-              <select name="height" id="height">
-                <option value="height">-Select-</option>
-              </select>
-            </div>
-
-            <div class="input-box">
               <label for="education">Education</label>
-              <select name="education" id="education">
+              <select name="preferredEducation" id="education" value={{filter.preferredEducation}} required>
                 <option value="education">-Select-</option>
               </select>
             </div>
@@ -96,20 +101,19 @@
             </div> -->
 
             <div class="input-box">
-              <label for="religion">Religion</label>
-              <select name="religion" id="religion">
+              <label for="ethnicity">Ethnicity</label>
+              <select name="preferredEthnicity" id="ethnicity" value={{filter.preferredEthnicity}} required>
                 <option value="religion">-Select-</option>
               </select>
             </div>
 
             <div class="input-box">
               <span class="details" >Distance</span>
-              <select name="distance" id="distance">
+              <select name="distance" id="distance" value={{filter.distance}}required>
                 <option value="distance">-Select-</option>
               </select>           
              </div>
-
-
+             
           </div>
         
 
@@ -126,31 +130,35 @@
   
 // $('#age').append([...Array(100).keys()].map((i,j) => `<option value="${i}">${i}</option >`)) 
   for(let i =18;i<100;i++){
-    $('#age_min').append(`<option value="${i}">${i}</option >`)
+    $('#min_age').append(`<option value="${i}">${i}</option >`)
   }
 
   for(let i =18;i<100;i++){
-    $('#age_max').append(`<option value="${i}">${i}</option >`)
+    $('#max_age').append(`<option value="${i}">${i}</option >`)
   }
 
   for(let i =122;i<250;i++){
-    $('#height').append(`<option value="${i}">${i}</option >`)
+    $('#min_height').append(`<option value="${i}">${i}</option >`)
+  }
+
+  for(let i =122;i<250;i++){
+    $('#max_height').append(`<option value="${i}">${i}</option >`)
   }
 
   eduArr = ['Secondary','Associate','Bachelor','Master','Doctor'];
   for(let i = 0;i<eduArr.length;i++){
-    $('#education').append(`<option value="${eduArr[i]}">${eduArr[i]}</option >`)
+    $('#education').append(`<option value="${i}">${eduArr[i]}</option >`)
   }
 
-//   ethArr = ['Asian','Arab','Black/Agrican-descent','Hispanic/Latino','Native American','Pacific Islander','South Asian','White/Caucasian','Other'];
-//   for(let i = 0;i<ethArr.length;i++){
-//     $('#ethnicity').append(`<option value="${ethArr[i]}">${ethArr[i]}</option >`)
-//   }
+ethArr = ['Asian','Arab','Black/Agrican-descent','Hispanic/Latino','Native American','Pacific Islander','South Asian','White/Caucasian','Other'];
+for(let i = 0;i<ethArr.length;i++){
+$('#ethnicity').append(`<option value="${ethArr[i]}">${ethArr[i]}</option >`)
+}
 
-  relArr = ['Buddhist','Christian','Catholic','Hindu','Jewish','Muslim','Sikh','Shinto','Spiritual but not religious','Neither religious nor spiritual','Other'];
-  for(let i = 0;i<relArr.length;i++){
-    $('#religion').append(`<option value="${relArr[i]}">${relArr[i]}</option >`)
-  }
+//  relArr = ['Buddhist','Christian','Catholic','Hindu','Jewish','Muslim','Sikh','Shinto','Spiritual but not religious','Neither religious nor spiritual','Other'];
+//  for(let i = 0;i<relArr.length;i++){
+//    $('#religion').append(`<option value="${relArr[i]}">${relArr[i]}</option >`)
+//  }
 
   for(let i = 1;i<300;i++){
     $('#distance').append(`<option value="${i}">${i}</option >`)
