@@ -1,118 +1,27 @@
 exports.seed = function (knex) {
   return knex('usersProfile').del()
     .then(function () {
-      return knex('usersProfile').insert([{
-        gender: 'Male',
-        birthday: new Date('01/01/1988'),
-        height: 180,
-        ethnicity: 'Asian',
-        work: "Finance",
-        education: 3,
-        religion: "christian",
-        location: JSON.stringify({
-          latitude: 22.396427,
-          longitude: 114.109497,
-      }),
-        aboutme: "I am good",
-        user_id: "1"
-      }, {
-        gender: 'Male',
-        birthday: new Date('01/01/2001'),
-        height: 170,
-        ethnicity: 'Asian',
-        work: "IT",
-        education: 2,
-        religion: "christian",
-        location: JSON.stringify({
-          latitude: 22.396427,
-          longitude: 114.109497,
-      }),
-        aboutme: "I am good",
-        user_id: "2"
-      }, {
-        gender: 'Female',
-        birthday: new Date('01/01/1980'),
-        height: 160,
-        ethnicity: 'Asian',
-        work: "Education",
-        education: 3,
-        religion: "Buddish",
-        location: JSON.stringify({
-          latitude: 22.396427,
-          longitude: 114.109497,
-      }),
-        aboutme: "I am good",
-        user_id: "3"
-      }, {
-        gender: 'Female',
-        birthday: new Date('01/01/1997'),
-        height: 150,
-        ethnicity: 'Asian',
-        work: "F&B",
-        education: 5,
-        religion: "christian",
-        location: JSON.stringify({
-          latitude: 35.689487,
-          longitude: 139.691711,
-      }),
-        aboutme: "I am good",
-        user_id: "4"
-      }, {
-        gender: 'Male',
-        birthday: new Date('01/01/1988'),
-        height: 180,
-        ethnicity: 'Asian',
-        work: "Finance",
-        education: 3,
-        religion: "christian",
-        location: JSON.stringify({
-          latitude: 22.396427,
-          longitude: 114.109497,
-      }),
-        aboutme: "I am good",
-        user_id: "5"
-      }, {
-        gender: 'Male',
-        birthday: new Date('01/01/2001'),
-        height: 170,
-        ethnicity: 'Asian',
-        work: "IT",
-        education: 2,
-        religion: "christian",
-        location: JSON.stringify({
-          latitude: 22.396427,
-          longitude: 114.109497,
-      }),
-        aboutme: "I am good",
-        user_id: "6"
-      }, {
-        gender: 'Female',
-        birthday: new Date('01/01/1980'),
-        height: 160,
-        ethnicity: 'Asian',
-        work: "Education",
-        education: 3,
-        religion: "Buddish",
-        location: JSON.stringify({
-          latitude: 22.396427,
-          longitude: 114.109497,
-      }),
-        aboutme: "I am good",
-        user_id: "7"
-      }, {
-        gender: 'Female',
-        birthday: new Date('01/01/1997'),
-        height: 150,
-        ethnicity: 'Asian',
-        work: "F&B",
-        education: 5,
-        religion: "christian",
-        location: JSON.stringify({
-          latitude: 35.689487,
-          longitude: 139.691711,
-      }),
-        aboutme: "I am good",
-        user_id: "8"
-      }]);
+      return knex('usersProfile').insert([
+        {profilepic:"LuctusNecMolestie.mp3",gender:"Female",birthday:"07/29/1986",height:173,work:"Food Chemist",education:5,ethnicity:"Asian",religion:"Buddhist",hometown:"Tanjungagung",location:{"latitude": 22.2962464,"longitude":114.1796055},aboutme:"responsive",user_id: 1},
+        {profilepic:"AcNullaSed.txt",gender:"Female",birthday:"09/05/1983",height:150,work:"Internal Auditor",education:2,ethnicity:"White/Caucasian",religion:"Buddhist",hometown:"Shikhany",location:{"latitude": 22.2962464,"longitude":114.1796055},aboutme:"help-desk",user_id: 2},
+        {profilepic:"MagnaVestibulum.xls",gender:"Female",birthday:"03/26/1984",height:171,work:"Associate Professor",education:4,ethnicity:"White/Caucasian",religion:"Christian",hometown:"Mosquée",location:{"latitude": 22.2962464,"longitude":114.1796055},aboutme:"Inverse",user_id: 3},
+        {profilepic:"VestibulumRutrumRutrum.jpeg",gender:"Female",birthday:"04/29/1983",height:152,work:"Staff Scientist",education:5,ethnicity:"Asian",religion:"Christian",hometown:"Fazenda de Santa Cruz",location:{"latitude": 22.2962464,"longitude":114.1796055},aboutme:"hybrid",user_id: 4},
+        {profilepic:"NibhIn.mpeg",gender:"Female",birthday:"10/16/1988",height:162,work:"Dental Hygienist",education:2,ethnicity:"Black",religion:"Christian",hometown:"Atafu Village",location:{"latitude": 22.2962464,"longitude":114.1796055},aboutme:"De-engineered",user_id: 5},
+        {profilepic:"Ultrices.avi",gender:"Female",birthday:"05/09/1992",height:182,work:"Research Associate",education:4,ethnicity:"White/Caucasian",religion:"Christian",hometown:"Kuty",location:{"latitude": 22.2962464,"longitude":114.1796055},aboutme:"Implemented",user_id: 6},
+        {profilepic:"SemMaurisLaoreet.doc",gender:"Female",birthday:"04/26/1991",height:166,work:"Legal Assistant",education:1,ethnicity:"Asian",religion:"Christian",hometown:"Pandean",location:{"latitude": 22.2962464,"longitude":114.1796055},aboutme:"coherent",user_id: 7},
+        {profilepic:"FuscePosuereFelis.png",gender:"Female",birthday:"08/04/1997",height:172,work:"Chief Design Engineer",education:2,ethnicity:"Black",religion:"Christian",hometown:"Chittagong",location:{"latitude": 22.2962464,"longitude":114.1796055},aboutme:"national",user_id: 8},
+        {profilepic:"DonecOdioJusto.jpeg",gender:"Female",birthday:"03/01/1991",height:171,work:"Assistant Professor",education:4,ethnicity:"Asian",religion:"Christian",hometown:"Bom Sucesso",location:{"latitude": 22.2962464,"longitude":114.1796055},aboutme:"encompassing",user_id: 9},
+        {profilepic:"UltricesErat.ppt",gender:"Female",birthday:"01/11/1989",height:163,work:"Administrative Officer",education:4,ethnicity:"Black",religion:"Buddhist",hometown:"Buluh Kasap",location:{"latitude": 22.2962464,"longitude":114.1796055},aboutme:"architecture",user_id: 10},
+        {profilepic:"AugueASuscipit.xls",gender:"Female",birthday:"02/03/1996",height:187,work:"Human Resources Manager",education:5,ethnicity:"White/Caucasian",religion:"Buddhist",hometown:"Lérida",location:{"latitude": 22.2962464,"longitude":114.1796055},aboutme:"Triple-buffered",user_id: 11},
+        {profilepic:"In.doc",gender:"Female",birthday:"05/07/1990",height:170,work:"Staff Accountant IV",education:1,ethnicity:"White/Caucasian",religion:"Buddhist",hometown:"Ribeirão da Ilha",location:{"latitude": 22.2962464,"longitude":114.1796055},aboutme:"infrastructure",user_id: 12},
+        {profilepic:"AtVelitEu.mpeg",gender:"Female",birthday:"11/20/1996",height:159,work:"Statistician II",education:2,ethnicity:"Asian",religion:"Christian",hometown:"Huji",location:{"latitude": 22.2962464,"longitude":114.1796055},aboutme:"logistical",user_id: 13},
+        {profilepic:"Ac.ppt",gender:"Female",birthday:"03/24/1990",height:170,work:"GIS Technical Architect",education:1,ethnicity:"White/Caucasian",religion:"Buddhist",hometown:"Luleå",location:{"latitude": 22.2962464,"longitude":114.1796055},aboutme:"Open-source",user_id: 14},
+        {profilepic:"SitAmetEros.gif",gender:"Female",birthday:"10/10/1991",height:190,work:"Occupational Therapist",education:3,ethnicity:"Black",religion:"Buddhist",hometown:"Souto da Costa",location:{"latitude": 22.2962464,"longitude":114.1796055},aboutme:"cohesive",user_id: 15},
+        {profilepic:"Sed.xls",gender:"Female",birthday:"04/01/1994",height:177,work:"Junior Executive",education:3,ethnicity:"Asian",religion:"Buddhist",hometown:"Girang",location:{"latitude": 22.2962464,"longitude":114.1796055},aboutme:"portal",user_id: 16},
+        {profilepic:"PretiumNislUt.ppt",gender:"Female",birthday:"04/29/1988",height:176,work:"Chief Design Engineer",education:3,ethnicity:"White/Caucasian",religion:"Buddhist",hometown:"Xingong",location:{"latitude": 22.2962464,"longitude":114.1796055},aboutme:"web-enabled",user_id: 17},
+        {profilepic:"GravidaSemPraesent.tiff",gender:"Female",birthday:"11/04/1995",height:174,work:"VP Marketing",education:3,ethnicity:"Asian",religion:"Christian",hometown:"Tver",location:{"latitude": 22.2962464,"longitude":114.1796055},aboutme:"Robust",user_id: 18},
+        {profilepic:"VelNislDuis.xls",gender:"Female",birthday:"07/19/1992",height:165,work:"VP Sales",education:3,ethnicity:"Asian",religion:"Christian",hometown:"Cocorná",location:{"latitude": 22.2962464,"longitude":114.1796055},aboutme:"flexibility",user_id: 19},
+        {profilepic:"IntegerPede.tiff",gender:"Female",birthday:"01/16/1983",height:159,work:"Statistician II",education:1,ethnicity:"Asian",religion:"Christian",hometown:"Shiye",location:{"latitude": 22.2962464,"longitude":114.1796055},aboutme:"next generation",user_id: 20},
+      ]);
     });
 };
