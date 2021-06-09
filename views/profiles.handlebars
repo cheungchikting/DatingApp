@@ -1,4 +1,4 @@
-    <link rel="stylesheet" href="profiles.css">
+    <link rel="stylesheet" href="/profiles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 
@@ -14,7 +14,7 @@
                    </button>
                     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                        <div class="navbar-nav">
-                        <a class="nav-link" href="/match">Match</a>
+                        <a class="nav-link" href="/findmatches">Match</a>
                        </div>
                      </div>
                   </div>
@@ -23,11 +23,11 @@
                               <div class="action">
 
                                  <div class="profile" onclick="menuToggle();">
-                                     <img src="https://i2-prod.mirror.co.uk/incoming/article23362081.ece/ALTERNATES/s1200c/0_DSOL_Yael_Shelbia_7.jpg">
+                                     <img src="/upload/{{user.profilepic}}">
                                  </div>
                                  
                                  <div class="menu">
-                                   <h3>Sexy Girl</h3>
+                                   <h3>{{user.firstname}}</h3>
                                      {{!-- <h3>Someone Famous<br><span>Website De</span></h3> --}}
                                      <ul>
                                          <li><img src="https://img.icons8.com/ios-glyphs/24/000000/test-account.png"/><a href="/myprofile">My Profile</a></li>
@@ -53,15 +53,15 @@
         <div class="profile-header">
 
             <div class="profile-img">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Video-Game-Controller-Icon-IDV-green.svg/249px-Video-Game-Controller-Icon-IDV-green.svg.png" width="200" alt="">
+                <img src="/upload/{{data.profilepic}}" width="200" alt="">
             </div>
 
             <div class="profile-nav-info">
-                <h3 class="user-name">Username</h3>
+                <h3 class="user-name">{{data.firstname}}</h3>
                 <div class="address">
                     {{!-- <p class="state">New York,</p> --}}
-                    <span class="country">Hong Kong</span>
-                    <p class="user-age">Age</p>
+                    <span class="country">{{data.hometown}}</span>
+                    <p class="user-age">{{data.birthday}}</p>
                 </div>
             </div>
 
@@ -94,36 +94,38 @@
 
                          <p class="user-height">
                              {{!-- <i class="fa fa-height"></i> --}}
-                            Height:
+                            Height: {{data.height}}
                         </p>
 
                          <p class="user-jobTitle">
-                            Job Title:
+                            Job Title: {{data.work}}
                         </p>
 
                           <p class="user-education">
-                            Education:
+                            Education: {{data.educationName}}
                         </p>
 
                          <p class="user-ethnicity">
-                            Ethnicity:
+                            Ethnicity: {{data.ethnicity}}
                         </p>
 
                          <p class="user-religion">
-                            Religion:
+                            Religion: {{data.religion}}
                         </p>
                         
                         
 
                         <div class="profile-btn" >
-                            <button class="chatbtn" onclick="myFunction()" >
+                            <button class="chatbtn" onclick="myFunction()" id="porfilelike" data-id="{{data.id}}" >
                                 <i class="far fa-heart" ></i>
                                 Like
                             </button>
-                            <button class="createbtn">
+                            <a href="/dislike/{{data.id}}">
+                            <button class="createbtn" id="pass">
                                 <i class="fas fa-times"></i>
                                 Pass
                             </button>
+                            </a>
                         </div>
 
                         {{!-- <div class="user-rating">
@@ -182,7 +184,7 @@
                         </div>
                         <div class="profile-review tab profile-box">
                             <h1>User Reviews</h1>
-                            <p>Why</p>
+                            <p>{{data.aboutme}}</p>
                         </div>
                         {{!-- <div class="profile-setting tab">
                             <h1>Account Setting</h1>
@@ -196,7 +198,7 @@
 
     
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+<script src="/likeBtn.js"></script>
 
 {{!-- profile button toggle --}}
  <script>

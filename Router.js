@@ -52,6 +52,7 @@ class Router {
         router.get('/likeme', isPaid, this.likeMe.bind(this))
         router.post('/like/:id', isLoggedIn, this.like.bind(this))
         router.get('/dislike/:id', isLoggedIn, this.dislike.bind(this))
+        router.get('/profiles/:id', isLoggedIn, this.profiles.bind(this))
         //chatlist
         router.get('/chatlist', this.chatlist.bind(this))
         router.post('/unlike/:id', isLoggedIn, this.unlike.bind(this))
@@ -71,7 +72,7 @@ class Router {
         //caspar added
 
         router.get('/match', isLoggedIn, this.myMatch.bind(this))
-        router.get('/profiles', isLoggedIn, this.profiles.bind(this))
+
         router.get('/fotosetup', isLoggedIn, this.fotosetup.bind(this))
         router.get('/userchat', isLoggedIn, this.userchat.bind(this))
         return router;
@@ -256,10 +257,70 @@ class Router {
                 'data': data,
                 'user': user
             }
+
             res.render('findMatches', object)
         } else {
-            res.render('noResult')
+            let object = {
+                'data': data,
+                'user': user
+            }
+            res.render('noResult', object)
         }
+    }
+
+
+    async profiles(req, res) {
+        let id = req.params.id
+        let data = await this.Method.GetProfile(id)
+        let user = await this.Method.GetProfile(user_id)
+
+        var birth_date = new Date(data.birthday);
+        var birth_date_day = birth_date.getDate();
+        var birth_date_month = birth_date.getMonth();
+        var birth_date_year = birth_date.getFullYear();
+        var today_date = new Date();
+        var today_day = today_date.getDate(); //if getDay is Monday to Sunday
+        var today_month = today_date.getMonth();
+        var today_year = today_date.getFullYear();
+        var calculated_age;
+        if (today_month > birth_date_month) {
+            calculated_age = today_year - birth_date_year;
+        } else if (today_month == birth_date_month) {
+            if (today_day >= birth_date_day) {
+                calculated_age = today_year - birth_date_year;
+            } else {
+                calculated_age = today_year - birth_date_year - 1;
+            }
+        } else {
+            calculated_age = today_year - birth_date_year - 1;
+        }
+        data.birthday = calculated_age
+        
+        switch (data.education) {
+            case 1:
+                data.educationName = "Secondary";
+                break;
+            case 2:
+                data.educationName = "Associate";
+                break;
+            case 3:
+                data.educationName = "Bachelor";
+                break;
+            case 4:
+                data.educationName = "Master";
+                break;
+            case 5:
+                data.educationName = "Doctor";
+                break;
+        }
+        
+
+        let object = {
+            data: data,
+            user: user
+        }
+        console.log(object)
+        res.render('profiles', object)
     }
 
     likeMe(req, res) {
@@ -391,9 +452,6 @@ class Router {
         res.render('match')
     }
 
-    profiles(req, res) {
-        res.render('profiles')
-    }
 
     fotosetup(req, res) {
         res.render('fotosetup')
