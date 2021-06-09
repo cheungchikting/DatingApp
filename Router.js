@@ -42,6 +42,8 @@ class Router {
         router.get('/profilesetup', isLoggedIn, this.profileSetup.bind(this))
         router.post('/setup', isLoggedIn, this.setup.bind(this))
         router.post('/editprofile', isLoggedIn, this.editProfile.bind(this))
+        router.get('/photosetup', isLoggedIn, this.photosetup.bind(this))
+        router.post('/photoupload', isLoggedIn, this.photoupload.bind(this))
         //filter
         router.get('/filter', isLoggedIn, this.filter.bind(this))
         router.post('/editfilter', isLoggedIn, this.editFilter.bind(this))
@@ -49,7 +51,8 @@ class Router {
         router.get('/findmatches', isLoggedIn, this.findMatches.bind(this));
         router.get('/likeme', isPaid, this.likeMe.bind(this))
         router.post('/like/:id', isLoggedIn, this.like.bind(this))
-        router.post('/dislike/:id', isLoggedIn, this.dislike.bind(this))
+        router.get('/dislike/:id', isLoggedIn, this.dislike.bind(this))
+        router.get('/profiles/:id', isLoggedIn, this.profiles.bind(this))
         //chatlist
         router.get('/chatlist', this.chatlist.bind(this))
         router.post('/unlike/:id', isLoggedIn, this.unlike.bind(this))
@@ -69,7 +72,7 @@ class Router {
         //caspar added
 
         router.get('/match', isLoggedIn, this.myMatch.bind(this))
-        router.get('/profiles', isLoggedIn, this.profiles.bind(this))
+
         router.get('/fotosetup', isLoggedIn, this.fotosetup.bind(this))
         router.get('/userchat', isLoggedIn, this.userchat.bind(this))
         return router;
@@ -80,6 +83,10 @@ class Router {
     }
 
     // profile
+
+    profileSetup(req, res) {
+        res.render('profilesetup')
+    }
 
     async myprofile(req, res) {
         let data = await this.Method.GetProfile(user_id)
@@ -105,13 +112,10 @@ class Router {
         let object = {
             'data': data
         }
-        console.log(object)
         res.render('myprofile', object)
     }
 
-    profileSetup(req, res) {
-        res.render('profilesetup')
-    }
+
 
     async setup(req, res) {
         let profilepic = `${new Date().getTime().toString()}${req.files.upload.name}`
@@ -145,6 +149,72 @@ class Router {
         await this.Method.writefile(profilepic, profilepicData)
         res.redirect("/myprofile")
     }
+
+    async photosetup(req, res) {
+        res.render('fotosetup')
+    }
+
+    async photoupload(req, res) {
+        console.log(req.files)
+        let foto1
+        let foto2
+        let foto3
+        let foto4
+        let foto5
+        let foto6
+        let fotodata1
+        let fotodata2
+        let fotodata3
+        let fotodata4
+        let fotodata5
+        let fotodata6
+
+        if (req.files.upload1) {
+            foto1 = req.files.upload1.name
+            fotodata1 = req.files.upload1.data
+            await this.Method.writefile(`${new Date().getTime().toString()}${foto1}`, fotodata1)
+        } else {
+            foto1 = null
+        }
+        if (req.files.upload2) {
+            foto2 = req.files.upload2.name
+            fotodata2 = req.files.upload2.data
+            await this.Method.writefile(`${new Date().getTime().toString()}${foto2}`, fotodata2)
+        } else {
+            foto2 = null
+        }
+        if (req.files.upload3) {
+            foto3 = req.files.upload3.name
+            fotodata3 = req.files.upload3.data
+            await this.Method.writefile(`${new Date().getTime().toString()}${foto3}`, fotodata3)
+        } else {
+            foto3 = null
+        }
+        if (req.files.upload4) {
+            foto4 = req.files.upload4.name
+            fotodata4 = req.files.upload4.data
+            await this.Method.writefile(`${new Date().getTime().toString()}${foto4}`, fotodata4)
+        } else {
+            foto4 = null
+        }
+        if (req.files.upload5) {
+            foto5 = req.files.upload5.name
+            fotodata5 = req.files.upload5.data
+            await this.Method.writefile(`${new Date().getTime().toString()}${foto5}`, fotodata5)
+        } else {
+            foto5 = null
+        }
+        if (req.files.upload6) {
+            foto6 = req.files.upload6.name
+            fotodata6 = req.files.upload6.data
+            await this.Method.writefile(`${new Date().getTime().toString()}${foto6}`, fotodata6)
+        } else {
+            foto6 = null
+        }
+
+        await this.Method.photoUpload(user_id, foto1, foto2, foto3, foto4, foto5, foto6)
+    }
+
 
     // filter
 
@@ -187,10 +257,70 @@ class Router {
                 'data': data,
                 'user': user
             }
+
             res.render('findMatches', object)
         } else {
-            res.render('noResult')
+            let object = {
+                'data': data,
+                'user': user
+            }
+            res.render('noResult', object)
         }
+    }
+
+
+    async profiles(req, res) {
+        let id = req.params.id
+        let data = await this.Method.GetProfile(id)
+        let user = await this.Method.GetProfile(user_id)
+
+        var birth_date = new Date(data.birthday);
+        var birth_date_day = birth_date.getDate();
+        var birth_date_month = birth_date.getMonth();
+        var birth_date_year = birth_date.getFullYear();
+        var today_date = new Date();
+        var today_day = today_date.getDate(); //if getDay is Monday to Sunday
+        var today_month = today_date.getMonth();
+        var today_year = today_date.getFullYear();
+        var calculated_age;
+        if (today_month > birth_date_month) {
+            calculated_age = today_year - birth_date_year;
+        } else if (today_month == birth_date_month) {
+            if (today_day >= birth_date_day) {
+                calculated_age = today_year - birth_date_year;
+            } else {
+                calculated_age = today_year - birth_date_year - 1;
+            }
+        } else {
+            calculated_age = today_year - birth_date_year - 1;
+        }
+        data.birthday = calculated_age
+        
+        switch (data.education) {
+            case 1:
+                data.educationName = "Secondary";
+                break;
+            case 2:
+                data.educationName = "Associate";
+                break;
+            case 3:
+                data.educationName = "Bachelor";
+                break;
+            case 4:
+                data.educationName = "Master";
+                break;
+            case 5:
+                data.educationName = "Doctor";
+                break;
+        }
+        
+
+        let object = {
+            data: data,
+            user: user
+        }
+        console.log(object)
+        res.render('profiles', object)
     }
 
     likeMe(req, res) {
@@ -210,7 +340,6 @@ class Router {
             'user_id': user_id,
             'checkMatch': data
         }
-        console.log(object)
         res.send(JSON.stringify(object))
     }
 
@@ -323,9 +452,6 @@ class Router {
         res.render('match')
     }
 
-    profiles(req, res) {
-        res.render('profiles')
-    }
 
     fotosetup(req, res) {
         res.render('fotosetup')

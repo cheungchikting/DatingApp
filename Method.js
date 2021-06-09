@@ -98,6 +98,32 @@ class Method {
         })
     }
 
+    async photoUpload(user_id, foto1, foto2, foto3, foto4, foto5, foto6) {
+        let data = await knex('photos').where('photos.user_id', user_id)
+        if (data[0]) {
+            await knex('photos')
+                .update({
+                    pc1: foto1,
+                    pc2: foto2,
+                    pc3: foto3,
+                    pc4: foto4,
+                    pc5: foto5,
+                    pc6: foto6,
+                }).where('photos.user_id', user_id)
+        } else {
+            await knex.insert({
+                pc1: foto1,
+                pc2: foto2,
+                pc3: foto3,
+                pc4: foto4,
+                pc5: foto5,
+                pc6: foto6,
+                user_id: user_id
+            }).into('photos')
+        }
+    }
+
+
 
     // Filter
 
