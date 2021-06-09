@@ -73,7 +73,7 @@ class Router {
         router.get('/match', isLoggedIn, this.myMatch.bind(this))
         router.get('/profiles', isLoggedIn, this.profiles.bind(this))
         router.get('/fotosetup', isLoggedIn, this.fotosetup.bind(this))
-
+        router.get('/userchat', isLoggedIn, this.userchat.bind(this))
         return router;
     }
 
@@ -397,6 +397,10 @@ class Router {
 
     fotosetup(req, res) {
         res.render('fotosetup')
+    }
+
+    userchat(req, res) {
+        res.render('userchat')
     }
 
 }
