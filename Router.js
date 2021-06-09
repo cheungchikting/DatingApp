@@ -42,6 +42,8 @@ class Router {
         router.get('/profilesetup', isLoggedIn, this.profileSetup.bind(this))
         router.post('/setup', isLoggedIn, this.setup.bind(this))
         router.post('/editprofile', isLoggedIn, this.editProfile.bind(this))
+        router.get('/photosetup', isLoggedIn, this.photosetup.bind(this))
+        router.post('/photoupload', isLoggedIn, this.photoupload.bind(this))
         //filter
         router.get('/filter', isLoggedIn, this.filter.bind(this))
         router.post('/editfilter', isLoggedIn, this.editFilter.bind(this))
@@ -49,7 +51,7 @@ class Router {
         router.get('/findmatches', isLoggedIn, this.findMatches.bind(this));
         router.get('/likeme', isPaid, this.likeMe.bind(this))
         router.post('/like/:id', isLoggedIn, this.like.bind(this))
-        router.post('/dislike/:id', isLoggedIn, this.dislike.bind(this))
+        router.get('/dislike/:id', isLoggedIn, this.dislike.bind(this))
         //chatlist
         router.get('/chatlist', this.chatlist.bind(this))
         router.post('/unlike/:id', isLoggedIn, this.unlike.bind(this))
@@ -81,6 +83,10 @@ class Router {
 
     // profile
 
+    profileSetup(req, res) {
+        res.render('profilesetup')
+    }
+
     async myprofile(req, res) {
         let data = await this.Method.GetProfile(user_id)
         let bday = data.birthday.toISOString().split('T')[0]
@@ -105,13 +111,10 @@ class Router {
         let object = {
             'data': data
         }
-        console.log(object)
         res.render('myprofile', object)
     }
 
-    profileSetup(req, res) {
-        res.render('profilesetup')
-    }
+
 
     async setup(req, res) {
         let profilepic = `${new Date().getTime().toString()}${req.files.upload.name}`
@@ -145,6 +148,72 @@ class Router {
         await this.Method.writefile(profilepic, profilepicData)
         res.redirect("/myprofile")
     }
+
+    async photosetup(req, res) {
+        res.render('fotosetup')
+    }
+
+    async photoupload(req, res) {
+        console.log(req.files)
+        let foto1
+        let foto2
+        let foto3
+        let foto4
+        let foto5
+        let foto6
+        let fotodata1
+        let fotodata2
+        let fotodata3
+        let fotodata4
+        let fotodata5
+        let fotodata6
+
+        if (req.files.upload1) {
+            foto1 = req.files.upload1.name
+            fotodata1 = req.files.upload1.data
+            await this.Method.writefile(`${new Date().getTime().toString()}${foto1}`, fotodata1)
+        } else {
+            foto1 = null
+        }
+        if (req.files.upload2) {
+            foto2 = req.files.upload2.name
+            fotodata2 = req.files.upload2.data
+            await this.Method.writefile(`${new Date().getTime().toString()}${foto2}`, fotodata2)
+        } else {
+            foto2 = null
+        }
+        if (req.files.upload3) {
+            foto3 = req.files.upload3.name
+            fotodata3 = req.files.upload3.data
+            await this.Method.writefile(`${new Date().getTime().toString()}${foto3}`, fotodata3)
+        } else {
+            foto3 = null
+        }
+        if (req.files.upload4) {
+            foto4 = req.files.upload4.name
+            fotodata4 = req.files.upload4.data
+            await this.Method.writefile(`${new Date().getTime().toString()}${foto4}`, fotodata4)
+        } else {
+            foto4 = null
+        }
+        if (req.files.upload5) {
+            foto5 = req.files.upload5.name
+            fotodata5 = req.files.upload5.data
+            await this.Method.writefile(`${new Date().getTime().toString()}${foto5}`, fotodata5)
+        } else {
+            foto5 = null
+        }
+        if (req.files.upload6) {
+            foto6 = req.files.upload6.name
+            fotodata6 = req.files.upload6.data
+            await this.Method.writefile(`${new Date().getTime().toString()}${foto6}`, fotodata6)
+        } else {
+            foto6 = null
+        }
+
+        await this.Method.photoUpload(user_id, foto1, foto2, foto3, foto4, foto5, foto6)
+    }
+
 
     // filter
 
@@ -210,7 +279,6 @@ class Router {
             'user_id': user_id,
             'checkMatch': data
         }
-        console.log(object)
         res.send(JSON.stringify(object))
     }
 

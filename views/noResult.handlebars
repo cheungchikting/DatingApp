@@ -41,59 +41,13 @@
             </nav>
       </div>
 
-    <div class="row">
-        <div class="col-9 random-card">
-            <div class="box-container">
-                <div class="container">
-                    {{#each data}}
-                    <div class="box">
-                    <div class="image">
-                        <img src={{profilepic}}>
-                      </div>
-                      <div class="name_job">{{firstname}}</div>
-                      <p> {{work}} Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quia debitis voluptatum voluptatibus, maiores eos voluptates animi vitae ab unde eum, error, quibusdam cumque. Officiis atque molestiae et commodi necessitatibus?</p>
-                      <div class="btns">
-                        <a href="/dislike/{{id}}">
-                        <button>Dislike</button>
-                        </a>
-                        <button id="likeBtn" data-id={{id}}>Like</button>
-                      </div>
-                    </div>
-                    {{/each}}
-            </div>
-        </div>
-    </div>
-
-    <div class="col-2 random-cardIcon">
-        <div class="avatar-group" id="avatar-group">
-
-    {{#each data}}
-    <div class="avatar">
-        <img src={{profilepic}} alt="">
-    </div>
-    {{/each}}
-   
+<p>no result</p>
 
 
-     {{!-- <div class="hidden-avatars">
-          <p>+10</p>
-      </div> --}}
 
-  </div>
-    </div>
-    
-</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="/likeBtn.js"></script>
 
-<script>
-    var remaining_num = 10;
-     $('.avatar-group').append(`
-    <div class="hidden-avatars">
-          <p>+${remaining_num}</p>
-      </div>`)
-</script>
 
 {{!-- profile button toggle --}}
 <script>
