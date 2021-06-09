@@ -242,7 +242,7 @@ body{
 
 #chat-form{
     display:grid;
-    grid: 51px / 32px 1fr;
+    grid: 51px / 32px 1fr 32px;
     align-content: center;
     align-items: center;
     grid-gap: 15px;
@@ -262,6 +262,9 @@ body{
     font-size:1.4rem;
 }
 
+#chat-form .fa-paper-plane{
+    font-size:30px;
+}
 ::-webkit-scrollbar {
     display:none;
 }
