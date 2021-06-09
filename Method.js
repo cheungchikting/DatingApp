@@ -73,15 +73,16 @@ class Method {
         }
     }
 
-    async editProfile(user_id, profilepic, height, work, education, religion, location, aboutme) {
+    async editProfile(user_id, profilepic, height, education, religion, work, location, hometown, aboutme) {
         await knex('usersProfile')
             .update({
                 profilepic: profilepic,
                 height: height,
-                work: work,
                 education: education,
                 religion: religion,
+                work: work,
                 location: location,
+                hometown: hometown,
                 aboutme: aboutme
             })
             .where('usersProfile.user_id', user_id)
@@ -359,8 +360,15 @@ class Method {
                 })
                 .where('matches.user_id', user_id)
         }
-
-        return await knex('matches').where('matches.user_id', like_id)
+        let response = await knex('matches').where('matches.user_id', like_id)
+        if (response[0]) {
+            if (response[0].like[0]) {
+                return response[0].like
+            }
+            return []
+        } else {
+            return []
+        }
     }
 
     async dislike(user_id, dislike_id) {

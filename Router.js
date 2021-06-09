@@ -38,18 +38,17 @@ class Router {
         let router = express.Router();
         router.get("/", this.start.bind(this))
         //profile
-
-        router.get('/profile', isLoggedIn, this.profile.bind(this))
+        router.get('/myprofile', isLoggedIn, this.myprofile.bind(this))
         router.get('/profilesetup', isLoggedIn, this.profileSetup.bind(this))
         router.post('/setup', isLoggedIn, this.setup.bind(this))
-        router.put('/edit', isLoggedIn, this.editProfile.bind(this))
+        router.post('/editprofile', isLoggedIn, this.editProfile.bind(this))
         //filter
         router.get('/filter', isLoggedIn, this.filter.bind(this))
         router.post('/editfilter', isLoggedIn, this.editFilter.bind(this))
         //browse
         router.get('/findmatches', isLoggedIn, this.findMatches.bind(this));
         router.get('/likeme', isPaid, this.likeMe.bind(this))
-        router.get('/like/:id', isLoggedIn, this.like.bind(this))
+        router.post('/like/:id', isLoggedIn, this.like.bind(this))
         router.post('/dislike/:id', isLoggedIn, this.dislike.bind(this))
         //chatlist
         router.get('/chatlist', this.chatlist.bind(this))
@@ -68,7 +67,7 @@ class Router {
         router.get('/logout', this.logout.bind(this));
 
         //caspar added
-        router.get('/myprofile', isLoggedIn, this.myprofile.bind(this))
+
         router.get('/match', isLoggedIn, this.myMatch.bind(this))
         router.get('/profiles', isLoggedIn, this.profiles.bind(this))
         router.get('/fotosetup', isLoggedIn, this.fotosetup.bind(this))
@@ -82,14 +81,32 @@ class Router {
 
     // profile
 
-    profile(req, res) {
-        let object
-        this.Method.MyProfile(user_id).then((data) => {
-            object = {
-                'data': data
-            }
-            res.render('profile', object)
-        })
+    async myprofile(req, res) {
+        let data = await this.Method.GetProfile(user_id)
+        let bday = data.birthday.toISOString().split('T')[0]
+        data.birthday = bday
+        switch (data.education) {
+            case 1:
+                data.educationName = "Secondary";
+                break;
+            case 2:
+                data.educationName = "Associate";
+                break;
+            case 3:
+                data.educationName = "Bachelor";
+                break;
+            case 4:
+                data.educationName = "Master";
+                break;
+            case 5:
+                data.educationName = "Doctor";
+                break;
+        }
+        let object = {
+            'data': data
+        }
+        console.log(object)
+        res.render('myprofile', object)
     }
 
     profileSetup(req, res) {
@@ -114,20 +131,19 @@ class Router {
         res.redirect("/filter")
     }
 
-    editProfile(req, res) {
+    async editProfile(req, res) {
         let profilepic = `${new Date().getTime().toString()}${req.files.upload.name}`
         let profilepicData = req.files.upload.data
         let height = req.body.height
-        let work = req.body.work
         let education = req.body.education
         let religion = req.body.religion
-        let location = req.body.location //need to get coordinates
+        let work = req.body.work
+        let location = req.body.location
+        let hometown = req.body.hometown
         let aboutme = req.body.aboutme
-        this.Method.editProfile(user_id, profilepic, height, work, education, religion, location, aboutme).then(() => {
-            this.Method.writefile(profilepic, profilepicData).then(() => {
-                res.redirect("/profile")
-            })
-        })
+        await this.Method.editProfile(user_id, profilepic, height, education, religion, work, location, hometown, aboutme)
+        await this.Method.writefile(profilepic, profilepicData)
+        res.redirect("/myprofile")
     }
 
     // filter
@@ -187,23 +203,21 @@ class Router {
         })
     }
 
-    like(req, res) {
-        let object
+    async like(req, res) {
         let like_id = req.params.id;
-        this.Method.like(user_id, like_id).then((data) => {
-            object = {
-                'user_id': user_id,
-                'checkMatch': data
-            }
-            res.send(object)
-        })
+        let data = await this.Method.like(user_id, like_id)
+        let object = {
+            'user_id': user_id,
+            'checkMatch': data
+        }
+        console.log(object)
+        res.send(JSON.stringify(object))
     }
 
-    dislike(req, res) {
+    async dislike(req, res) {
         let dislike_id = req.params.id;
-        this.Method.dislike(user_id, dislike_id).then(() => {
-            res.end()
-        })
+        await this.Method.dislike(user_id, dislike_id)
+        res.redirect('/findmatches')
     }
 
     unDislike(req, res) {
@@ -304,9 +318,6 @@ class Router {
     }
 
     //caspar added
-    myprofile(req, res) {
-        res.render('myprofile')
-    }
 
     myMatch(req, res) {
         res.render('match')

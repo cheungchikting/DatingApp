@@ -20,7 +20,6 @@ html,body{
 /* profile and menu */
 .navbar_container{
   width: 100%;
-  border: 1px solid red;
 }
 
 .navbar_left{

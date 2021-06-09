@@ -331,6 +331,15 @@ form .input-box span.details{
     width: 100%;
   }
 
+  .input-box {
+    border-radius: 5rem;
+    background-color: #f1faee;
+  }
+
+  .modal-content {
+    padding: 3rem;
+  }
+
   @media(max-width: 689px),(min-width:584){
     #aboutme{
       width: 220%;

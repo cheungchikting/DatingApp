@@ -41,17 +41,19 @@ const job = schedule.scheduleJob('1 * * * *', function () {
                                         for (let each of data3) {
                                             result = knex('matches').where('matches.user_id', id.id).then((data4) => {
                                                 if (data4[0]) {
-                                                    let seen = [...data4[0].like, ...data4[0].dislike]
-                                                    for (let x of seen) {
-                                                        if (each.id == x) {
-                                                            let index = data3.indexOf(each)
-                                                            data3.splice(index, 1)
+                                                    if (data4[0].like && data4[0].dislike) {
+                                                        let seen = [...data4[0].like, ...data4[0].dislike]
+                                                        for (let x of seen) {
+                                                            if (each.id == x) {
+                                                                let index = data3.indexOf(each)
+                                                                data3.splice(index, 1)
+                                                            }
                                                         }
+                                                        return data3
                                                     }
                                                     return data3
-                                                } else {
-                                                    return data3
                                                 }
+                                                return data3
                                             })
                                         }
                                         return result
@@ -72,7 +74,7 @@ const job = schedule.scheduleJob('1 * * * *', function () {
                                         }
                                     }
                                     return randomList
-        
+
                                 } else {
                                     return randomList
                                 }

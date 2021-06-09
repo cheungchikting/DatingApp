@@ -1,10 +1,21 @@
-let likeBtn = document.querySelector("#likeBtn")
+$(function () {
 
-likeBtn.addEventListener('click',(e)=>{
-  let id = deletebtn.getAttribute("data-id")
-      axios.post(`/like/${id}`).then((res) => {
-        if (res.data.checkMatch[0].like.indexOf(res.data.user_id) > -1) {
-          // trigger match modal
-        } 
+  $("#likeBtn").on("click", function (e) {
+    e.preventDefault();
+    let id = $(this).attr("data-id")
+    $.post(`/like/${id}`)
+      .done((data) => {
+        console.log(JSON.parse(data).checkMatch[0])
+        if (JSON.parse(data).checkMatch.indexOf(data.user_id) > -1) {
+          console.log('this is a match!')
+     
+
+
+        }
+        window.location.href = "/findmatches"
       })
   })
+})
+
+
+
