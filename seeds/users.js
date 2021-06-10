@@ -23,6 +23,12 @@ exports.seed = function(knex) {
         {firstname:"Kaye",lastname:"Thalmann",email:"kthalmannh@vkontakte.ru",phone:"422 142 0759"},
         {firstname:"Robinett",lastname:"Leah",email:"rleahi@berkeley.edu",phone:"177 472 7573"},
         {firstname:"Rhody",lastname:"Pibworth",email:"rpibworthj@xinhuanet.com",phone:"258 853 2033"},
+        {firstname:"Mab",lastname:"Gillebert",email:"mgillebert0@yellowpages.com",phone:"711 873 1500"},
+        {firstname:"Belinda",lastname:"Stokoe",email:"bstokoe1@spotify.com",phone:"881 364 8942"},
+        {firstname:"Heriberto",lastname:"Tarpey",email:"htarpey2@51.la",phone:"411 344 5352"},
+        {firstname:"Mallorie",lastname:"Kattenhorn",email:"mkattenhorn3@google.cn",phone:"980 116 7333"},
+        {firstname:"Lil",lastname:"Serjeantson",email:"lserjeantson4@bloomberg.com",phone:"263 922 2724"},
+        {firstname:"Berkley",lastname:"Shackle",email:"bshackle5@edublogs.org",phone:"124 788 9477"}
       ]);
     });
 };

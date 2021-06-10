@@ -62,8 +62,6 @@ hbs.handlebars.registerHelper('ifeq', function (a, b, options) {
 
 app.set('view engine', 'handlebars');
 
-
-
 app.post('/signup', signup.authenticate('local-signup', {
     successRedirect: '/profilesetup',
     failureRedirect: '/err',

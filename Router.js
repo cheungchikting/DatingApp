@@ -29,6 +29,32 @@ function isPaid(req, res, next) {
         })
 }
 
+function ageCal(birthday) {
+    var birth_date = new Date(birthday);
+    var birth_date_day = birth_date.getDate();
+    var birth_date_month = birth_date.getMonth();
+    var birth_date_year = birth_date.getFullYear();
+    var today_date = new Date();
+    var today_day = today_date.getDate(); //if getDay is Monday to Sunday
+    var today_month = today_date.getMonth();
+    var today_year = today_date.getFullYear();
+    var calculated_age;
+    if (today_month > birth_date_month) {
+        calculated_age = today_year - birth_date_year;
+    } else if (today_month == birth_date_month) {
+        if (today_day >= birth_date_day) {
+            calculated_age = today_year - birth_date_year;
+        } else {
+            calculated_age = today_year - birth_date_year - 1;
+        }
+    } else {
+        calculated_age = today_year - birth_date_year - 1;
+    }
+
+    return calculated_age;
+}
+
+
 class Router {
     constructor(Method) {
         this.Method = Method;
@@ -65,7 +91,6 @@ class Router {
         // login/Reg
         router.get('/login', this.login.bind(this));
         router.get('/signup', this.signup.bind(this))
-        router.get('/done', this.done.bind(this))
         router.get("/err", this.err.bind(this));
         router.get('/logout', this.logout.bind(this));
 
@@ -252,16 +277,21 @@ class Router {
     async findMatches(req, res) {
         let data = await this.Method.grabRandomList(user_id)
         let user = await this.Method.GetProfile(user_id)
+
         if (data[0]) {
+            for (let each of data){
+                let age = ageCal(each.birthday)
+                each.age = age
+            }
+
             let object = {
                 'data': data,
                 'user': user
             }
-
+            console.log(object)
             res.render('findMatches', object)
         } else {
             let object = {
-                'data': data,
                 'user': user
             }
             res.render('noResult', object)
@@ -273,29 +303,10 @@ class Router {
         let id = req.params.id
         let data = await this.Method.GetProfile(id)
         let user = await this.Method.GetProfile(user_id)
+        let photos = await this.Method.GetPhotos(id)
+        let age = ageCal(data.birthday)
+        data.age = age
 
-        var birth_date = new Date(data.birthday);
-        var birth_date_day = birth_date.getDate();
-        var birth_date_month = birth_date.getMonth();
-        var birth_date_year = birth_date.getFullYear();
-        var today_date = new Date();
-        var today_day = today_date.getDate(); //if getDay is Monday to Sunday
-        var today_month = today_date.getMonth();
-        var today_year = today_date.getFullYear();
-        var calculated_age;
-        if (today_month > birth_date_month) {
-            calculated_age = today_year - birth_date_year;
-        } else if (today_month == birth_date_month) {
-            if (today_day >= birth_date_day) {
-                calculated_age = today_year - birth_date_year;
-            } else {
-                calculated_age = today_year - birth_date_year - 1;
-            }
-        } else {
-            calculated_age = today_year - birth_date_year - 1;
-        }
-        data.birthday = calculated_age
-        
         switch (data.education) {
             case 1:
                 data.educationName = "Secondary";
@@ -313,13 +324,13 @@ class Router {
                 data.educationName = "Doctor";
                 break;
         }
-        
+
 
         let object = {
             data: data,
+            photos: photos,
             user: user
         }
-        console.log(object)
         res.render('profiles', object)
     }
 
@@ -431,11 +442,6 @@ class Router {
     signup(req, res) {
         res.render("signup");
     }
-
-    done(req, res) {
-        res.render("done");
-    }
-
 
     err(req, res) {
         res.render("err");

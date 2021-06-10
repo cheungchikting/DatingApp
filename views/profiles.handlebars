@@ -61,7 +61,7 @@
                 <div class="address">
                     {{!-- <p class="state">New York,</p> --}}
                     <span class="country">{{data.hometown}}</span>
-                    <p class="user-age">{{data.birthday}}</p>
+                    <p class="user-age">{{data.age}}</p>
                 </div>
             </div>
 
@@ -160,12 +160,24 @@
 
                             <div class="wrapper">
     <div class="gallery">
-      <div class="image"><span><img src="https://images.unsplash.com/photo-1617059070087-d05ea39977dd?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1234&q=80" alt="1"></span></div>
-      <div class="image"><span><img src="https://images.unsplash.com/photo-1617059070087-d05ea39977dd?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1234&q=80" alt="2"></span></div>
-      <div class="image"><span><img src="https://images.unsplash.com/photo-1617059070087-d05ea39977dd?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1234&q=80" alt="3"></span></div>
-      <div class="image"><span><img src="https://images.unsplash.com/photo-1617059070087-d05ea39977dd?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1234&q=80" alt="4"></span></div>
-      <div class="image"><span><img src="https://images.unsplash.com/photo-1617059070087-d05ea39977dd?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1234&q=80" alt="5"></span></div>
-      <div class="image"><span><img src="https://images.unsplash.com/photo-1617059070087-d05ea39977dd?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1234&q=80" alt="6"></span></div>
+    {{#if photos.pc1}}
+      <div class="image"><span><img src="/upload/{{photos.pc1}}" alt="1"></span></div>
+    {{/if}}
+    {{#if photos.pc2}}
+      <div class="image"><span><img src="/upload/{{photos.pc2}}" alt="2"></span></div>
+    {{/if}}
+    {{#if photos.pc3}}
+      <div class="image"><span><img src="/upload/{{photos.pc3}}" alt="3"></span></div>
+    {{/if}}
+    {{#if photos.pc4}}
+      <div class="image"><span><img src="/upload/{{photos.pc4}}" alt="4"></span></div>
+    {{/if}}
+    {{#if photos.pc5}}
+      <div class="image"><span><img src="/upload/{{photos.pc5}}" alt="5"></span></div>
+    {{/if}}
+    {{#if photos.pc6}}
+      <div class="image"><span><img src="/upload/{{photos.pc6}}" alt="6"></span></div>
+    {{/if}}
     </div>
   </div>
   <div class="preview-box">

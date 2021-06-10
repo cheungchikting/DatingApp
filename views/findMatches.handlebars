@@ -17,7 +17,6 @@
               
                         <div class="navbar_right">
                               <div class="action">
-
                                  <div class="profile" onclick="menuToggle();">
                                      <img src="/upload/{{user.profilepic}}">
                                  </div>
@@ -49,11 +48,11 @@
                     <div class="box">
                       <a href="/profiles/{{id}}">
                       <div class="image">
-                        <img src={{profilepic}}>
+                        <img src="/upload/{{profilepic}}">
                       </div>
                       </a>
-                      <div class="name_job">{{firstname}}</div>
-                      <p> {{work}} Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quia debitis voluptatum voluptatibus, maiores eos voluptates animi vitae ab unde eum, error, quibusdam cumque. Officiis atque molestiae et commodi necessitatibus?</p>
+                      <div class="name_job">{{firstname}}, {{age}}</div>
+                      <p> {{work}}</p>
                       <div class="btns">
                         <a href="/dislike/{{id}}">
                         <button>Dislike</button>
@@ -72,7 +71,7 @@
     {{#each data}}
     <div class="avatar">
       <a href="/profiles/{{id}}">
-        <img src={{profilepic}} alt="">
+         <img src="/upload/{{profilepic}}">
         </a>
     </div>
     {{/each}}
@@ -90,7 +89,6 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="/likeBtn.js"></script>
-
 <script>
     var remaining_num = 10;
      $('.avatar-group').append(`
