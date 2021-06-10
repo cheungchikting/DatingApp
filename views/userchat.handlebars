@@ -1,5 +1,47 @@
 <link rel="stylesheet" href="/userchat.css">
 
+<div class="navbar_container">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light top_navbar">
+              <div class="container-fluid">
+                   <div class="navbar_left">
+                         <a class="navbar-brand" >Lonely</a>
+                   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                     <span class="navbar-toggler-icon"></span>
+                   </button>
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                       <div class="navbar-nav">
+                        <a class="nav-link" href="/findmatches">Match</a>
+                       </div>
+                     </div>
+                  </div>
+              
+                        <div class="navbar_right">
+                              <div class="action">
+
+                                 <div class="profile" onclick="menuToggle();">
+                                     <img src="/upload/{{user.profilepic}}">
+                                 </div>
+                                 
+                                 <div class="menu">
+                                   <h3>{{user.firstname}}</h3>
+                                     {{!-- <h3>Someone Famous<br><span>Website De</span></h3> --}}
+                                     <ul>
+                                         <li><img src="https://img.icons8.com/ios-glyphs/24/000000/test-account.png"/><a href="/myprofile">My Profile</a></li>
+                                         {{!-- <li><img src="https://img.icons8.com/ios-glyphs/24/000000/edit-property.png"/><a href="#">Edit Profile</a></li> --}}
+                                         <li><img src="https://img.icons8.com/ios-glyphs/24/000000/inbox.png"/><a href="#">Inbox</a></li>
+                                         {{!-- <li><img src="https://img.icons8.com/ios-glyphs/24/000000/gear.png"/><a href="#">Settings</a></li> --}}
+                                         {{!-- <li><img src="https://img.icons8.com/ios-glyphs/24/000000/help.png"/><a href="#">Help</a></li> --}}
+                                         <li><img src="https://img.icons8.com/ios-glyphs/24/000000/exit.png"/><a href="/logout">Log Out</a></li>
+                                     </ul>
+                                </div>
+
+                              </div>
+                        </div>
+              </div>
+            </nav>
+ </div>
+
+
  <div id="chat-div">
         <div id="chat-container">
 
@@ -54,11 +96,14 @@
 
             </div>
 
-            <div id="chat-title">
+            <div id="chat-title-div">
+                <div id="chat-title">
+                <img src="https://thoughtcatalog.com/wp-content/uploads/2018/05/questionstoaskagirl2.jpg?w=1920&h=1280&crop=1" alt="">
                 <span>D</span>
-                <img src="https://img.icons8.com/metro/26/000000/trash.png" alt=""/>
+                {{!-- <img src="https://img.icons8.com/metro/26/000000/trash.png" alt=""/> --}}
+                </div>
             </div>
-
+    
             <div id="chat-message-list">
 
                 <div class="message-row you-message">
@@ -113,3 +158,41 @@
 
         </div>
     </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+{{!-- profile button toggle --}}
+ <script>
+        function menuToggle(){
+            const toggleMenu = document.querySelector(".menu");
+            toggleMenu.classList.toggle("active")
+        }
+</script>
+
+    {{!-- right-side nav change effect --}}
+<script>
+    $('.nav ul li').click(function(){
+
+    $(this).addClass("active").siblings().removeClass('active')
+})
+
+const tabBtn = document.querySelectorAll(".nav ul li");
+const tab = document.querySelectorAll(".tab");
+
+function tabs(panelIndex) {
+    tab.forEach(function(node){
+        node.style.display = "none";
+    })
+    tab [panelIndex].style.display = "block";
+}
+tabs(0);
+
+</script>
+
+<script>
+    $('.conversation').click(function(){
+
+    $(this).addClass("active").siblings().removeClass('active')
+})
+</script>

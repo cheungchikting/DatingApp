@@ -277,11 +277,11 @@ body{
 }
 
 .profile-btn {
-    display:flex;
+    display:inline-flexbox;
 }
 
 button.chatbtn,
-button.createbtn {
+button.passbtn {
     border:0;
     padding: 10px;
     width:100%;
@@ -299,12 +299,12 @@ button.createbtn {
 }
 
 button.chatbtn:hover,
-button.createbtn:hover {
+button.passbtn:hover {
     background:rgba(288,0,70,.9);
 }
 
 button.chatbtn i,
-button.createbtn i {
+button.passbtn i {
     margin-right: 5px;
 }
 
