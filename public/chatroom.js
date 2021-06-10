@@ -29,7 +29,6 @@ window.addEventListener('load', (event) => {
                 `<div class="message-row you-message">
                     <div class="message-content">
                         <div class="message-text">${msg.msg}</div>
-                        <div class="message-time">JUN 8</div>
                     </div>
                 </div>`
             )
@@ -43,7 +42,6 @@ window.addEventListener('load', (event) => {
                     </div>
                     <!-- <img src="https://thoughtcatalog.com/wp-content/uploads/2018/05/questionstoaskagirl2.jpg?w=1920&h=1280&crop=1" alt=""> -->
                     <div class="message-text" id="othermsg" >${msg.msg}</div>
-                    <div class="message-time" id="othermsgtime" >JUN 8</div>
                 </div>
             </div>`
             )
