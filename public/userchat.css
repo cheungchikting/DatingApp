@@ -24,16 +24,28 @@ body{
 .navbar_container{
     width: 100%;
   }
+<<<<<<< HEAD
   
   .navbar_left{
     display: flex;
   }
   
+=======
+
+  .navbar_left{
+    display: flex;
+  }
+
+>>>>>>> main
   .container-fluid{
     justify-content: space-between;
     font-size:20px;
   }
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> main
   .navbar-brand{
     font-size:20px;
   }
@@ -43,7 +55,11 @@ body{
     top: 10px;
     right: 50px;
   }
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> main
   .profile img{
     position: absolute;
     top:0;
@@ -52,7 +68,11 @@ body{
     height:100%;
     object-fit:cover;
   }
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> main
   .action .profile{
     position:relative;
     width: 90px;
@@ -61,7 +81,11 @@ body{
     overflow:hidden;
     cursor:pointer;
   }
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> main
   .action .menu::before{
    content:"";
    position:absolute;
@@ -72,7 +96,11 @@ body{
    background: #fff;
    transform:rotate(45deg);
   }
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> main
   .action .menu{
     position: absolute;
     top: 120px;
@@ -86,14 +114,22 @@ body{
     visibility: hidden;
     opacity: 0;
   }
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> main
   .action .menu.active{
    top: 80px;
    visibility: visible;
    opacity: 1;
    z-index: 1000;
   }
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> main
   .action .menu h3{
     width: 100%;
     text-align:center;
@@ -103,19 +139,31 @@ body{
     color:#555;
     line-height: 1.2em;
   }
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> main
   .menu h3 span{
     font-size: 14px;
     color:#cecece;
     font-weight: 400;
   }
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> main
   .action .menu ul{
     padding-left:20px;
     justify-self: start;
     margin-bottom:0;
   }
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> main
   .action .menu ul li{
    list-style:none;
    padding: 10px 0 0;
@@ -124,18 +172,30 @@ body{
    /* align-items:center; */
    /* justify-content: center; */
   }
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> main
   .action .menu ul li img{
    max-width: 28px;
    /* margin-right: 10px; */
    opacity: 0.5;
    transition: 0.5s;
   }
+<<<<<<< HEAD
   
   .action .menu ul li:hover img{
    opacity: 1;
   }
   
+=======
+
+  .action .menu ul li:hover img{
+   opacity: 1;
+  }
+
+>>>>>>> main
   .action .menu ul li a{
    display:inline-block;
    text-decoration: none;
@@ -143,12 +203,20 @@ body{
    font-weight: 500;
    transition: 0.5s;
   }
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> main
   .action .menu ul li:hover a{
    color:red;
   }
   /* end of profile and menu button */
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> main
 #chat-container{
     display:grid;
     grid:
@@ -156,7 +224,10 @@ body{
         "conversation-list chat-message-list" 1fr
         "new-message-container chat-form" 78px
         / 275px 1fr;
+<<<<<<< HEAD
     min-width: 800px;
+=======
+>>>>>>> main
     /* max-width: 1000px; */
     min-height: 90vh;
     max-height: 100vh;
@@ -395,6 +466,10 @@ body{
     color:#330;
     border-radius: 6px;
     font-size:1.4rem;
+}
+
+#chat-form .fa-paper-plane{
+    font-size:30px;
 }
 
 #chat-form .fa-paper-plane{
