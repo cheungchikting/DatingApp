@@ -80,9 +80,9 @@ class Router {
         router.get('/dislike/:id', isLoggedIn, this.dislike.bind(this))
         router.get('/profiles/:id', isLoggedIn, this.profiles.bind(this))
         //chatlist
-        router.get('/chatlist', this.chatlist.bind(this))
+        router.get('/chatroom', isLoggedIn, this.chatroom.bind(this))
         router.post('/unlike/:id', isLoggedIn, this.unlike.bind(this))
-        router.get('/chatroom/:id', this.chatroom.bind(this));
+        router.get('/chatroom/:id', isLoggedIn, this.chat.bind(this));
         //stripe
         router.post('/create-checkout-session', isLoggedIn, this.checkoutsession.bind(this))
         router.get('/success', isLoggedIn, this.success.bind(this))
@@ -94,12 +94,6 @@ class Router {
         router.get("/err", this.err.bind(this));
         router.get('/logout', this.logout.bind(this));
 
-        //caspar added
-
-        router.get('/match', isLoggedIn, this.myMatch.bind(this))
-
-        router.get('/fotosetup', isLoggedIn, this.fotosetup.bind(this))
-        router.get('/userchat', isLoggedIn, this.userchat.bind(this))
         return router;
     }
 
@@ -288,7 +282,6 @@ class Router {
                 'data': data,
                 'user': user
             }
-            console.log(object)
             res.render('findMatches', object)
         } else {
             let object = {
@@ -324,7 +317,6 @@ class Router {
                 data.educationName = "Doctor";
                 break;
         }
-
 
         let object = {
             data: data,
@@ -368,16 +360,16 @@ class Router {
 
     // chatlist
 
-    chatlist(req, res) {
+    chatroom(req, res) {
         this.Method.ChatList(user_id).then((data) => {
             let object = {
                 'data': data
             }
-            res.render('chatlist', object)
+            res.render('userchat', object)
         })
     }
 
-    chatroom(req, res) {
+    chat(req, res) {
         this.Method.GetChatInfo(req.params.id, user_id).then((data) => {
             client.lrange(req.params.id, 0, -1, (err, msg) => {
                 let parseMsg = msg.map(x => x = JSON.parse(x))
@@ -450,21 +442,6 @@ class Router {
     logout(req, res) {
         req.logout();
         res.redirect("/login")
-    }
-
-    //caspar added
-
-    myMatch(req, res) {
-        res.render('match')
-    }
-
-
-    fotosetup(req, res) {
-        res.render('fotosetup')
-    }
-
-    userchat(req, res) {
-        res.render('userchat')
     }
 
 }
