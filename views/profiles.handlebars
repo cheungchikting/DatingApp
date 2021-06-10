@@ -52,7 +52,7 @@
 <div class="container">
 
         <div class="profile-header">
-
+            
             <div class="profile-img">
                 <img src="/upload/{{data.profilepic}}" width="200" alt="">
             </div>
@@ -122,7 +122,7 @@
                                 Like
                             </button>
                             <a href="/dislike/{{data.id}}">
-                            <button class="createbtn" id="pass">
+                            <button class="passbtn" id="pass">
                                 <i class="fas fa-times"></i>
                                 Pass
                             </button>
@@ -252,7 +252,7 @@ function myFunction() {
 //getting all required elements
 const gallery  = document.querySelectorAll(".image"),
 previewBox = document.querySelector(".preview-box"),
-previewImg = previewBox.querySelector("img"),
+previewImg = previewBox.querySelector(".image-box img"),
 closeIcon = previewBox.querySelector(".icon"),
 currentImg = previewBox.querySelector(".current-img"),
 totalImg = previewBox.querySelector(".total-img"),
@@ -268,7 +268,7 @@ window.onload = ()=>{
             clickedImgIndex = i; //passing cliked image index to created variable (clickedImgIndex)
             function preview(){
                 currentImg.textContent = newIndex + 1; //passing current img index to currentImg varible with adding +1
-                let imageURL = gallery[i].querySelector("img").src; //getting user clicked img url
+                let imageURL = gallery[newIndex].querySelector("img").src; //getting user clicked img url
                 previewImg.src = imageURL; //passing user clicked img url in previewImg src
             }
             preview(); //calling above function
