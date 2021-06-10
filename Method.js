@@ -5,6 +5,7 @@ const fs = require("fs")
 const path = require("path")
 const uploadDir = path.join(__dirname, "public", "upload")
 
+
 class Method {
     constructor(knex) {
         this.knex = knex;
@@ -452,71 +453,50 @@ class Method {
 
     //chat
 
-    async ChatList(user_id) {
+    async createRoom(user_id) {
         let data = await knex.select('*').from('matches').where('matches.user_id', user_id);
-        if (data[0]) {
-            if (data[0].like) {
-                if (data[0].like[0]) {
-                    let matches = []
-                    let chatrooms = []
-                    for (let each of data[0].like) {
-                        let room = []
-                        let data1 = await knex('matches').where('matches.user_id', each)
-                        if (data1[0]) {
-                            if (data1[0].like) {
-                                if (data1[0].like[0]) {
-                                    if (data1[0].like.indexOf(user_id) > -1) {
-                                        matches.push(each)
-                                        room.push(user_id)
-                                        room.push(each)
-                                        room.sort()
-                                        chatrooms.push(JSON.stringify(room))
-                                    }
-                                }
-                            }
-                        }
-                    }
+        if (data[0] && data[0].like && data[0].like[0]) {
+            let chatrooms = []
+            let profiles = []
 
-                    let profiles = []
-                    if (matches[0]) {
-                        for (let item of matches) {
-                            let data2 = await knex('usersProfile').innerJoin('users', 'users.id', 'usersProfile.user_id').where('usersProfile.user_id', item)
-                            profiles.push(data2[0])
+            for (let each of data[0].like) {
+                let room = []
+                let data1 = await knex('matches').where('matches.user_id', each)
+                if (data1[0] && data1[0].like && data1[0].like[0]) {
+                    if (data1[0].like.indexOf(user_id) > -1) {
+                        room.push(user_id)
+                        room.push(each)
+                        let sortRoom = room.sort((a, b) => a - b)
+                        chatrooms.push(sortRoom)
+                        let data2 = await knex('chatroom').where('matchedPair', sortRoom.toString());
+                        if (!data2[0]) {
+                            await knex.insert({
+                                'matchedPair': sortRoom.toString()
+                            }).into('chatroom')
                         }
                     }
-
-                    let roomId = []
-                    if (chatrooms[0]) {
-                        for (let every of chatrooms) {
-                            let data3 = await knex('chatroom').where('matchedPair', every);
-                            if (!data3[0]) {
-                                await knex.insert({
-                                    'matchedPair': every
-                                }).into('chatroom')
-                            }
-                            roomId.push(data3[0])
-                        }
-                    }
-
-                    for (let x of profiles) {
-                        for (let y of roomId) {
-                            if (JSON.parse(y.matchedPair).indexOf(x.id) > -1) {
-                                x.chatroom = y.id
-                            }
-                        }
-                    }
-                    return profiles
                 }
-                return []
+                let profile = await this.GetProfile(each)
+                profiles.push(profile)
             }
-            return []
+
+            for (let item of chatrooms) {
+                let data3 = await knex('chatroom').where('matchedPair', item.toString());
+                for (let x of profiles) {
+                    if (data3[0].matchedPair.split(',').indexOf(x.id.toString()) > -1) {
+                        x.chatroom = data3[0].id
+                    }
+                }
+            }
+            return profiles
         }
         return []
     }
 
+
     async GetChatInfo(roomId, user_id) {
         let data = await knex('chatroom').where('id', roomId)
-        let targetId = JSON.parse(data[0].matchedPair).filter((x) => {
+        let targetId = data[0].matchedPair.split(',').filter((x) => {
             return x != user_id
         })
         let user = await knex('users').where('id', user_id)

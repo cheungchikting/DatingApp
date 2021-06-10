@@ -1,20 +1,21 @@
 let socket = io();
 
 window.addEventListener('load', (event) => {
-    let id = document.getElementById('echo').getAttribute("data-id")
+    let id = document.getElementById('chat-title').getAttribute("data-id")
     socket.emit("subscribe", id);
 
-    let messages = document.getElementById('messages');
     let form = document.getElementById('form');
     let input = document.getElementById('input');
+    let username
 
     form.addEventListener('submit', function (e) {
         e.preventDefault();
-        let username = document.getElementById('echo').getAttribute("data-user")
+        username = document.getElementById('chat-title').getAttribute("data-user")
         let object = {
             user: username,
             msg: input.value
         }
+        
         if (input.value) {
             socket.emit('chat message', object);
             input.value = '';
@@ -22,15 +23,33 @@ window.addEventListener('load', (event) => {
     });
 
     socket.on('chat message', function (msg) {
-        let item = document.createElement('li');
-        item.textContent = `${msg.user}: ${msg.msg}`;
-        messages.appendChild(item);
+        console.log(msg.user)
+        if(msg.user == username){
+            $("#chat-message-list").append(
+                `<div class="message-row you-message">
+                    <div class="message-content">
+                        <div class="message-text">${msg.msg}</div>
+                        <div class="message-time">JUN 8</div>
+                    </div>
+                </div>`
+            )
+        } else {
+            console.log('hit me')
+            $("#chat-message-list").append(
+                `<div class="message-row other-message">
+                <div class="message-content">
+                    <div class="message-title">
+                 ${msg.user}
+                    </div>
+                    <!-- <img src="https://thoughtcatalog.com/wp-content/uploads/2018/05/questionstoaskagirl2.jpg?w=1920&h=1280&crop=1" alt=""> -->
+                    <div class="message-text" id="othermsg" >${msg.msg}</div>
+                    <div class="message-time" id="othermsgtime" >JUN 8</div>
+                </div>
+            </div>`
+            )
+        }
+
         window.scrollTo(0, document.body.scrollHeight);
-
     });
 
-    socket.on("joinroom", () => {
-        echo.innerHTML = `Start chatting with your match!`
-
-    });
 })

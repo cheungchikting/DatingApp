@@ -12,12 +12,10 @@ function socket(io) {
         socket.on("subscribe", (roomid) => {
             chatroom = roomid
             socket.join(roomid)
-            io.to(chatroom).emit('joinroom');
-           
         });
 
         socket.on('chat message', (msg) => {
-            client.rpush(chatroom, JSON.stringify({'user': msg.user, 'msg': msg.msg}))
+            client.rpush(chatroom, JSON.stringify(msg))
             io.to(chatroom).emit('chat message', msg)
         });
 

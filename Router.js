@@ -174,7 +174,7 @@ class Router {
     }
 
     async photoupload(req, res) {
-        console.log(req.files)
+
         let foto1
         let foto2
         let foto3
@@ -273,7 +273,7 @@ class Router {
         let user = await this.Method.GetProfile(user_id)
 
         if (data[0]) {
-            for (let each of data){
+            for (let each of data) {
                 let age = ageCal(each.birthday)
                 each.age = age
             }
@@ -337,7 +337,7 @@ class Router {
     }
 
     async like(req, res) {
-        let like_id = req.params.id;
+        let like_id = parseInt(req.params.id)
         let data = await this.Method.like(user_id, like_id)
         let object = {
             'user_id': user_id,
@@ -347,7 +347,7 @@ class Router {
     }
 
     async dislike(req, res) {
-        let dislike_id = req.params.id;
+        let dislike_id = parseInt(req.params.id)
         await this.Method.dislike(user_id, dislike_id)
         res.redirect('/findmatches')
     }
@@ -360,29 +360,27 @@ class Router {
 
     // chatlist
 
-    chatroom(req, res) {
-        this.Method.ChatList(user_id).then((data) => {
-            let object = {
-                'data': data
-            }
-            res.render('userchat', object)
-        })
+    async chatroom(req, res) {
+        let data = await this.Method.createRoom(user_id)
+        let object = {
+            'data': data
+        }
+        res.render('userchat', object)
     }
 
-    chat(req, res) {
-        this.Method.GetChatInfo(req.params.id, user_id).then((data) => {
-            client.lrange(req.params.id, 0, -1, (err, msg) => {
-                let parseMsg = msg.map(x => x = JSON.parse(x))
-                let object = {
-                    'roomid': req.params.id,
-                    'data': data,
-                    'msg': parseMsg
-                }
-                res.render('chatroom', object)
-            })
+    async chat(req, res) {
+        let list = await this.Method.createRoom(user_id)
+        let data = await this.Method.GetChatInfo(req.params.id, user_id)
+        client.lrange(req.params.id, 0, -1, (err, msg) => {
+            let parseMsg = msg.map(x => x = JSON.parse(x))
+            let object = {
+                'list': list,
+                'roomid': req.params.id,
+                'data': data,
+                'msg': parseMsg,
+            }
+            res.render('chatrooms', object)
         })
-
-
     }
 
     unlike(req, res) {
