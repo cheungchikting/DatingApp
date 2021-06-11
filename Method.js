@@ -194,7 +194,6 @@ class Method {
                 randomlist: JSON.stringify(data3)
             }).where('matches.user_id', user_id)
         }
-
         let data4 = await knex('matches').where('matches.user_id', user_id)
         return data4[0].randomlist
     }
@@ -218,7 +217,6 @@ class Method {
                 return geolib.getDistance(data[0].location, x.location) / 1000 < data[0].distance
             })
             if (result[0]) {
-
                 for (let each of result) {
                     let data4 = await knex('matches').where('matches.user_id', user_id)
                     if (data4[0]) {
@@ -263,7 +261,10 @@ class Method {
                                 break;
                         }
                     }
-                    return randomList
+                    let findmatcheslist = randomList.filter((x)=>{
+                        return x.id !== user_id
+                    })
+                    return findmatcheslist
                 } else {
                     return []
                 }

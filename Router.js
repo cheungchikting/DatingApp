@@ -154,8 +154,8 @@ class Router {
     }
 
     async editProfile(req, res) {
-        let profilepic = `${new Date().getTime().toString()}${req.files.upload.name}`
-        let profilepicData = req.files.upload.data
+        let profilepic
+        let profilepicData
         let height = req.body.height
         let education = req.body.education
         let religion = req.body.religion
@@ -163,8 +163,16 @@ class Router {
         let location = req.body.location
         let hometown = req.body.hometown
         let aboutme = req.body.aboutme
+        if(req.files){
+            profilepic = `${new Date().getTime().toString()}${req.files.upload.name}`
+            profilepicData = req.files.upload.data
+            await this.Method.writefile(profilepic, profilepicData)
+        } else {
+            let data = await this.Method.GetProfile(user_id)
+            profilepic = data.profilepic
+        }
         await this.Method.editProfile(user_id, profilepic, height, education, religion, work, location, hometown, aboutme)
-        await this.Method.writefile(profilepic, profilepicData)
+     
         res.redirect("/myprofile")
     }
 
