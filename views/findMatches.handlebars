@@ -18,6 +18,7 @@
                   </div>
               
                         <div class="navbar_right">
+
                               <div class="action">
                                  <div class="profile" onclick="menuToggle();">
                                      <img src="/upload/{{user.profilepic}}">
@@ -36,7 +37,41 @@
                                      </ul>
                                 </div>
 
+                              <a href="">
+                                <div id="myPoint">
+                                <span style="font-size: 50px;color:rgba(241, 241, 68, 0.884)">
+                                  <i class="fab fa-bitcoin"></i>
+                                </span>
+                              </a>
+                              
+                                <span>
+                                  pointnumber
+                                </span>
                               </div>
+
+
+                              <div id="right_icon">
+                                 <div class="action">
+                                    <div class="profile" onclick="menuToggle();">
+                                        <img src="/upload/{{user.profilepic}}">
+                                    </div>
+                                    
+                                    <div class="menu">
+                                      <h3>{{user.firstname}}</h3>
+                                        {{!-- <h3>Someone Famous<br><span>Website De</span></h3> --}}
+                                        <ul>
+                                            <li><img src="https://img.icons8.com/ios-glyphs/24/000000/test-account.png"/><a href="/myprofile">My Profile</a></li>
+                                            {{!-- <li><img src="https://img.icons8.com/ios-glyphs/24/000000/edit-property.png"/><a href="#">Edit Profile</a></li> --}}
+                                            <li><img src="https://img.icons8.com/ios-glyphs/24/000000/inbox.png"/><a href="#">Inbox</a></li>
+                                            {{!-- <li><img src="https://img.icons8.com/ios-glyphs/24/000000/gear.png"/><a href="#">Settings</a></li> --}}
+                                            {{!-- <li><img src="https://img.icons8.com/ios-glyphs/24/000000/help.png"/><a href="#">Help</a></li> --}}
+                                            <li><img src="https://img.icons8.com/ios-glyphs/24/000000/exit.png"/><a href="/logout">Log Out</a></li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                              </div>
+  
                         </div>
               </div>
             </nav>
@@ -89,13 +124,20 @@
     </div>
     {{/each}}
    
-
-
      {{!-- <div class="hidden-avatars">
           <p>+10</p>
       </div> --}}
+        </div>
+    </div>
 
-  </div>
+    <div class="col-1" id="filter_btn_div">
+       <div id="filter_btn">
+         <a href="">
+           <button>
+             filter button
+           </button>
+         </a>
+       </div>
     </div>
     
 </div>
