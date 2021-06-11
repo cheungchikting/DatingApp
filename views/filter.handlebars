@@ -11,7 +11,7 @@
                    </button>
                     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                        <div class="navbar-nav">
-                        <a class="nav-link" href="/findmatches">Get Matches</a>
+                        <a class="nav-link" href="/findmatches"><img src="https://img.icons8.com/material/64/000000/find-user-male--v1.png"/>Find Matches</a>
                        </div>
                      </div>
                   </div>
@@ -27,12 +27,12 @@
                                    <h3>{{user.firstname}}</h3>
                                      {{!-- <h3>Someone Famous<br><span>Website De</span></h3> --}}
                                      <ul>
-                                         <li><img src="https://img.icons8.com/ios-glyphs/24/000000/test-account.png"/><a href="/myprofile">My Profile</a></li>
+                                         <li><img src="https://img.icons8.com/material/64/000000/user-male-circle--v1.png"/><a href="/myprofile">My Profile</a></li>
                                          {{!-- <li><img src="https://img.icons8.com/ios-glyphs/24/000000/edit-property.png"/><a href="#">Edit Profile</a></li> --}}
-                                         <li><img src="https://img.icons8.com/ios-glyphs/24/000000/inbox.png"/><a href="#">Inbox</a></li>
+                                         {{!-- <li><img src="https://img.icons8.com/material/64/000000/coins--v1.png"/><a href="#">Get Coins</a></li> --}}
                                          {{!-- <li><img src="https://img.icons8.com/ios-glyphs/24/000000/gear.png"/><a href="#">Settings</a></li> --}}
                                          {{!-- <li><img src="https://img.icons8.com/ios-glyphs/24/000000/help.png"/><a href="#">Help</a></li> --}}
-                                         <li><img src="https://img.icons8.com/ios-glyphs/24/000000/exit.png"/><a href="/logout">Log Out</a></li>
+                                         <li><img src="https://img.icons8.com/material/64/000000/logout-rounded-left--v1.png"/><a href="/logout">Log Out</a></li>
                                      </ul>
                                 </div>
 
@@ -198,7 +198,7 @@ $('#ethnicity').append(`<option value="${ethArr[i]}">${ethArr[i]}</option >`)
 
 {{!-- test pre set value --}}
 <script>
-      $('#gender').append(`<option value="Male" selected>Male</option >`)
+      $('#gender').append(`<option value="Female" selected>Female</option >`)
       $('#min_age').append(`<option value="18" selected>18</option >`)
       $('#max_age').append(`<option value="99" selected>99</option >`)
       $('#min_height').append(`<option value="120" selected>120</option >`)

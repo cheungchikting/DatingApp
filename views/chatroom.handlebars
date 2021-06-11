@@ -16,10 +16,9 @@
                         {{firstname}}
                     </div>
                     <div class="created-date">
-                        Jun 8
                     </div>
                     <div class="conversation-message">
-                        
+                        {{lastmessage.msg}}
                     </div>
                 </div>
                 </a>
@@ -31,7 +30,9 @@
             </div>
 
             <div id="chat-title" data-id="{{roomid}}" data-user="{{data.user.0.firstname}}">
+                <a href="/profiles/{{data.target.0.id}}">
                 <span>{{data.target.0.firstname}}</span>
+                </a>
                 <img src="https://img.icons8.com/metro/26/000000/trash.png" alt=""/>
             </div>
 

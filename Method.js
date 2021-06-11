@@ -123,9 +123,7 @@ class Method {
             }).into('photos')
         }
     }
-
-
-
+    
     // Filter
 
     async myFilter(user_id) {
@@ -475,10 +473,11 @@ class Method {
                                 'matchedPair': sortRoom.toString()
                             }).into('chatroom')
                         }
+                        let profile = await this.GetProfile(each)
+                        profiles.push(profile)
                     }
                 }
-                let profile = await this.GetProfile(each)
-                profiles.push(profile)
+              
             }
 
             for (let item of chatrooms) {

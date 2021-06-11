@@ -19,14 +19,12 @@ function isLoggedIn(req, res, next) {
     res.redirect("/login");
 }
 
-function isPaid(req, res, next) {
-    return knex('points')
-        .where('points.user_id', user_id).then((data) => {
-            if (req.isAuthenticated() === true && data[0].likeMePage === true) {
-                return next()
-            }
-            res.redirect("/findmatches");
-        })
+async function isPaid(req, res, next) {
+    let data = knex('token').where('token.user_id', user_id)
+    if (req.isAuthenticated() === true && data[0].likeMePage === true) {
+        return next()
+    }
+    res.redirect("/getcoins");
 }
 
 function ageCal(birthday) {
@@ -150,7 +148,7 @@ class Router {
         let aboutme = req.body.aboutme
         await this.Method.addProfile(user_id, profilepic, gender, birthday, height, work, education, ethnicity, religion, hometown, location, aboutme)
         await this.Method.writefile(profilepic, profilepicData)
-        res.redirect("/filter")
+        res.redirect("/photosetup")
     }
 
     async editProfile(req, res) {
@@ -163,7 +161,7 @@ class Router {
         let location = req.body.location
         let hometown = req.body.hometown
         let aboutme = req.body.aboutme
-        if(req.files){
+        if (req.files) {
             profilepic = `${new Date().getTime().toString()}${req.files.upload.name}`
             profilepicData = req.files.upload.data
             await this.Method.writefile(profilepic, profilepicData)
@@ -172,7 +170,7 @@ class Router {
             profilepic = data.profilepic
         }
         await this.Method.editProfile(user_id, profilepic, height, education, religion, work, location, hometown, aboutme)
-     
+
         res.redirect("/myprofile")
     }
 
@@ -237,6 +235,7 @@ class Router {
         }
 
         await this.Method.photoUpload(user_id, foto1, foto2, foto3, foto4, foto5, foto6)
+        res.redirect("/filter")
     }
 
 
@@ -335,11 +334,11 @@ class Router {
         let data = await this.Method.likeMe(user_id)
         let user = await this.Method.GetProfile(user_id)
 
-            object = {
-                'data': data,
-                'user': data
-            }
-            res.render('likeMe', object)
+        object = {
+            'data': data,
+            'user': data
+        }
+        res.render('likeMe', object)
     }
 
     async like(req, res) {
@@ -369,25 +368,59 @@ class Router {
     async chatroom(req, res) {
         let data = await this.Method.createRoom(user_id)
         let user = await this.Method.GetProfile(user_id)
-        let object = {
-            'data': data,
-            'user': user
+        let promiseArray = []
+        for (let i = 0; i < data.length; i++) {
+            promiseArray[i] = new Promise((resolve, reject) => {
+                client.lrange(data[i].chatroom, -1, -1, (err, msg) => {
+                    if (msg[0]) {
+                        data[i].lastmessage = JSON.parse(msg[0])
+                        resolve()
+                    } else {
+                        data[i].lastmessage = null
+                        resolve()
+                    }
+                })
+            })
         }
-        res.render('chatlist', object)
+        Promise.all(promiseArray).then(() => {
+            let object = {
+                'data': data,
+                'user': user
+            }
+            console.log(data)
+            res.render('chatlist', object)
+        })
     }
 
     async chat(req, res) {
         let list = await this.Method.createRoom(user_id)
         let data = await this.Method.GetChatInfo(req.params.id, user_id)
-        client.lrange(req.params.id, 0, -1, (err, msg) => {
-            let parseMsg = msg.map(x => x = JSON.parse(x))
-            let object = {
-                'list': list,
-                'roomid': req.params.id,
-                'data': data,
-                'msg': parseMsg,
-            }
-            res.render('chatroom', object)
+        let promiseArray = []
+        for (let i = 0; i < list.length; i++) {
+            promiseArray[i] = new Promise((resolve, reject) => {
+                client.lrange(list[i].chatroom, -1, -1, (err, msg) => {
+                    if (msg[0]) {
+                        list[i].lastmessage = JSON.parse(msg[0])
+                        resolve()
+                    } else {
+                        list[i].lastmessage = null
+                        resolve()
+                    }
+                })
+            })
+        }
+
+        Promise.all(promiseArray).then(() => {
+            client.lrange(req.params.id, 0, -1, (err, msg) => {
+                let parseMsg = msg.map(x => x = JSON.parse(x))
+                let object = {
+                    'list': list,
+                    'roomid': req.params.id,
+                    'data': data,
+                    'msg': parseMsg,
+                }
+                res.render('chatroom', object)
+            })
         })
     }
 
