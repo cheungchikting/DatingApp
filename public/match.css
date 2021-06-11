@@ -30,6 +30,22 @@ html,body{
   justify-content: space-between;
 }
 
+.navbar_right{
+  display: flex;
+  margin-right: 20px;
+}
+
+#myPoint{
+  margin-right: 50px;
+  display: flex;
+  flex-direction: column;
+}
+
+#myPoint a:first-child{
+  margin:auto;
+  padding:auto;
+}
+
 .action{
   /* position: fixed; */
   top: 10px;
@@ -380,6 +396,15 @@ color: #17c0eb
 
 .avatar-group .hidden-avatars p{
     margin-bottom: 0;
+}
+
+#filter_btn_div{
+ display: flex;
+ align-items:flex-start;
+}
+
+#filter_btn{
+  position:fixed;
 }
 
 @media (max-width:1045px){
