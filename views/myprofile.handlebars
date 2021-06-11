@@ -5,7 +5,7 @@
   <nav class="navbar navbar-expand-lg navbar-light bg-light top_navbar">
     <div class="container-fluid">
       <div class="navbar_left">
-        <a class="navbar-brand" >SomeLikesYou</a>
+        <a class="navbar-brand" >LoverBetter</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -63,7 +63,7 @@
             <p id="now_age"></p>
           </div>
 
-              <input type="date" id="start" name="birthday"  disabled="disabled" value="{{data.birthday}}" style="display: none;">
+            <input type="date" id="start" name="birthday"  disabled="disabled" value="{{data.birthday}}" style="display: none;">
     
 
             <div class="input-box">
@@ -103,12 +103,9 @@
 
           </div>
         <div class="button">
-          <input type="submit" value="Change" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          <input type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" value="Change">
         </div>
       </form>
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Launch demo modal
-</button>
     </div>
   </div>
   {{!-- modal --}}
@@ -118,9 +115,9 @@
                                            
                                        
                                          
-                                            <div class="profile-pic-div">
-                                              <img src="/upload/{{data.profilepic}}" id="photo">
-                                              <input type="file" id="picFile">
+                                            <div class="profile-pic-div" id="profile-pic-div">
+                                              <img src="#" id="photo" class="photo">
+                                              <input type="file" id="picFile" name="upload" accept="image/*" form="myform">
                                               <label for="picFile" id="uploadBtn">
                                                 {{!-- <img src="https://img.icons8.com/material-outlined/28/000000/camera--v2.png"/> --}}
                                               <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
@@ -132,11 +129,11 @@
                                       
 
                                               <div class="content">
-                                                <form action="/editprofile" method="POST" id="myform">
+                                                <form action="/editprofile" method="POST" id="myform" enctype="multipart/form-data">
                                                   <div class="user-details">
                                                 
                                                       <div class="input-box">
-                                                        <label for="height">Height</label>
+                                                        <label for="height">Height (cm)</label>
                                                         <select name="height" id="height">
                                                           <option selected="selected" value="{{data.height}}">{{data.height}}</option>
                                                         </select>
@@ -158,12 +155,12 @@
 
                                                       <div class="input-box">
                                                         <span class="details">Job Title</span>
-                                                        <input type="text" name="work" placeholder="Enter your job tilte" value={{data.work}} required>
+                                                        <input type="text" name="work" placeholder="Enter your job tilte" value='{{data.work}}'required>
                                                       </div>
 
                                                       <div class="input-box">
                                                         <span class="details">Home Town</span>
-                                                        <input type="text" name="hometown" placeholder="Enter your location" value={{data.hometown}} required>
+                                                        <input type="text" name="hometown" placeholder="Enter your location" value='{{data.hometown}}'required>
                                                       </div>
 
                                                       <div class="input-box" id="input_location">
@@ -172,12 +169,12 @@
 
                                                       <div class="input-box" >
                                                         <label for="aboutme">About Me</label>
-                                                        <textarea id="aboutme" name="aboutme" rows="5" cols="50">{{data.aboutme}}</textarea>
+                                                        <textarea id="aboutme" name="aboutme" rows="5" cols="60">{{data.aboutme}}</textarea>
                                                       </div>
 
                                                     </div>
                                                     <div class="button">
-                                                    <input type="submit" value="Change">
+                                                    <input type="submit" value="Update">
                                                     </div>
                                                   </form>
                                                 </div>
@@ -207,7 +204,7 @@ document.getElementById('start').max = new Date(new Date().getTime() - new Date(
 
   eduArr = ['Secondary','Associate','Bachelor','Master','Doctor'];
   for(let i = 0;i<eduArr.length;i++){
-    $('#education').append(`<option value="${i}">${eduArr[i]}</option >`)
+    $('#education').append(`<option value="${i+1}">${eduArr[i]}</option >`)
   }
 
   ethArr = ['Asian','Arab','Black/Agrican-descent','Hispanic/Latino','Native American','Pacific Islander','South Asian','White/Caucasian','Other'];
@@ -268,15 +265,14 @@ document.getElementById("now_age").innerHTML = calculated_age ;
 
     //declearing html elements
 
-    const imgDiv = document.querySelector(".profile-pic-div");
-    const img = document.querySelector("#photo");
+    const imgDiv = document.querySelector("#profile-pic-div");
+    const img = document.querySelector(".photo");
     const file = document.querySelector("#picFile");
     const uploadBtn = document.querySelector("#uploadBtn");
 
 
     //give a default photo
     img.setAttribute("src",'/upload/{{data.profilepic}}');
-
     //if user hover on profile div
 
     imgDiv.addEventListener("mouseenter",function(){

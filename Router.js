@@ -25,7 +25,7 @@ function isPaid(req, res, next) {
             if (req.isAuthenticated() === true && data[0].likeMePage === true) {
                 return next()
             }
-            res.redirect("/browse");
+            res.redirect("/findmatches");
         })
 }
 
@@ -50,7 +50,6 @@ function ageCal(birthday) {
     } else {
         calculated_age = today_year - birth_date_year - 1;
     }
-
     return calculated_age;
 }
 
@@ -155,8 +154,8 @@ class Router {
     }
 
     async editProfile(req, res) {
-        let profilepic = `${new Date().getTime().toString()}${req.files.upload.name}`
-        let profilepicData = req.files.upload.data
+        let profilepic
+        let profilepicData
         let height = req.body.height
         let education = req.body.education
         let religion = req.body.religion
@@ -164,8 +163,16 @@ class Router {
         let location = req.body.location
         let hometown = req.body.hometown
         let aboutme = req.body.aboutme
+        if(req.files){
+            profilepic = `${new Date().getTime().toString()}${req.files.upload.name}`
+            profilepicData = req.files.upload.data
+            await this.Method.writefile(profilepic, profilepicData)
+        } else {
+            let data = await this.Method.GetProfile(user_id)
+            profilepic = data.profilepic
+        }
         await this.Method.editProfile(user_id, profilepic, height, education, religion, work, location, hometown, aboutme)
-        await this.Method.writefile(profilepic, profilepicData)
+     
         res.redirect("/myprofile")
     }
 
@@ -174,7 +181,6 @@ class Router {
     }
 
     async photoupload(req, res) {
-
         let foto1
         let foto2
         let foto3
@@ -187,7 +193,6 @@ class Router {
         let fotodata4
         let fotodata5
         let fotodata6
-
         if (req.files.upload1) {
             foto1 = req.files.upload1.name
             fotodata1 = req.files.upload1.data
@@ -326,14 +331,15 @@ class Router {
         res.render('profiles', object)
     }
 
-    likeMe(req, res) {
-        let object
-        this.Method.likeMe(user_id).then((data) => {
+    async likeMe(req, res) {
+        let data = await this.Method.likeMe(user_id)
+        let user = await this.Method.GetProfile(user_id)
+
             object = {
-                'data': data
+                'data': data,
+                'user': data
             }
             res.render('likeMe', object)
-        })
     }
 
     async like(req, res) {
@@ -362,10 +368,12 @@ class Router {
 
     async chatroom(req, res) {
         let data = await this.Method.createRoom(user_id)
+        let user = await this.Method.GetProfile(user_id)
         let object = {
-            'data': data
+            'data': data,
+            'user': user
         }
-        res.render('userchat', object)
+        res.render('chatlist', object)
     }
 
     async chat(req, res) {
@@ -379,7 +387,7 @@ class Router {
                 'data': data,
                 'msg': parseMsg,
             }
-            res.render('chatrooms', object)
+            res.render('chatroom', object)
         })
     }
 

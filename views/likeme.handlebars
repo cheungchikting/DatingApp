@@ -1,0 +1,118 @@
+<link rel="stylesheet" href="/match.css">
+
+     <div class="navbar_container">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light top_navbar ">
+              <div class="container-fluid">
+                   <div class="navbar_left">
+                         <a class="navbar-brand" >LoveBetter</a>
+                   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                     <span class="navbar-toggler-icon"></span>
+                   </button>
+                   
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                       <div class="navbar-nav">
+                        <a class="nav-link" href="/chatroom">Talk to them</a>
+                       </div>
+                     </div>
+                  </div>
+              
+                        <div class="navbar_right">
+                              <div class="action">
+                                 <div class="profile" onclick="menuToggle();">
+                                     <img src="/upload/{{user.profilepic}}">
+                                 </div>
+                                 
+                                 <div class="menu">
+                                   <h3>{{user.firstname}}</h3>
+                                     {{!-- <h3>Someone Famous<br><span>Website De</span></h3> --}}
+                                     <ul>
+                                         <li><img src="https://img.icons8.com/ios-glyphs/24/000000/test-account.png"/><a href="/myprofile">My Profile</a></li>
+                                         {{!-- <li><img src="https://img.icons8.com/ios-glyphs/24/000000/edit-property.png"/><a href="#">Edit Profile</a></li> --}}
+                                         <li><img src="https://img.icons8.com/ios-glyphs/24/000000/inbox.png"/><a href="#">Inbox</a></li>
+                                         {{!-- <li><img src="https://img.icons8.com/ios-glyphs/24/000000/gear.png"/><a href="#">Settings</a></li> --}}
+                                         {{!-- <li><img src="https://img.icons8.com/ios-glyphs/24/000000/help.png"/><a href="#">Help</a></li> --}}
+                                         <li><img src="https://img.icons8.com/ios-glyphs/24/000000/exit.png"/><a href="/logout">Log Out</a></li>
+                                     </ul>
+                                </div>
+
+                              </div>
+                        </div>
+              </div>
+            </nav>
+      </div>
+
+    <div class="row">
+        <div class="col-9 random-card">
+            <div class="box-container">
+                <div class="container">
+                    {{#each data}}
+                    <div class="box">
+                      <a href="/profiles/{{id}}">
+                      <div class="image">
+                        <img src="/upload/{{profilepic}}">
+                      </div>
+                      </a>
+                      <div class="name_job">{{firstname}}, {{age}}</div>
+                      <p> {{work}}</p>
+                      <div class="btns">
+                      
+                        <button class="likeBtn" data-id={{id}}>
+                          <span style="font-size: 30px; ">
+                          <i class="far fa-heart"></i>
+                          </span>
+                        </button>
+                      
+                        <a href="/dislike/{{id}}">
+                        <button>
+                          <span style="font-size: 30px; color: white;">
+                          <i class="fas fa-times"></i>
+                          </span>
+                        </button>
+                        </a>
+
+                      </div>
+                    </div>
+                    {{/each}}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-2 random-cardIcon">
+        <div class="avatar-group" id="avatar-group">
+
+    {{#each data}}
+    <div class="avatar">
+      <a href="/profiles/{{id}}">
+         <img src="/upload/{{profilepic}}">
+        </a>
+    </div>
+    {{/each}}
+   
+
+
+     {{!-- <div class="hidden-avatars">
+          <p>+10</p>
+      </div> --}}
+
+  </div>
+    </div>
+    
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="/likeBtn.js"></script>
+<script>
+    var remaining_num = 10;
+     $('.avatar-group').append(`
+    <div class="hidden-avatars">
+          <p>+${remaining_num}</p>
+      </div>`)
+</script>
+
+{{!-- profile button toggle --}}
+<script>
+        function menuToggle(){
+            const toggleMenu = document.querySelector(".menu");
+            toggleMenu.classList.toggle("active")
+        }
+</script>
