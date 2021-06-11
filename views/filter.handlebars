@@ -50,8 +50,12 @@
         <div class="user-details">
           <div class="input-box">
             <label for="gender">Gender</label>
-              <select name="preferredGender" id="gender" value={{filter.preferredGender}} required>
+              <select name="preferredGender" id="gender" required>
+                {{#if data.preferredGender}}
+                <option value="{{data.preferredGender}}" selected>{{data.preferredGender}}</option >
+                {{else}}
                 <option value="gender">-Select-</option>
+                {{/if}}
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
               </select>
@@ -61,12 +65,20 @@
                 <label for="age" id="label_age">Age</label>
               </div>
 
-              <select name="min_age" id="min_age" value={{filter.min_age}} required>
+              <select name="min_age" id="min_age" required>
+              {{#if data.min_age}}
+              <option value="{{data.min_age}}" selected>{{data.min_age}}</option >
+              {{else}}
               <option value="min_age">From</option>
+              {{/if}}
               </select>
 
-              <select name="max_age" id="max_age" value={{filter.max_age}} required>
+              <select name="max_age" id="max_age" required>
+              {{#if data.max_age}}
+              <option value="{{data.max_age}}" selected>{{data.max_age}}</option >
+              {{else}}
               <option value="max_age">To</option>
+              {{/if}}
               </select>
           </div>
 
@@ -75,20 +87,32 @@
                 <label for="height">Height</label>
               </div>
 
-              <select name="min_height" id="min_height" value={{filter.min_height}} required>
+              <select name="min_height" id="min_height" required>
+              {{#if data.min_height}}
+              <option value="{{data.min_height}}" selected>{{data.min_height}}</option>
+              {{else}}
               <option value="min_height">From</option>
+              {{/if}}
               </select>
 
-              <select name="max_height" id="max_height" value={{filter.max_height}} required>
+              <select name="max_height" id="max_height" required>
+              {{#if data.max_height}}
+              <option value="{{data.max_height}}" selected>{{data.max_height}}</option>
+              {{else}}
               <option value="max_height">To</option>
+              {{/if}}
               </select>
           </div> 
             
 
             <div class="input-box">
               <label for="education">Education</label>
-              <select name="preferredEducation" id="education" value={{filter.preferredEducation}} required>
-                <option value="education">-Select-</option>
+              <select name="preferredEducation" id="education" required>
+              {{#if data.preferredEducation}}
+              <option value="{{data.preferredEducation}}" selected>{{data.preferredEducationName}}</option>
+              {{else}}
+              <option value="education">-Select-</option>
+              {{/if}}
               </select>
             </div>
 
@@ -102,15 +126,23 @@
 
             <div class="input-box">
               <label for="ethnicity">Ethnicity</label>
-              <select name="preferredEthnicity" id="ethnicity" value={{filter.preferredEthnicity}} required>
+              <select name="preferredEthnicity" id="ethnicity" required>
+                {{#if data.preferredEthnicity}}
+                <option value="{{data.preferredEthnicity}}" selected>{{data.preferredEthnicity}}</option>
+                {{else}}
                 <option value="religion">-Select-</option>
+                {{/if}}
               </select>
             </div>
 
             <div class="input-box">
               <span class="details" >Distance</span>
-              <select name="distance" id="distance" value={{filter.distance}}required>
+              <select name="distance" id="distance" required>
+                {{#if data.distance}}
+                <option value="{{data.distance}}" selected>{{data.distance}}</option>
+                {{else}}
                 <option value="distance">-Select-</option>
+                {{/if}}
               </select>           
              </div>
              
@@ -118,7 +150,7 @@
         
 
         <div class="button">
-          <input type="submit" value="change">
+          <input type="submit" value="Update">
         </div>
       </form>
     </div>
@@ -147,7 +179,7 @@
 
   eduArr = ['Secondary','Associate','Bachelor','Master','Doctor'];
   for(let i = 0;i<eduArr.length;i++){
-    $('#education').append(`<option value="${i}">${eduArr[i]}</option >`)
+    $('#education').append(`<option value="${i+1}">${eduArr[i]}</option >`)
   }
 
 ethArr = ['Asian','Arab','Black/Agrican-descent','Hispanic/Latino','Native American','Pacific Islander','South Asian','White/Caucasian','Other'];
@@ -197,7 +229,7 @@ $('#ethnicity').append(`<option value="${ethArr[i]}">${ethArr[i]}</option >`)
 
 
 {{!-- test pre set value --}}
-<script>
+{{!-- <script>
       $('#gender').append(`<option value="Female" selected>Female</option >`)
       $('#min_age').append(`<option value="18" selected>18</option >`)
       $('#max_age').append(`<option value="99" selected>99</option >`)
@@ -206,6 +238,6 @@ $('#ethnicity').append(`<option value="${ethArr[i]}">${ethArr[i]}</option >`)
       $('#education').append(`<option value="2" selected>Bachelor</option >`)
       $('#ethnicity').append(`<option value="Asian" selected>Asian</option >`)
       $('#distance').append(`<option value="100" selected>100</option >`)
-</script>
+</script> --}}
 
 

@@ -267,6 +267,7 @@ form .user-details .input-box{
   overflow: hidden;
 }
 .gallery .image img{
+  object-fit: cover;
   width: 240px;
   height: 360px;
   vertical-align: middle;

@@ -24,6 +24,8 @@ html,body{
 
 .navbar_left{
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .container-fluid{
@@ -39,6 +41,8 @@ html,body{
   margin-right: 50px;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 #myPoint a:first-child{

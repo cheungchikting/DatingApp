@@ -21,7 +21,7 @@ function isLoggedIn(req, res, next) {
 
 async function isPaid(req, res, next) {
     let data = knex('token').where('token.user_id', user_id)
-    if (req.isAuthenticated() === true && data[0].likeMePage === true) {
+    if (req.isAuthenticated() === true && data[0] && data[0].likeme === true) {
         return next()
     }
     res.redirect("/getcoins");
@@ -175,7 +175,16 @@ class Router {
     }
 
     async photosetup(req, res) {
-        res.render('fotosetup')
+        let data = await this.Method.GetPhotos(user_id)
+        console.log('data', data)
+        let object
+        if(data){
+            object = {
+                data: data,
+            }
+        }
+        console.log(object)
+        res.render('fotosetup', object)
     }
 
     async photoupload(req, res) {
@@ -192,45 +201,69 @@ class Router {
         let fotodata5
         let fotodata6
         if (req.files.upload1) {
-            foto1 = req.files.upload1.name
+            foto1 = `${new Date().getTime().toString()}${req.files.upload1.name}`
             fotodata1 = req.files.upload1.data
-            await this.Method.writefile(`${new Date().getTime().toString()}${foto1}`, fotodata1)
+            await this.Method.writefile(foto1, fotodata1)
         } else {
+            let data = await this.Method.GetPhotos(user_id)
+            if(data[0]){
+                foto1 = data[0].pc1
+            }
             foto1 = null
         }
         if (req.files.upload2) {
-            foto2 = req.files.upload2.name
+            foto2 = `${new Date().getTime().toString()}${req.files.upload2.name}`
             fotodata2 = req.files.upload2.data
-            await this.Method.writefile(`${new Date().getTime().toString()}${foto2}`, fotodata2)
+            await this.Method.writefile(foto2, fotodata2)
         } else {
+            let data = await this.Method.GetPhotos(user_id)
+            if(data[0]){
+                foto2 = data[0].pc2
+            }
             foto2 = null
         }
         if (req.files.upload3) {
-            foto3 = req.files.upload3.name
+            foto3 = `${new Date().getTime().toString()}${req.files.upload3.name}`
             fotodata3 = req.files.upload3.data
-            await this.Method.writefile(`${new Date().getTime().toString()}${foto3}`, fotodata3)
+            await this.Method.writefile(foto3, fotodata3)
         } else {
+            let data = await this.Method.GetPhotos(user_id)
+            if(data[0]){
+                foto3 = data[0].pc3
+            }
             foto3 = null
         }
         if (req.files.upload4) {
-            foto4 = req.files.upload4.name
+            foto4 = `${new Date().getTime().toString()}${req.files.upload4.name}`
             fotodata4 = req.files.upload4.data
-            await this.Method.writefile(`${new Date().getTime().toString()}${foto4}`, fotodata4)
+            await this.Method.writefile(foto4, fotodata4)
         } else {
+            let data = await this.Method.GetPhotos(user_id)
+            if(data[0]){
+                foto4 = data[0].pc4
+            }
             foto4 = null
         }
         if (req.files.upload5) {
-            foto5 = req.files.upload5.name
+            foto5 = `${new Date().getTime().toString()}${req.files.upload5.name}`
             fotodata5 = req.files.upload5.data
-            await this.Method.writefile(`${new Date().getTime().toString()}${foto5}`, fotodata5)
+            await this.Method.writefile(foto5, fotodata5)
         } else {
+            let data = await this.Method.GetPhotos(user_id)
+            if(data[0]){
+                foto5 = data[0].pc5
+            }
             foto5 = null
         }
         if (req.files.upload6) {
-            foto6 = req.files.upload6.name
+            foto6 = `${new Date().getTime().toString()}${req.files.upload6.name}`
             fotodata6 = req.files.upload6.data
-            await this.Method.writefile(`${new Date().getTime().toString()}${foto6}`, fotodata6)
+            await this.Method.writefile(foto6, fotodata6)
         } else {
+            let data = await this.Method.GetPhotos(user_id)
+            if(data[0]){
+                foto6 = data[0].pc6
+            }
             foto6 = null
         }
 
@@ -244,10 +277,28 @@ class Router {
     async filter(req, res) {
         let data = await this.Method.myFilter(user_id)
         let user = await this.Method.GetProfile(user_id)
+        switch (data.preferredEducation) {
+            case 1:
+                data.preferredEducationName = "Secondary";
+                break;
+            case 2:
+                data.preferredEducationName = "Associate";
+                break;
+            case 3:
+                data.preferredEducationName = "Bachelor";
+                break;
+            case 4:
+                data.preferredEducationName = "Master";
+                break;
+            case 5:
+                data.preferredEducationName = "Doctor";
+                break;
+        }
         let object = {
             'data': data,
             'user': user
         }
+        console.log(object)
         res.render('filter', object)
     }
 
@@ -261,12 +312,6 @@ class Router {
         let preferredEthnicity = req.body.preferredEthnicity
         let preferredEducation = req.body.preferredEducation
         await this.Method.editFilter(user_id, preferredGender, min_age, max_age, min_height, max_height, distance, preferredEthnicity, preferredEducation)
-        let data = await this.Method.myFilter(user_id)
-        let user = await this.Method.GetProfile(user_id)
-        let object = {
-            'data': data,
-            'user': user
-        }
         res.redirect('/findmatches')
     }
 

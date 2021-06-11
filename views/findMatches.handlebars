@@ -3,21 +3,36 @@
      <div class="navbar_container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light top_navbar ">
               <div class="container-fluid">
-                   <div class="navbar_left">
-                         <a class="navbar-brand" >LoveBetter</a>
-                   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                     <span class="navbar-toggler-icon"></span>
-                   </button>
+
+                <div class="navbar_left">
+                  
+                  <a class="navbar-brand" >LoveBetter</a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
                    
-                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                       <div class="navbar-nav">
-                        <a class="nav-link" href="/likeme"><img src="https://img.icons8.com/nolan/64/filled-like.png"/>See Who Likes You</a>
-                        <a class="nav-link" href="/chatroom"><img src="https://img.icons8.com/nolan/64/love-message.png"/>Talk to them</a>
-                       </div>
-                     </div>
+                  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                      <a class="nav-link" href="/likeme"><img src="https://img.icons8.com/nolan/64/filled-like.png"/>See Who Likes You</a>
+                      <a class="nav-link" href="/chatroom"><img src="https://img.icons8.com/nolan/64/love-message.png"/>Talk to them</a>
+                    </div>
                   </div>
+
+                </div>
               
                         <div class="navbar_right">
+
+                              <a href="">
+                                <div id="myPoint">
+                                <span style="font-size: 50px;color:rgba(241, 241, 68, 0.884)">
+                                  <img src="https://img.icons8.com/nolan/64/coin-wallet.png"/>
+                                </span>
+                              </a>
+                                <span>    
+                                  pointnumber
+                                </span>
+                                </div>
+                        
 
                               <div class="action">
                                  <div class="profile" onclick="menuToggle();">
@@ -37,25 +52,10 @@
                                      </ul>
                                 </div>
 
-                              <a href="">
-                                <div id="myPoint">
-                                <span style="font-size: 50px;color:rgba(241, 241, 68, 0.884)">
-                                  <i class="fab fa-bitcoin"></i>
-                                </span>
-                              </a>
-                              
-                                <span>
-                                  pointnumber
-                                </span>
-                              </div>
+                        
 
 
-                              <div id="right_icon">
-                                 <div class="action">
-                                    <div class="profile" onclick="menuToggle();">
-                                        <img src="/upload/{{user.profilepic}}">
-                                    </div>
-                                    
+              
                                     <div class="menu">
                                       <h3>{{user.firstname}}</h3>
                                         {{!-- <h3>Someone Famous<br><span>Website De</span></h3> --}}
@@ -132,7 +132,7 @@
 
     <div class="col-1" id="filter_btn_div">
        <div id="filter_btn">
-         <a href="">
+         <a href="/filter">
            <button>
              filter button
            </button>
