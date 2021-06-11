@@ -24,7 +24,7 @@ async function isPaid(req, res, next) {
     if (req.isAuthenticated() === true && data[0] && data[0].likeme === true) {
         return next()
     }
-    res.redirect("/getcoins");
+    res.redirect("/wallet");
 }
 
 function ageCal(birthday) {
@@ -80,19 +80,19 @@ class Router {
         router.get('/chatroom', isLoggedIn, this.chatroom.bind(this))
         router.post('/unlike/:id', isLoggedIn, this.unlike.bind(this))
         router.get('/chatroom/:id', isLoggedIn, this.chat.bind(this));
-        //stripe
-        router.post('/create-checkout-session', isLoggedIn, this.checkoutsession.bind(this))
-        router.get('/success', isLoggedIn, this.success.bind(this))
+        //Coins
+        router.get('/wallet', isLoggedIn, this.wallet.bind(this))
+        router.post('/create-checkout-session/:amount', isLoggedIn, this.checkoutsession.bind(this))
+        router.get('/success/:amount', isLoggedIn, this.success.bind(this))
         router.get('/cancel', isLoggedIn, this.cancel.bind(this))
-        router.post('/addpoints', isLoggedIn, this.addpoints.bind(this))
         // login/Reg
         router.get('/login', this.login.bind(this));
         router.get('/signup', this.signup.bind(this))
         router.get("/err", this.err.bind(this));
         router.get('/logout', this.logout.bind(this));
 
-        //wallet test router
-        router.get('/purchase', isLoggedIn, this.purchase.bind(this))
+        
+        
 
         return router;
     }
@@ -134,8 +134,6 @@ class Router {
         }
         res.render('myprofile', object)
     }
-
-
 
     async setup(req, res) {
         let profilepic = `${new Date().getTime().toString()}${req.files.upload.name}`
@@ -192,6 +190,7 @@ class Router {
     }
 
     async photoupload(req, res) {
+        console.log(req)
         let foto1
         let foto2
         let foto3
@@ -275,7 +274,6 @@ class Router {
         res.redirect("/filter")
     }
 
-
     // filter
 
     async filter(req, res) {
@@ -343,7 +341,6 @@ class Router {
             res.render('noResult', object)
         }
     }
-
 
     async profiles(req, res) {
         let id = req.params.id
@@ -480,16 +477,28 @@ class Router {
         })
     }
 
-    //stripe
+    //Coin
 
-    async checkoutsession(req, res) {
-        const session = await paymentsession
-        res.json({
-            id: session
-        });
+    async wallet(req, res) {
+        let user = await this.Method.GetProfile(user_id)
+        let coin = await this.Method.GetCoins(user_id)
+        let object = {
+            'user': user,
+            'coin': coin,
+        }
+        res.render('wallet', object )
     }
 
-    success(req, res) {
+    async checkoutsession(req, res) {
+        const session = await paymentsession[req.params.amount]
+        res.json(
+            { id: session.id }
+            );
+    }
+
+    async success(req, res) {
+        let amount = req.params.amount
+        await this.Method.AddCoins(user_id, parseInt(amount))
         res.render('success')
     }
 
@@ -497,21 +506,6 @@ class Router {
         res.render('cancel')
     }
 
-    addpoints(req, res) {
-        let addPoints = req.body.points
-        this.Method.AddPoint(user_id, addPoints).then(() => {
-            res.redirect('/profile')
-        })
-    }
-
-    viewLikeMeToken(req, res) {
-        let usePoints = req.body.points
-        this.Method.usePoint(user_id, usePoints).then(() => {
-            this.Method.viewLikeMeToken(user_id).then(() => {
-                res.redirect('/profile')
-            })
-        })
-    }
 
     // login & Reg
 
@@ -535,9 +529,7 @@ class Router {
 
 
 //test start//
-    purchase(req, res) {
-        res.render('wallet')
-    }
+
 //test end//
 }
 

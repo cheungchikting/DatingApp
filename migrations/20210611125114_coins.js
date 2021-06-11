@@ -1,6 +1,6 @@
 
 exports.up = function(knex) {
-    return knex.schema.createTable("points", (table) => {
+    return knex.schema.createTable("coins", (table) => {
         table.integer("balance");
         table.json("transactions");
         table.integer('user_id').unsigned();
@@ -9,5 +9,5 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-    return knex.schema.dropTable("points")
+    return knex.schema.dropTable("coins")
 };

@@ -28,6 +28,7 @@ body{
   
   .navbar_left{
     display: flex;
+    align-items: center;
   }
 
   .container-fluid{
@@ -394,4 +395,8 @@ body{
 }
 ::-webkit-scrollbar {
     display:none;
+}
+
+img {
+    object-fit: cover;
 }
