@@ -91,8 +91,12 @@ class Router {
         router.get("/err", this.err.bind(this));
         router.get('/logout', this.logout.bind(this));
 
+        //wallet test router
+        router.get('/purchase', isLoggedIn, this.purchase.bind(this))
+
         return router;
     }
+
 
     start(req, res) {
         res.redirect("/login")
@@ -483,6 +487,13 @@ class Router {
         res.redirect("/login")
     }
 
+
+
+//test start//
+    purchase(req, res) {
+        res.render('wallet')
+    }
+//test end//
 }
 
 module.exports = Router;
