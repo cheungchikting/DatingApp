@@ -1,4 +1,4 @@
-    <link rel="stylesheet" href="/profiles.css">
+    <link rel="stylesheet" href="/wallet.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 
@@ -51,99 +51,29 @@
 {{!-- profile file part --}}
 <div class="container-allPart">
 
-        <div class="profile-header">
-            
-            <div class="profile-img">
-                <img src="/upload/{{data.profilepic}}" width="200" alt="">
-            </div>
-
-            <div class="profile-nav-info">
-                <h3 class="user-name">{{data.firstname}}</h3>
-                <div class="address">
-                    {{!-- <p class="state">New York,</p> --}}
-                    <span class="country">{{data.hometown}}</span>
-                    <p class="user-age">{{data.age}}</p>
-                </div>
-            </div>
-
-            <div class="profile-option">
-                <div class="notification">
-                    <i class="fa fa-bell"></i>
-                    <span class="alert-message">1</span>
-                </div>
-            </div>
-        </div>
-
 
             <div class="main-bd">
 
                 <div class="left-side">
                     <div class="profile-side">
 
-                        {{!-- <p class="mobile-no">
-                            <i class="fa fa-phone"></i>
-                            +2345xxxxx6
-                        </p> --}}
-                        {{!-- <p class="user-mail"><i class="fa fa-envelope"></i>
-                            Longely@gmail.com
-                        </p>
-
-                        <div class="user-bio">
-                            <h3>Bio</h3>
-                            <p class="bio">I am happy.</p>
-                        </div> --}}
-
-                         <p class="user-height">
-                             {{!-- <i class="fa fa-height"></i> --}}
-                            Height: {{data.height}}
-                        </p>
-
-                         <p class="user-jobTitle">
-                            Job Title: {{data.work}}
-                        </p>
-
-                          <p class="user-education">
-                            Education: {{data.educationName}}
-                        </p>
-
-                         <p class="user-ethnicity">
-                            Ethnicity: {{data.ethnicity}}
-                        </p>
-
-                         <p class="user-religion">
-                            Religion: {{data.religion}}
-                        </p>
-                        
-                        
-
-                        <div class="profile-btn" >
-                            <button class="chatbtn" onclick="myFunction()" id="profilelike" data-id="{{data.id}}" >
-                                <i class="far fa-heart" ></i>
-                                Like
-                            </button>
-                            <a href="/dislike/{{data.id}}">
-                            <button class="passbtn" id="pass">
-                                <i class="fas fa-times"></i>
-                                Pass
-                            </button>
-                            </a>
+                        <div class="wallet-div">
+                            <img src="https://img.icons8.com/cotton/128/000000/coin-wallet--v1.png"/>
                         </div>
 
-                        {{!-- <div class="user-rating">
-                            <h3 class="rating">4.5</h3>
-                            <div class="rate">
-                                <div class="stars">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                                <span class="no-user">
-                                    <span>123</span>&nbsp;&nbsp;reviews
+
+
+                        <div>
+                            <h2>Total Balance</h2>
+                        </div>
+
+                        <div>
+                               <span>
+                                  pointnumber
                                 </span>
-                            </div>
-                        </div> --}}
+                        </div>
+                             
+
 
                     </div>
                 </div>
@@ -151,64 +81,81 @@
                 <div class="right-side">
                     <div class="nav">
                         <ul>
-                            <li class="user-foto active" onclick="tabs(0)">Photos</li>
-                            <li class="user-profile" onclick="tabs(1)">Profile</li>
+                            <li class="user-foto active" onclick="tabs(0)">Shop</li>
+                            <li class="user-profile" onclick="tabs(1)">History</li>
                             {{!-- <li class="user-Comment" onclick="tabs(2)">Comment</li> --}}
                         </ul>
                     </div>
                     <div class="profile-body">
                         <div class="profile-posts tab profile-box">
 
-                            <div class="wrapper">
-    <div class="gallery">
-    {{#if photos.pc1}}
-      <div class="image"><span><img src="/upload/{{photos.pc1}}" alt="1"></span></div>
-    {{/if}}
-    {{#if photos.pc2}}
-      <div class="image"><span><img src="/upload/{{photos.pc2}}" alt="2"></span></div>
-    {{/if}}
-    {{#if photos.pc3}}
-      <div class="image"><span><img src="/upload/{{photos.pc3}}" alt="3"></span></div>
-    {{/if}}
-    {{#if photos.pc4}}
-      <div class="image"><span><img src="/upload/{{photos.pc4}}" alt="4"></span></div>
-    {{/if}}
-    {{#if photos.pc5}}
-      <div class="image"><span><img src="/upload/{{photos.pc5}}" alt="5"></span></div>
-    {{/if}}
-    {{#if photos.pc6}}
-      <div class="image"><span><img src="/upload/{{photos.pc6}}" alt="6"></span></div>
-    {{/if}}
-    </div>
-  </div>
-  <div class="preview-box">
-    <div class="details">
-      <span class="title">Image <p class="current-img"></p> of <p class="total-img"></p></span>
-      <span class="icon fas fa-times"></span>
-    </div>
-    <div class="image-box">
-      <div class="slide prev">
-          <span style="color:black">
-            <i class="fas fa-angle-left"></i>
-          </span>
-      </div>
-      <div class="slide next">
-          <span style="color:black">
-             <i class="fas fa-angle-right"></i>
-          </span>
-      </div>
-      <img src="" alt="">
-    </div>
-  </div>
-  <div class="shadow"></div>
-  
+                            <div class="container-shopbox">
+
+                                <div class="card">
+                                    <div class="circle">
+                                        <h2>100 Coins</h2>
+                                    </div>
+                                    <div class="content">
+                                        <p>Coins can help you unlock more features!(There will be 100 points.)</p>
+                                        <a href="">BUY</a>
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="circle">
+                                        <h2>200 Coins</h2>
+                                    </div>
+                                    <div class="content">
+                                      <p>Coins can help you unlock more features!(There will be 200 points.)</p>
+                                        <a href="">BUY</a>
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="circle">
+                                        <h2>500 Coins</h2>
+                                    </div>
+                                    <div class="content">
+                                         <p>Coins can help you unlock more features!(There will be 500 points.)</p>
+                                        <a href="">BUY</a>
+                                    </div>
+                                </div>
+
+                                     <div class="card">
+                                    <div class="circle">
+                                        <h2>1000 Coins</h2>
+                                    </div>
+                                    <div class="content">
+                                         <p>Coins can help you unlock more features!(There will be 1000 points.)</p>
+                                        <a href="">BUY</a>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                           
                         </div>
+
                         <div class="profile-review tab profile-box">
 
-                            <div class="profile-info-box">
-                                <h3>About Me:</h3>
-                                <p>{{data.aboutme}}</p>
-                            </div>
+                           <div class="container-history">
+                                <table>
+
+                                  <tr>
+                                      <th>Amount</th>
+                                      <th>Items</th>
+                                      <th>Date</th>
+                                      <th>Balance</th>
+                                  </tr>
+  
+                                  <tr>
+                                      <td>1</td>
+                                      <td>2</td>
+                                      <td>3</td>
+                                      <td>3</td>
+                                  </tr>
+  
+                                </table>
+                           </div>
                             
                         </div>
                         {{!-- <div class="profile-setting tab">

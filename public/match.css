@@ -407,6 +407,19 @@ color: #17c0eb
   position:fixed;
 }
 
+#filter_btn a button{
+  padding: 9px 18px;
+  border:none;
+  outline:none;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
+  cursor: pointer;
+  pointer-events: none;
+  background:#1da1f2;
+}
+
 @media (max-width:1045px){
   .container .box{
     width: calc(50% - 10px);
