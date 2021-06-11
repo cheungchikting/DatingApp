@@ -35,21 +35,18 @@ class Method {
         }
     }
 
-    async GetPoints(user_id) {
-        let data = await knex('points').where('points.user_id', user_id)
+    async GetCoins(user_id) {
+        let data = await knex('coins').where('coins.user_id', user_id)
         if (data[0]) {
             return data[0]
         } else {
-            return []
-        }
-    }
-
-    async GetInventory(user_id) {
-        let data = await knex('inventory').where('inventory.user_id', user_id)
-        if (data[0]) {
-            return data[0]
-        } else {
-            return []
+            await knex.insert({
+                balance: 0,
+                transactions: JSON.stringify([]),
+                user_id: user_id
+            }).into('coins')
+            let data = await knex('coins').where('coins.user_id', user_id)
+            return data
         }
     }
 
@@ -347,7 +344,6 @@ class Method {
         return []
     }
 
-
     async like(user_id, like_id) {
         let data = await knex("matches").where('matches.user_id', user_id)
         let like
@@ -524,20 +520,21 @@ class Method {
 
     //points
 
-    async AddPoint(user_id, addPoints) {
-        let data = await knex('points').where('points.user_id', user_id)
+    async AddCoins(user_id, addPoints) {
+        let data = await knex('coins').where('coins.user_id', user_id)
         if (data[0]) {
             let balance = data[0].balance
             balance += addPoints
             let transactions = data[0].transactions
             transactions.push(addPoints)
+         
             let object = {
                 'balance': balance,
                 'transactions': JSON.stringify(transactions),
             }
-            await knex('points')
+            await knex('coins')
                 .update(object)
-                .where('points.user_id', user_id)
+                .where('coins.user_id', user_id)
         } else {
             let balance = 0
             balance += addPoints

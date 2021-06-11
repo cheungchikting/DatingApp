@@ -23,6 +23,7 @@ body {
 
 .navbar_left {
   display: flex;
+  align-items: center;
 }
 
 .container-fluid {
@@ -359,6 +360,19 @@ select {
 
 .modal-content {
   padding: 3rem;
+}
+
+.navbar_right{
+  display: flex;
+  margin-right: 20px;
+}
+
+#myPoint{
+  margin-right: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 @media(max-width: 689px),
