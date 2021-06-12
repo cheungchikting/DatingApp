@@ -1,11 +1,21 @@
 <link rel="stylesheet" href="/match.css">
-
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+<style>
+  .carousel-item img{
+    height: 180px ;
+    width: 120px;
+    object-fit: fill;
+}
+</style>
      <div class="navbar_container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light top_navbar ">
               <div class="container-fluid">
 
                 <div class="navbar_left">
-
+                  
                   <a class="navbar-brand" >LoveBetter</a>
                   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -21,7 +31,8 @@
                 </div>
               
                         <div class="navbar_right">
-                              <a href="/wallet">
+
+                              <a href="">
                                 <div id="myPoint">
                                 <span style="font-size: 50px;color:rgba(241, 241, 68, 0.884)">
                                   <img src="https://img.icons8.com/nolan/64/coin-wallet.png"/>
@@ -82,11 +93,35 @@
                 <div class="container">
                     {{#each data}}
                     <div class="box">
-                      {{!-- <a href="/profiles/{{id}}">
-                      <div class="image">
-                        <img src="/upload/{{profilepic}}">
+                    
+
+                      <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-indicators">
+                          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                        </div>
+                        <div class="carousel-inner">
+                          <div class="carousel-item active img-fluid">
+                            <img src="/upload/pic_foto1_1.jpg" class="d-block w-100" alt="...">
+                          </div>
+                          <div class="carousel-item img-fluid">
+                            <img src="/upload/pic_foto1_2.jpg" class="d-block w-100" alt="...">
+                          </div>
+                          <div class="carousel-item img-fluid">
+                            <img src="/upload/pic_foto1_3.jpg" class="d-block w-100" alt="...">
+                          </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                          <span class="visually-hidden">Next</span>
+                        </button>
                       </div>
-                      </a> --}}
+
                       <div class="name_job">{{firstname}}, {{age}}</div>
                       <p> {{work}}</p>
                       <div class="btns">
@@ -143,6 +178,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="/likeBtn.js"></script>
+
 <script>
     var remaining_num = 10;
      $('.avatar-group').append(`
