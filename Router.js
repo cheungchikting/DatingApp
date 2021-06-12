@@ -10,6 +10,7 @@ const client = redis.createClient({
 });
 
 let user_id;
+let paymentIntent;
 
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
@@ -67,6 +68,7 @@ class Router {
         router.post('/editprofile', isLoggedIn, this.editProfile.bind(this))
         router.get('/photosetup', isLoggedIn, this.photosetup.bind(this))
         router.post('/photoupload', isLoggedIn, this.photoupload.bind(this))
+        router.get('/check/:id', isLoggedIn, this.checklike.bind(this))
         //filter
         router.get('/filter', isLoggedIn, this.filter.bind(this))
         router.post('/editfilter', isLoggedIn, this.editFilter.bind(this))
@@ -83,7 +85,7 @@ class Router {
         //Coins
         router.get('/wallet', isLoggedIn, this.wallet.bind(this))
         router.post('/create-checkout-session/:amount', isLoggedIn, this.checkoutsession.bind(this))
-        router.get('/success/:amount', isLoggedIn, this.success.bind(this))
+        router.get('/success/:amount', isLoggedIn, this.checkstatus.bind(this))
         router.get('/cancel', isLoggedIn, this.cancel.bind(this))
         // login/Reg
         router.get('/login', this.login.bind(this));
@@ -91,12 +93,8 @@ class Router {
         router.get("/err", this.err.bind(this));
         router.get('/logout', this.logout.bind(this));
 
-        
-        
-
         return router;
     }
-
 
     start(req, res) {
         res.redirect("/login")
@@ -110,6 +108,7 @@ class Router {
 
     async myprofile(req, res) {
         let data = await this.Method.GetProfile(user_id)
+        let photos = await this.Method.GetPhotos(user_id)
         let bday = data.birthday.toISOString().split('T')[0]
         data.birthday = bday
         switch (data.education) {
@@ -130,7 +129,8 @@ class Router {
                 break;
         }
         let object = {
-            'data': data
+            'data': data,
+            'photos': photos
         }
         res.render('myprofile', object)
     }
@@ -178,19 +178,16 @@ class Router {
 
     async photosetup(req, res) {
         let data = await this.Method.GetPhotos(user_id)
-        console.log('data', data)
         let object
-        if(data){
+        if (data) {
             object = {
                 data: data,
             }
         }
-        console.log(object)
         res.render('fotosetup', object)
     }
 
     async photoupload(req, res) {
-        console.log(req)
         let foto1
         let foto2
         let foto3
@@ -209,7 +206,7 @@ class Router {
             await this.Method.writefile(foto1, fotodata1)
         } else {
             let data = await this.Method.GetPhotos(user_id)
-            if(data[0]){
+            if (data[0]) {
                 foto1 = data[0].pc1
             }
             foto1 = null
@@ -220,7 +217,7 @@ class Router {
             await this.Method.writefile(foto2, fotodata2)
         } else {
             let data = await this.Method.GetPhotos(user_id)
-            if(data[0]){
+            if (data[0]) {
                 foto2 = data[0].pc2
             }
             foto2 = null
@@ -231,7 +228,7 @@ class Router {
             await this.Method.writefile(foto3, fotodata3)
         } else {
             let data = await this.Method.GetPhotos(user_id)
-            if(data[0]){
+            if (data[0]) {
                 foto3 = data[0].pc3
             }
             foto3 = null
@@ -242,7 +239,7 @@ class Router {
             await this.Method.writefile(foto4, fotodata4)
         } else {
             let data = await this.Method.GetPhotos(user_id)
-            if(data[0]){
+            if (data[0]) {
                 foto4 = data[0].pc4
             }
             foto4 = null
@@ -253,7 +250,7 @@ class Router {
             await this.Method.writefile(foto5, fotodata5)
         } else {
             let data = await this.Method.GetPhotos(user_id)
-            if(data[0]){
+            if (data[0]) {
                 foto5 = data[0].pc5
             }
             foto5 = null
@@ -264,7 +261,7 @@ class Router {
             await this.Method.writefile(foto6, fotodata6)
         } else {
             let data = await this.Method.GetPhotos(user_id)
-            if(data[0]){
+            if (data[0]) {
                 foto6 = data[0].pc6
             }
             foto6 = null
@@ -272,6 +269,11 @@ class Router {
 
         await this.Method.photoUpload(user_id, foto1, foto2, foto3, foto4, foto5, foto6)
         res.redirect("/filter")
+    }
+
+    async checklike(req, res){
+        let data =  await this.Method.checklike(user_id, req.params.id)
+        res.send(data)
     }
 
     // filter
@@ -300,7 +302,6 @@ class Router {
             'data': data,
             'user': user
         }
-        console.log(object)
         res.render('filter', object)
     }
 
@@ -392,11 +393,7 @@ class Router {
     async like(req, res) {
         let like_id = parseInt(req.params.id)
         let data = await this.Method.like(user_id, like_id)
-        let object = {
-            'user_id': user_id,
-            'checkMatch': data
-        }
-        res.send(JSON.stringify(object))
+        res.end()
     }
 
     async dislike(req, res) {
@@ -435,7 +432,6 @@ class Router {
                 'data': data,
                 'user': user
             }
-            console.log(data)
             res.render('chatlist', object)
         })
     }
@@ -482,32 +478,35 @@ class Router {
     //Coin
 
     async wallet(req, res) {
-        let user = await this.Method.GetProfile(user_id)
         let coin = await this.Method.GetCoins(user_id)
+        let user = await this.Method.GetProfile(user_id)
         let object = {
             'user': user,
             'coin': coin,
         }
-        res.render('wallet', object )
+        res.render('wallet', object)
     }
 
     async checkoutsession(req, res) {
         const session = await paymentsession[req.params.amount]
-        res.json(
-            { id: session.id }
-            );
+        paymentIntent = session.payment_intent
+        res.json(session);
+
     }
 
-    async success(req, res) {
+    async checkstatus(req,res){
         let amount = req.params.amount
-        await this.Method.AddCoins(user_id, parseInt(amount))
-        res.render('success')
+        let result = await paymentsession.checkstatus(paymentIntent)
+        if(result.status === 'succeeded'){
+            await this.Method.AddCoins(user_id, parseInt(amount))
+            res.render('success')
+        }
     }
+
 
     cancel(req, res) {
         res.render('cancel')
     }
-
 
     // login & Reg
 
@@ -528,11 +527,9 @@ class Router {
         res.redirect("/login")
     }
 
+    //test start//
 
-
-//test start//
-
-//test end//
+    //test end//
 }
 
 module.exports = Router;

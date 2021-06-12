@@ -35,21 +35,6 @@ class Method {
         }
     }
 
-    async GetCoins(user_id) {
-        let data = await knex('coins').where('coins.user_id', user_id)
-        if (data[0]) {
-            return data[0]
-        } else {
-            await knex.insert({
-                balance: 0,
-                transactions: JSON.stringify([]),
-                user_id: user_id
-            }).into('coins')
-            let data = await knex('coins').where('coins.user_id', user_id)
-            return data
-        }
-    }
-
     async addProfile(user_id, profilepic, gender, birthday, height, work, education, ethnicity, religion, hometown, location, aboutme) {
         let data = await knex('usersProfile').where('usersProfile.user_id', user_id)
         if (!data[0]) {
@@ -120,6 +105,8 @@ class Method {
             }).into('photos')
         }
     }
+
+
     
     // Filter
 
@@ -382,15 +369,6 @@ class Method {
                 })
                 .where('matches.user_id', user_id)
         }
-        let response = await knex('matches').where('matches.user_id', like_id)
-        if (response[0]) {
-            if (response[0].like[0]) {
-                return response[0].like
-            }
-            return []
-        } else {
-            return []
-        }
     }
 
     async dislike(user_id, dislike_id) {
@@ -444,6 +422,18 @@ class Method {
                 dislike: JSON.stringify(dislike)
             })
             .where('matches.user_id', user_id)
+    }
+
+    async checklike(user_id, target_id){
+        let data = await knex('matches').where('matches.user_id', user_id)
+        console.log(target_id)
+        if(data[0] && data[0].like && data[0].like[0]){
+            if(data[0].like.indexOf(JSON.parse(target_id)) > -1){
+                return true
+            }
+            return false
+        }
+        return false
     }
 
     //chat
@@ -520,14 +510,34 @@ class Method {
 
     //points
 
+    async GetCoins(user_id) {
+        let data = await knex('coins').where('coins.user_id', user_id)
+        if (data[0]) {
+            return data[0]
+        } else {
+            await knex.insert({
+                balance: 0,
+                transactions: JSON.stringify([]),
+                user_id: user_id
+            }).into('coins')
+            let data = await knex('coins').where('coins.user_id', user_id)
+            return data
+        }
+    }
+
     async AddCoins(user_id, addPoints) {
         let data = await knex('coins').where('coins.user_id', user_id)
         if (data[0]) {
             let balance = data[0].balance
             balance += addPoints
             let transactions = data[0].transactions
-            transactions.push(addPoints)
-         
+            let cur_date = new Date();
+            let time = cur_date.toLocaleString()
+            transactions.push({
+                'amount': `+${addPoints.toString()}`,
+                'item': 'New Purchase',
+                'data': time
+            })
             let object = {
                 'balance': balance,
                 'transactions': JSON.stringify(transactions),
@@ -539,8 +549,13 @@ class Method {
             let balance = 0
             balance += addPoints
             let transactions = []
-            transactions.push(addPoints)
-
+            let cur_date = new Date();
+            let time = cur_date.toLocaleString()
+            transactions.push({
+                'amount': addPoints,
+                'item': 'New Purchase',
+                'data': time
+            })
             let object = {
                 'user_id': user_id,
                 'balance': balance,

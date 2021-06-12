@@ -53,10 +53,18 @@ const paymentsession1000 = stripe.checkout.sessions.create({
     mode: 'payment',
     success_url: `http://localhost:8000/success/1000`,
     cancel_url: `http://localhost:8000/cancel`,
+
 })
+
+async function checkstatus (paymentIntent){
+    return await stripe.paymentIntents.retrieve(paymentIntent);
+} 
+
+
 
 module.exports = {
     '100': paymentsession100,
     '300': paymentsession300,
-    '1000': paymentsession1000
+    '1000': paymentsession1000,
+    'checkstatus': checkstatus
 }
