@@ -425,10 +425,10 @@ class Method {
     }
 
     async checklike(user_id, target_id){
-        let data = await knex('matches').where('matches.user_id', user_id)
-        console.log(target_id)
+        let data = await knex('matches').where('matches.user_id', target_id)
+        console.log(user_id)
         if(data[0] && data[0].like && data[0].like[0]){
-            if(data[0].like.indexOf(JSON.parse(target_id)) > -1){
+            if(data[0].like.indexOf(JSON.parse(user_id)) > -1){
                 return true
             }
             return false
