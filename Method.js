@@ -105,6 +105,8 @@ class Method {
             }).into('photos')
         }
     }
+
+
     
     // Filter
 
@@ -367,15 +369,6 @@ class Method {
                 })
                 .where('matches.user_id', user_id)
         }
-        let response = await knex('matches').where('matches.user_id', like_id)
-        if (response[0]) {
-            if (response[0].like[0]) {
-                return response[0].like
-            }
-            return []
-        } else {
-            return []
-        }
     }
 
     async dislike(user_id, dislike_id) {
@@ -429,6 +422,18 @@ class Method {
                 dislike: JSON.stringify(dislike)
             })
             .where('matches.user_id', user_id)
+    }
+
+    async checklike(user_id, target_id){
+        let data = await knex('matches').where('matches.user_id', user_id)
+        console.log(target_id)
+        if(data[0] && data[0].like && data[0].like[0]){
+            if(data[0].like.indexOf(JSON.parse(target_id)) > -1){
+                return true
+            }
+            return false
+        }
+        return false
     }
 
     //chat

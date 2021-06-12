@@ -5,12 +5,24 @@ $(function () {
       e.preventDefault();
       let id = $(this).attr("data-id")
       $.post(`/like/${id}`)
-        .done((data) => {
-          if (JSON.parse(data).checkMatch.indexOf(data.user_id) > -1) {
-            console.log('this is a match!')
-
-          }
-          window.location.href = "/findmatches"
+        .done(() => {
+          $.get(`/check/${id}`)
+            .done((data) => {
+              console.log(data)
+              if (data) {
+                $('.navbar_container').parent().append(
+                  `<div class="wrapper active">
+                  <div class="container-btn match-finish active">
+                  <i class="fas fa-times close"></i>
+                  <p class="text">You have like the person!</p>
+                  <a href="/chatroom" class="btn-match">Chat Now!</a>
+                </div>
+               </div>`)
+              }
+              setTimeout(() => {
+                window.location.href = "/findmatches"
+              }, 5000);
+            })
         })
     })
   }
@@ -20,16 +32,28 @@ $(function () {
       e.preventDefault();
       let id = $(this).attr("data-id")
       $.post(`/like/${id}`)
-        .done((data) => {
-          console.log(JSON.parse(data).checkMatch[0])
-          if (JSON.parse(data).checkMatch.indexOf(data.user_id) > -1) {
-            console.log('this is a match!')
+        .done(() => {
+          $.get(`/check/${id}`)
+            .done((data) => {
+              console.log(data)
+              if (data) {
+                console.log("hit me")
+                $('.navbar_container').parent().append(
+                  `<div class="wrapper-two active">
+                <div class="container-btn match-finish active">
+                <i class="fas fa-times close"></i>
+                <p class="text">You have like the person!</p>
+                <a href="/chatroom" class="btn-match">Chat Now!</a>
+              </div>
+             </div>`)
+              }
+              // $(this).remove()
+              // $('#pass').remove()
+              setTimeout(() => {
+                window.location.href = `/profiles/${id}`
+              }, 5000);
 
-
-
-          }
-          $(this).remove()
-          $('#pass').remove()
+            })
         })
     })
 
