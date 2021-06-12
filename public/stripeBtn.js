@@ -8,19 +8,27 @@ $(function () {
       method: "POST",
     })
     .then(function (response) {
+      console.log(response)
       return response.json();
     })
     .then(function (session) {
+      console.log(session)
       return stripe.redirectToCheckout({ sessionId: session.id });
     })
     .then(function (result) {
       console.log(result)
       if (result.error) {
         alert(result.error.message);
+      } else {
+        if(result.paymentIntent.status === 'succeeded'){
+          
+        }
       }
     })
     .catch(function (error) {
       console.error("Error:", error);
     });
   })
+
+
 })
