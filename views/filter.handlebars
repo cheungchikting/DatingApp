@@ -58,6 +58,7 @@
 
  <div class="container">
     <div class="title">My Filter</div>
+    <div><p class="text-muted">(The filter selected this time will take effect when it is refreshed the next day)</p></div>
     <div class="content">
       <form action="/editfilter" method="POST">
         <div class="user-details">
@@ -163,11 +164,20 @@
         
 
         <div class="button">
-          <input type="submit" value="Update">
+          <input type="submit" value="Update" class="btn-update">
         </div>
       </form>
     </div>
   </div>
+    
+      {{!-- <div class="wrapper">
+
+    <div class="container-btn like-finish">
+      <p class="text">You have like the person!</p>
+      <a href="" class="btn-like">OK</a>
+    </div>
+
+  </div> --}}
 
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -254,3 +264,12 @@ $('#ethnicity').append(`<option value="${ethArr[i]}">${ethArr[i]}</option >`)
 </script> --}}
 
 
+
+{{!-- the popup of like and dislike button --}}
+{{!-- <script>
+  $(".btn-update").click(function(){;
+      $(".like-success").toggleClass("active");
+      $(".wrapper").toggleClass("active");
+  })
+
+</script> --}}

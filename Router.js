@@ -323,17 +323,19 @@ class Router {
     async findMatches(req, res) {
         let data = await this.Method.grabRandomList(user_id)
         let user = await this.Method.GetProfile(user_id)
-
         if (data[0]) {
             for (let each of data) {
+                let photos = await this.Method.GetPhotos(each.id)
                 let age = ageCal(each.birthday)
                 each.age = age
+                each.photos = photos
             }
 
             let object = {
                 'data': data,
                 'user': user
             }
+            console.log(object)
             res.render('findMatches', object)
         } else {
             let object = {
