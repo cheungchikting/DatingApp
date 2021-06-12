@@ -57,7 +57,7 @@
                 <img src="/upload/{{data.profilepic}}" width="200" alt="">
             </div>
 
-            <div class="profile-nav-info">
+            <div class="profile-nav-info" data-id="{{data.id}}" id="getid">
                 <h3 class="user-name">{{data.firstname}}</h3>
                 <div class="address">
                     {{!-- <p class="state">New York,</p> --}}
@@ -221,8 +221,7 @@
             </div>
     </div>
 
-    
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <script src="/likeBtn.js"></script>
 
 {{!-- profile button toggle --}}
@@ -252,12 +251,6 @@ function tabs(panelIndex) {
 }
 tabs(0);
 
-</script>
-
-<script>
-function myFunction() {
-  alert("You have liked this person!!!");
-}
 </script>
 
 <script>
@@ -329,4 +322,17 @@ window.onload = ()=>{
     }
     
 }
+</script>
+
+<script>
+let getid = document.querySelector('#getid')
+let id = getid.getAttribute('data-id')
+$(document).ready(function() {
+       $.get(`/check/${id}`).done((data)=>{
+            if(!data){
+                $("button.chatbtn").css("display","block")
+                $('button.passbtn').css("display","block")
+            }
+        })
+});
 </script>

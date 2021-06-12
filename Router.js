@@ -68,6 +68,7 @@ class Router {
         router.post('/editprofile', isLoggedIn, this.editProfile.bind(this))
         router.get('/photosetup', isLoggedIn, this.photosetup.bind(this))
         router.post('/photoupload', isLoggedIn, this.photoupload.bind(this))
+        router.get('/check/:id', isLoggedIn, this.checklike.bind(this))
         //filter
         router.get('/filter', isLoggedIn, this.filter.bind(this))
         router.post('/editfilter', isLoggedIn, this.editFilter.bind(this))
@@ -107,6 +108,7 @@ class Router {
 
     async myprofile(req, res) {
         let data = await this.Method.GetProfile(user_id)
+        let photos = await this.Method.GetPhotos(user_id)
         let bday = data.birthday.toISOString().split('T')[0]
         data.birthday = bday
         switch (data.education) {
@@ -127,7 +129,8 @@ class Router {
                 break;
         }
         let object = {
-            'data': data
+            'data': data,
+            'photos': photos
         }
         res.render('myprofile', object)
     }
@@ -175,19 +178,16 @@ class Router {
 
     async photosetup(req, res) {
         let data = await this.Method.GetPhotos(user_id)
-        console.log('data', data)
         let object
         if (data) {
             object = {
                 data: data,
             }
         }
-        console.log(object)
         res.render('fotosetup', object)
     }
 
     async photoupload(req, res) {
-        console.log(req)
         let foto1
         let foto2
         let foto3
@@ -271,6 +271,11 @@ class Router {
         res.redirect("/filter")
     }
 
+    async checklike(req, res){
+        let data =  await this.Method.checklike(user_id, req.params.id)
+        res.send(data)
+    }
+
     // filter
 
     async filter(req, res) {
@@ -297,7 +302,6 @@ class Router {
             'data': data,
             'user': user
         }
-        console.log(object)
         res.render('filter', object)
     }
 
@@ -387,11 +391,7 @@ class Router {
     async like(req, res) {
         let like_id = parseInt(req.params.id)
         let data = await this.Method.like(user_id, like_id)
-        let object = {
-            'user_id': user_id,
-            'checkMatch': data
-        }
-        res.send(JSON.stringify(object))
+        res.end()
     }
 
     async dislike(req, res) {
@@ -430,7 +430,6 @@ class Router {
                 'data': data,
                 'user': user
             }
-            console.log(data)
             res.render('chatlist', object)
         })
     }
