@@ -29,7 +29,8 @@ $(function () {
           console.log(JSON.parse(data).checkMatch[0])
           if (JSON.parse(data).checkMatch.indexOf(data.user_id) > -1) {
             console.log('this is a match!')
-
+            
+        
 
 
           }
