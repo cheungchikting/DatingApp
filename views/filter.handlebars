@@ -1,35 +1,26 @@
     <link rel="stylesheet" href="/filter.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
 
-     <div class="navbar_container">
+<div class="navbar_container container-fluid">
             <nav class="navbar navbar-expand-lg navbar-light bg-light top_navbar">
               <div class="container-fluid">
+                  
                    <div class="navbar_left">
-                         <a class="navbar-brand">LoveBetter</a>
+                     <a class="navbar-brand" >LoveBetter</a>
                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                      <span class="navbar-toggler-icon"></span>
                    </button>
                     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                       <div class="navbar-nav">
-                      <a class="nav-link" href="/findmatches"><img src="https://img.icons8.com/nolan/64/small-hearts.png"/>Find Matches</a>
-                      <a class="nav-link" href="/likeme"><img src="https://img.icons8.com/nolan/64/filled-like.png"/>See Who Likes You</a>
-                      <a class="nav-link" href="/chatroom"><img src="https://img.icons8.com/nolan/64/love-message.png"/>Talk to them</a>
-                       </div>
+                       <div class="navbar-nav">    
+                        </div>
                      </div>
                   </div>
               
-                        <div class="navbar_right">
-                         <a href="/wallet">
-                                <div id="myPoint">
-                                <span style="font-size: 50px;color:rgba(241, 241, 68, 0.884)">
-                                  <img src="https://img.icons8.com/nolan/64/coin-wallet.png"/>
-                                </span>
-                              </a>
-                                <span>    
-                                  {{coins.balance}} Coin
-                                </span>
-                                </div>
+                       <div class="navbar_right">
 
+                            
+                        
+                        
 
                               <div class="action">
                                  <div class="profile" onclick="menuToggle();">
@@ -41,6 +32,7 @@
                                      {{!-- <h3>Someone Famous<br><span>Website De</span></h3> --}}
                                      <ul>
                                          <li><img src="https://img.icons8.com/material/64/000000/user-male-circle--v1.png"/><a href="/myprofile">My Profile</a></li>
+                                        <li><img src="https://img.icons8.com/material/64/000000/user-male-circle--v1.png"/><a href="/filter">Filter</a></li>
                                          {{!-- <li><img src="https://img.icons8.com/ios-glyphs/24/000000/edit-property.png"/><a href="#">Edit Profile</a></li> --}}
                                          {{!-- <li><img src="https://img.icons8.com/material/64/000000/coins--v1.png"/><a href="#">Get Coins</a></li> --}}
                                          {{!-- <li><img src="https://img.icons8.com/ios-glyphs/24/000000/gear.png"/><a href="#">Settings</a></li> --}}
@@ -49,8 +41,24 @@
                                      </ul>
                                 </div>
 
-                              </div>
-                        </div>
+                        
+
+                                    <div class="menu">
+                                      <h3>{{user.firstname}}</h3>
+                                        {{!-- <h3>Someone Famous<br><span>Website De</span></h3> --}}
+                                        <ul>
+                                            <li><img src="https://img.icons8.com/ios-glyphs/24/000000/test-account.png"/><a href="/myprofile">My Profile</a></li>
+                                            {{!-- <li><img src="https://img.icons8.com/ios-glyphs/24/000000/edit-property.png"/><a href="#">Edit Profile</a></li> --}}
+                                            <li><img src="https://img.icons8.com/ios-glyphs/24/000000/inbox.png"/><a href="#">Inbox</a></li>
+                                            {{!-- <li><img src="https://img.icons8.com/ios-glyphs/24/000000/gear.png"/><a href="#">Settings</a></li> --}}
+                                            {{!-- <li><img src="https://img.icons8.com/ios-glyphs/24/000000/help.png"/><a href="#">Help</a></li> --}}
+                                            <li><img src="https://img.icons8.com/ios-glyphs/24/000000/exit.png"/><a href="/logout">Log Out</a></li>
+                                        </ul>
+                                    </div>
+
+                            </div>
+                </div>
+  
               </div>
             </nav>
       </div>
@@ -58,7 +66,6 @@
 
  <div class="container">
     <div class="title">My Filter</div>
-    <div><p class="text-muted">(The filter selected this time will take effect when it is refreshed the next day)</p></div>
     <div class="content">
       <form action="/editfilter" method="POST">
         <div class="user-details">
@@ -164,7 +171,7 @@
         
 
         <div class="button">
-          <input type="submit" value="Update" class="btn-update">
+          <input type="submit" value="submit" class="btn-update">
         </div>
       </form>
     </div>

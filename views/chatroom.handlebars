@@ -177,3 +177,33 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/chatroom.js" type="text/javascript"></script>
+
+    {{!-- profile button toggle --}}
+ <script>
+        function menuToggle(){
+            const toggleMenu = document.querySelector(".menu");
+            toggleMenu.classList.toggle("active")
+        }
+</script>
+
+    {{!-- right-side nav change effect --}}
+<script>
+    $('.nav ul li').click(function(){
+    $(this).addClass("active").siblings().removeClass('active')
+})
+const tabBtn = document.querySelectorAll(".nav ul li");
+const tab = document.querySelectorAll(".tab");
+function tabs(panelIndex) {
+    tab.forEach(function(node){
+        node.style.display = "none";
+    })
+    tab [panelIndex].style.display = "block";
+}
+tabs(0);
+</script>
+
+<script>
+    $('.conversation').click(function(){
+    $(this).addClass("active").siblings().removeClass('active')
+})
+</script> 

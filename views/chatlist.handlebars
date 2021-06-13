@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="/chatlist.css">
 
-  <div class="navbar_container">
+ <div class="navbar_container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light top_navbar">
               <div class="container-fluid">
 
@@ -27,8 +27,11 @@
                       </div>
                      </div>
                   </div>
-                        <div class="navbar_right">
-                            <div id="myPoint">
+              
+                <div class="navbar_right">
+
+                             
+                                <div id="myPoint">
                                 <a href="/wallet">
                                 <span style="font-size: 50px;color:rgba(241, 241, 68, 0.884)">
                                   {{!-- <img src="https://img.icons8.com/nolan/64/coin-wallet.png"/> --}}
@@ -39,10 +42,14 @@
                                    </svg>
                                 </span>
                                 </a>
-                                 <span class="coin">    
-                                  {{coin.balance}} Coin
-                                </span>
-                                 </div>
+                                   <span>    
+                                  {{coin.balance}} coin
+                                  </span>
+                                </div>
+                             
+                        
+                        
+
                               <div class="action">
                                  <div class="profile" onclick="menuToggle();">
                                      <img src="/upload/{{user.profilepic}}">

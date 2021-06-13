@@ -1,8 +1,5 @@
-    <link rel="stylesheet" href="/wallet.css">
+    <link rel="stylesheet" href="/filter.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-
-
 
 <div class="navbar_container container-fluid">
             <nav class="navbar navbar-expand-lg navbar-light bg-light top_navbar">
@@ -102,122 +99,191 @@
       </div>
 
 
-{{!-- profile file part --}}
-<div class="container-allPart">
+ <div class="container">
+    <div class="title">My Filter</div>
+    <div><p class="text-muted">(The filter selected this time will take effect when it is refreshed the next day)</p></div>
+    <div class="content">
+      <form action="/editfilter" method="POST">
+        <div class="user-details">
+          <div class="input-box">
+            <label for="gender">Gender</label>
+              <select name="preferredGender" id="gender" required>
+                {{#if data.preferredGender}}
+                <option value="{{data.preferredGender}}" selected>{{data.preferredGender}}</option >
+                {{else}}
+              <option value="" class="select">-Select-</option>
+                {{/if}}
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+          </div>
+          <div class="input-box row">
+              <div clas="col-12">
+                <label for="age" id="label_age">Age</label>
+              </div>
 
+              <select name="min_age" id="min_age" required>
+              {{#if data.min_age}}
+              <option value="{{data.min_age}}" selected>{{data.min_age}}</option >
+              {{else}}
+           <option value="" class="select">From</option>
+              {{/if}}
+              </select>
 
-            <div class="main-bd">
-                <div class="left-side">
-                    <div class="profile-side">
-                        <div class="wallet-div">
-                            <img src="https://img.icons8.com/cotton/128/000000/coin-wallet--v1.png"/>
-                        </div>
+              <select name="max_age" id="max_age" required>
+              {{#if data.max_age}}
+              <option value="{{data.max_age}}" selected>{{data.max_age}}</option >
+              {{else}}
+              <option value="" class="select">To</option>
+              {{/if}}
+              </select>
+          </div>
 
+          <div class="input-box row">
+              <div clas="col-12">
+                <label for="height">Height</label>
+              </div>
 
+              <select name="min_height" id="min_height" required>
+              {{#if data.min_height}}
+              <option value="{{data.min_height}}" selected>{{data.min_height}}</option>
+              {{else}}
+              <option value="" class="select">Form</option>
+              {{/if}}
+              </select>
 
-                        <div>
-                            <h2>Total Balance</h2>
-                        </div>
+              <select name="max_height" id="max_height" required>
+              {{#if data.max_height}}
+              <option value="{{data.max_height}}" selected>{{data.max_height}}</option>
+              {{else}}
+              <option value="" class="select">To</option>
+              {{/if}}
+              </select>
+          </div> 
+            
 
-                        <div>
-                               <span>
-                                 <h2>{{coin.balance}}</h2>
-                                </span>
-                        </div>
-                             
-
-
-                    </div>
-                </div>
-
-                <div class="right-side">
-                    <div class="nav">
-                        <ul>
-                            <li class="user-foto active" onclick="tabs(0)">Shop</li>
-                            <li class="user-profile" onclick="tabs(1)">History</li>
-                            {{!-- <li class="user-Comment" onclick="tabs(2)">Comment</li> --}}
-                        </ul>
-                    </div>
-                    <div class="profile-body">
-                        <div class="profile-posts tab profile-box">
-
-                            <div class="container-shopbox">
-
-                                <div class="card">
-                                    <div class="circle">
-                                        <h2>100 Coins</h2>
-                                    </div>
-                                    <div class="content">
-                                        <h2>HK$100</h2>
-                                        <h4>Get 100 coins to browse more matches!</h4>
-                                        <a href="" class="checkout" data-amount="100">BUY</a>
-                                    </div>
-                                </div>
-
-                                <div class="card">
-                                    <div class="circle">
-                                        <h2>300 Coins</h2>
-                                    </div>
-                                    <div class="content">
-                                        <h2>HK$270</h2>
-                                        <h4>Get 300 coins to see who likes you!</h4>
-                                        <a href="" class="checkout" data-amount="300">BUY</a>
-                                    </div>
-                                </div>
-
-                                <div class="card">
-                                    <div class="circle">
-                                        <h2>1000 Coins</h2>
-                                    </div>
-                                    <div class="content">
-                                        <h2>HK$800</h2>
-                                        <h4>BUY MORE!</h4>
-                                        <h4>SAVE MORE!</h4>
-                                        <a href="" class="checkout" data-amount="1000">BUY</a>
-                                    </div>
-                                </div>
-                                
-                            </div>
-                           
-                        </div>
-
-                        <div class="profile-review tab profile-box">
-
-                           <div class="container-history">
-                                <table>
-
-                                  <tr>
-                                      <th>Amount</th>
-                                      <th>Items</th>
-                                      <th>Date</th>
-                                  </tr>
-                                {{#each coin.transactions}}
-                                  <tr>
-                                      <td>{{amount}}</td>
-                                      <td>{{item}}</td>
-                                      <td>{{data}}</td>
-
-                                  </tr>
-                                {{/each}}
-                                </table>
-                           </div>
-                            
-                        </div>
-                        {{!-- <div class="profile-setting tab">
-                            <h1>Account Setting</h1>
-                            <p>Bye</p>
-                        </div> --}}
-                    </div>
-                </div>
-
+            <div class="input-box">
+              <label for="education">Education</label>
+              <select name="preferredEducation" id="education" required>
+              {{#if data.preferredEducation}}
+              <option value="{{data.preferredEducation}}" selected>{{data.preferredEducationName}}</option>
+              {{else}}
+              <option value="" class="select">-Select-</option>
+              {{/if}}
+              </select>
             </div>
+
+
+            <!-- <div class="input-box">
+              <label for="ethnicity">Ethnicity</label>
+              <select name="ethnicity" id="ethnicity">
+                <option value="ethnicity">-Select-</option>
+              </select>
+            </div> -->
+
+            <div class="input-box">
+              <label for="ethnicity">Ethnicity</label>
+              <select name="preferredEthnicity" id="ethnicity" required>
+                {{#if data.preferredEthnicity}}
+                <option value="{{data.preferredEthnicity}}" selected>{{data.preferredEthnicity}}</option>
+                {{else}}
+                <option value="" class="select">-Select-</option>
+                {{/if}}
+              </select>
+            </div>
+
+            <div class="input-box">
+              <span class="details" >Distance</span>
+              <select name="distance" id="distance" required>
+                {{#if data.distance}}
+                <option value="{{data.distance}}" selected>{{data.distance}}</option>
+                {{else}}
+                <option value="" class="select">-Select-</option>
+                {{/if}}
+              </select>           
+             </div>
+             
+          </div>
+        
+
+        <div class="button">
+          <input type="submit" value="Update" class="btn-update">
+        </div>
+      </form>
+    </div>
+  </div>
+    
+      {{!-- <div class="wrapper">
+
+    <div class="container-btn like-finish">
+      <p class="text">You have like the person!</p>
+      <a href="" class="btn-like">OK</a>
     </div>
 
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://js.stripe.com/v3/"></script>
-<script src="/stripeBtn.js"></script>
+  </div> --}}
 
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+  
+// $('#age').append([...Array(100).keys()].map((i,j) => `<option value="${i}">${i}</option >`)) 
+  for(let i =18;i<100;i++){
+    $('#min_age').append(`<option value="${i}">${i}</option >`)
+  }
+
+  for(let i =18;i<100;i++){
+    $('#max_age').append(`<option value="${i}">${i}</option >`)
+  }
+
+  for(let i =122;i<250;i++){
+    $('#min_height').append(`<option value="${i}">${i}</option >`)
+  }
+
+  for(let i =122;i<250;i++){
+    $('#max_height').append(`<option value="${i}">${i}</option >`)
+  }
+
+  eduArr = ['Secondary','Associate','Bachelor','Master','Doctor'];
+  for(let i = 0;i<eduArr.length;i++){
+    $('#education').append(`<option value="${i+1}">${eduArr[i]}</option >`)
+  }
+
+ethArr = ['Asian','Arab','Black/Agrican-descent','Hispanic/Latino','Native American','Pacific Islander','South Asian','White/Caucasian','Other'];
+for(let i = 0;i<ethArr.length;i++){
+$('#ethnicity').append(`<option value="${ethArr[i]}">${ethArr[i]}</option >`)
+}
+
+//  relArr = ['Buddhist','Christian','Catholic','Hindu','Jewish','Muslim','Sikh','Shinto','Spiritual but not religious','Neither religious nor spiritual','Other'];
+//  for(let i = 0;i<relArr.length;i++){
+//    $('#religion').append(`<option value="${relArr[i]}">${relArr[i]}</option >`)
+//  }
+
+  for(let i = 1;i<300;i++){
+    $('#distance').append(`<option value="${i}">${i}</option >`)
+  }
+
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+{{!-- get location --}}
+<script>
+  const successCallback = (position) => {
+    let coords = {
+      latitude:position.coords.latitude,
+      longitude:position.coords.longitude
+      }
+    document.getElementById('location').value = JSON.stringify(coords)
+  }
+
+  const errorCallback = (error) => {
+    console.error(error);
+  }
+
+  const watchId = navigator.geolocation.getCurrentPosition(successCallback,errorCallback)
+</script>
 
 {{!-- profile button toggle --}}
  <script>
@@ -228,23 +294,38 @@
 </script>
 
 
-{{!-- right-side nav change effect --}}
-<script>
-    $('.nav ul li').click(function(){
+{{!-- test pre set value --}}
+{{!-- <script>
+      $('#gender').append(`<option value="Female" selected>Female</option >`)
+      $('#min_age').append(`<option value="18" selected>18</option >`)
+      $('#max_age').append(`<option value="99" selected>99</option >`)
+      $('#min_height').append(`<option value="120" selected>120</option >`)
+      $('#max_height').append(`<option value="200" selected>200</option >`)
+      $('#education').append(`<option value="2" selected>Bachelor</option >`)
+      $('#ethnicity').append(`<option value="Asian" selected>Asian</option >`)
+      $('#distance').append(`<option value="100" selected>100</option >`)
+</script> --}}
 
-    $(this).addClass("active").siblings().removeClass('active')
-})
 
-const tabBtn = document.querySelectorAll(".nav ul li");
-const tab = document.querySelectorAll(".tab");
 
-function tabs(panelIndex) {
-    tab.forEach(function(node){
-        node.style.display = "none";
-    })
-    tab [panelIndex].style.display = "block";
-}
-tabs(0);
+{{!-- the popup of like and dislike button --}}
+{{!-- <script>
+  $(".btn-update").click(function(){;
+      $(".like-success").toggleClass("active");
+      $(".wrapper").toggleClass("active");
+  })
 
-</script>
+</script> --}}
 
+{{!-- <script>
+
+      $('#gender').append(`<option value="Female" selected>Female</option >`)
+      $('#min_age').append(`<option value="18" selected>18</option >`)
+      $('#max_age').append(`<option value="99" selected>99</option >`)
+      $('#min_height').append(`<option value="120" selected>120</option >`)
+      $('#max_height').append(`<option value="200" selected>200</option >`)
+      $('#education').append(`<option value="2" selected>Bachelor</option >`)
+      $('#ethnicity').append(`<option value="Asian" selected>Asian</option >`)
+      $('#distance').append(`<option value="100" selected>100</option >`)
+
+</script> --}}

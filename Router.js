@@ -508,9 +508,11 @@ class Router {
                     'data': data,
                     'msg': parseMsg,
                 }
+              
                 res.render('chatroom', object)
             })
         })
+        
     }
 
     unlike(req, res) {
