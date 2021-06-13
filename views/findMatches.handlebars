@@ -31,7 +31,7 @@
               
                 <div class="navbar_right">
 
-                             
+                         
                                 <div id="myPoint">
                                 <a href="/wallet">
                                 <span style="font-size: 50px;color:rgba(241, 241, 68, 0.884)">
@@ -43,11 +43,12 @@
                                    </svg>
                                 </span>
                                 </a>
-                                   <span>    
-                                  {{coin.balance}} coin
-                                  </span>
-                                </div>
-                             
+                                 <span class="coin">    
+                                  {{coin.balance}} Coin
+                                </span>
+                                 </div>
+                         
+                               
                         
                         
 
@@ -103,7 +104,7 @@
                 <div class="container">
                     {{#each data}}
                     <div class="box">
-                    
+                      <a href="/profiles/{{id}}">
                       <div id="carouselExampleIndicators{{id}}" class="carousel slide" data-bs-interval="false">
                         <div class="carousel-indicators">
                             {{#if photos.pc1}}
@@ -168,7 +169,7 @@
                           <span class="visually-hidden">Next</span>
                         </button>
                       </div>
-
+                      </a>
                       <div class="name_job">{{firstname}}, {{age}}</div>
                       <p> {{work}}</p>
                       <div class="btns">

@@ -18,10 +18,12 @@ $(function () {
                   <a href="/chatroom" class="btn-match">Chat Now!</a>
                 </div>
                </div>`)
-              }
-              setTimeout(() => {
+               setTimeout(() => {
                 window.location.href = "/findmatches"
-              }, 5000);
+              }, 3000);
+              } else {
+                window.location.href = "/findmatches"
+              }
             })
         })
     })
@@ -46,12 +48,15 @@ $(function () {
                 <a href="/chatroom" class="btn-match">Chat Now!</a>
               </div>
              </div>`)
+                setTimeout(() => {
+                  window.location.href = `/profiles/${id}`
+                }, 3000);
+              } else {
+                  window.location.href = `/profiles/${id}`
               }
               // $(this).remove()
               // $('#pass').remove()
-              setTimeout(() => {
-                window.location.href = `/profiles/${id}`
-              }, 5000);
+
 
             })
         })

@@ -183,6 +183,7 @@ class Method {
     async random(user_id) {
         let randomList = []
         let data = await knex.select('*').from('filter').innerJoin('usersProfile', 'usersProfile.user_id', 'filter.user_id').where('filter.user_id', user_id)
+        console.log(data)
         let reqMinyear = new Date().getFullYear() - data[0].max_age
         let reqMaxyear = new Date().getFullYear() - data[0].min_age
         let data2 = await knex.select('*')
@@ -425,10 +426,9 @@ class Method {
     }
 
     async checklike(user_id, target_id){
-        let data = await knex('matches').where('matches.user_id', user_id)
-        console.log(target_id)
+        let data = await knex('matches').where('matches.user_id', target_id)
         if(data[0] && data[0].like && data[0].like[0]){
-            if(data[0].like.indexOf(JSON.parse(target_id)) > -1){
+            if(data[0].like.indexOf(JSON.parse(user_id)) > -1){
                 return true
             }
             return false
@@ -494,7 +494,7 @@ class Method {
         return result
     }
 
-    async unlike(user_id, unlike_id) {
+    async unlike(user_id, unlike_id, roomId) {
         let data = await knex("matches")
             .where('matches.user_id', user_id)
 
@@ -506,6 +506,8 @@ class Method {
                 like: JSON.stringify(like)
             })
             .where('matches.user_id', user_id)
+
+        await knex('chatroom').where('id', roomId).del()
     }
 
     //points

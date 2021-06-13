@@ -1,0 +1,77 @@
+
+    <link rel="stylesheet" href="/signup.css">
+
+    <div class="navbar_container">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light top_navbar">
+  <div class="container-fluid">
+    <a class="navbar-brand" >LoveBetter</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+         <a class="nav-link" href="/login">Log In</a>
+      </div>
+    </div>
+  </div>
+</nav>
+    </div>
+
+
+  <div class="container web_container">
+    <div class="title">Registration</div>
+    <div class="content">
+      <form action="/signup" method="POST">
+        <div class="user-details">
+          <div class="input-box">
+            <span class="details">First name</span>
+            <input type="text" placeholder="Enter your first name" id="name" name="firstname" required>
+          </div>
+          <div class="input-box">
+            <span class="details">Last Name</span>
+            <input type="text" placeholder="Enter your last name" name="lastname" required>
+          </div>
+          <div class="input-box">
+            <span class="details">Password</span>
+            <input type="password" placeholder="Enter your password" id="password" name="password" required>
+          </div>
+          <div class="input-box">
+            <span class="details">Confirm Password</span>
+            <input type="password" placeholder="Confirm your password" id="confirm_password" required>
+          </div>
+          <div class="input-box">
+            <span class="details">Email</span>
+            <input type="email" placeholder="Enter your email" id="email" name="username" required>
+          </div>
+          <div class="input-box">
+            <span class="details">Phone Number</span>
+            <input type="text" placeholder="Enter your number" id="phone" name="phone" required>
+          </div>
+
+        </div>
+            <span>The email account has been used, please use another email, or</span>
+            <a href="/login"> login here.</a>
+            <div class="button">
+               <input id="reg" type="submit" value="Next" >
+            </div>
+  
+              <!-- then need to redirect to profile.html -->
+      </form>
+    </div>
+  </div>
+  <script>
+    let password = document.getElementById("password")
+    let confirm_password = document.getElementById("confirm_password");
+
+    function validatePassword(){
+      if(password.value != confirm_password.value) {
+        confirm_password.setCustomValidity("Passwords Don't Match");
+      } else {
+        confirm_password.setCustomValidity('');
+      }
+    }
+
+    password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
+  </script>
+

@@ -23,7 +23,7 @@
        <div class="title">Setup your profile</div>
        <div class="profile-pic-div">
         <img scr="#" id="photo">
-        <input type="file" id="picFile" name="upload" accept="image/*" form="myform" required="true"/>
+        <input type="file" id="picFile" name="upload" accept="image/*" form="myform" required/>
         <label for="picFile" id="uploadBtn">
           {{!-- <img src="https://img.icons8.com/material-outlined/28/000000/camera--v2.png"/> --}}
          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
@@ -36,12 +36,13 @@
    
 
     <div class="content">
+
  <form action="/setup" method="POST" id="myform" enctype="multipart/form-data">
         <div class="user-details">
           <div class="input-box">
             <label for="gender">Gender</label>
-              <select name="gender" id="gender">
-                <option value="gender">-Select-</option>
+              <select name="gender" id="gender" required>
+                <option value="" class="select">-Select-</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
               </select>
@@ -57,34 +58,34 @@
                   <p id="now_age"></p>
                 </div>
             </div>
-              <input type="date" id="start" name="birthday" max="" value="2000-01-01">
+              <input type="date" id="start" name="birthday" max="" required>
           </div>
 
             <div class="input-box">
               <label for="height">Height</label>
-              <select name="height" id="height">
-                <option value="height">-Select-</option>
+              <select name="height" id="height" required>
+              <option value="" class="select">-Select-</option>
               </select>
             </div>
 
             <div class="input-box">
               <label for="education">Education</label>
-              <select name="education" id="education">
-                <option value="education">-Select-</option>
+              <select name="education" id="education" required>
+              <option value="" class="select">-Select-</option>
               </select>
             </div>
 
             <div class="input-box">
               <label for="ethnicity">Ethnicity</label>
-              <select name="ethnicity" id="ethnicity">
-                <option value="ethnicity">-Select-</option>
+              <select name="ethnicity" id="ethnicity" required>
+            <option value="" class="select">-Select-</option>
               </select>
             </div>
 
             <div class="input-box">
               <label for="religion">Religion</label>
-              <select name="religion" id="religion">
-                <option value="religion">-Select-</option>
+              <select name="religion" id="religion" required>
+           <option value="" class="select">-Select-</option>
               </select>
             </div>
 
@@ -131,7 +132,7 @@ document.getElementById('start').max = new Date(new Date().getTime() - new Date(
 
   eduArr = ['Secondary','Associate','Bachelor','Master','Doctor'];
   for(let i = 0;i<eduArr.length;i++){
-    $('#education').append(`<option value="${i}">${eduArr[i]}</option >`)
+    $('#education').append(`<option value="${i+1}">${eduArr[i]}</option >`)
   }
 
   ethArr = ['Asian','Arab','Black/Agrican-descent','Hispanic/Latino','Native American','Pacific Islander','South Asian','White/Caucasian','Other'];
@@ -239,28 +240,15 @@ if(today_month > birth_date_month){
 
 
 {{!-- test pre set value --}}
-<script>
+{{!-- <script>
       $('#gender').append(`<option value="Male" selected>Male</option >`)
-      $('#height').append(`<option value="180" selected>181</option >`)
+      $('#height').append(`<option value="181" selected>181</option >`)
       $('#education').append(`<option value="2" selected>Bachelor</option >`)
       $('#ethnicity').append(`<option value="Asian" selected>Asian</option >`)
       $('#religion').append(`<option value="Other" selected>Other</option >`)
       $('#input_work input[type=text]').val(`Web Developer`)
       $('#input_hometown input[type=text]').val(`Hong Kong`)
       $('#input_aboutme textarea').val(`Welcome to our DatingApp!`)
-</script>
+</script> --}}
 
 {{!-- if haven't uploaded the profile photo,will alert --}}
-<script>
-$(document).ready(function() {
-    $('#submit').bind("click",function() 
-    { 
-        var imgVal = $('#picFile').val(); 
-        if(imgVal == '') 
-        { 
-            alert("empty input file"); 
-            return false; 
-        } 
-    }); 
-});
-</script>
