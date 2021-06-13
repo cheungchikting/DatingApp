@@ -25,7 +25,7 @@ const job = schedule.scheduleJob('1 * * * *', async function () {
                     return geolib.getDistance(data[0].location, x.location) / 1000 < data[0].distance
                 })
 
-                let data4 = await knex('matches').where('matches.user_id', user_id)
+                let data4 = await knex('matches').where('matches.user_id', id.id)
                 let seen
                 if (data4[0]) {
                     if (!data4[0].like) {

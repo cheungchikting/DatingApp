@@ -15,7 +15,7 @@
                      <span class="navbar-toggler-icon"></span>
                    </button>
                     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                       <div class="navbar-nav">
+                      <div class="navbar-nav">
                         <a class="nav-link" href="/findmatches">
                          <span style="font-size: 30px;color:#8e44ad;">
                              <i class="fas fa-search"></i>
@@ -35,7 +35,7 @@
                         </span>
                         Talk to them
                         </a>         
-                        </div>
+                      </div>
                      </div>
                   </div>
               
@@ -54,7 +54,7 @@
                                 </span>
                                 </a>
                                    <span>    
-                                   {{coin.balance}} coin
+                                   {{coins.balance}} coin
                                   </span>
                                 </div>
                              
@@ -151,8 +151,8 @@
       <div class="gallery">
 
         <div class="profile-pic-div image" style="display:flex;">
-        {{#if data.pc1}}       
-        <img src="/upload/{{data.pc1}}" id="photo1" alt=" " onerror="this.style.display='none'"/>
+        {{#if photos.pc1}}       
+        <img src="/upload/{{photos.pc1}}" id="photo1" alt=" " onerror="this.style.display='none'"/>
         {{else}}
          <span style="font-size:88px;justify-content:center;align-items:center;">
                   <img style="position:absolute;" id="photo1"><i class="far fa-image" ></i></img>
@@ -168,8 +168,8 @@
         </div>
         
              <div class="profile-pic-div image" style="display:flex;">
-        {{#if data.pc2}}       
-        <img src="/upload/{{data.pc2}}" id="photo2" alt=" " onerror="this.style.display='none'"/>
+        {{#if photos.pc2}}       
+        <img src="/upload/{{photos.pc2}}" id="photo2" alt=" " onerror="this.style.display='none'"/>
         {{else}}
         <span style="font-size:88px;justify-content:center;align-items:center;">
         
@@ -186,8 +186,8 @@
         </div>
 
              <div class="profile-pic-div image" style="display:flex;">
-        {{#if data.pc3}}       
-        <img src="/upload/{{data.pc3}}" id="photo3" alt=" " onerror="this.style.display='none'"/>
+        {{#if photos.pc3}}       
+        <img src="/upload/{{photos.pc3}}" id="photo3" alt=" " onerror="this.style.display='none'"/>
         {{else}}
          <span style="font-size:88px;justify-content:center;align-items:center;">
                   <img style="position:absolute;" id="photo3"><i class="far fa-image" ></i></img>
@@ -203,8 +203,8 @@
         </div>
 
              <div class="profile-pic-div image" style="display:flex;">
-        {{#if data.pc4}}       
-        <img src="/upload/{{data.pc4}}" id="photo4" alt=" " onerror="this.style.display='none'"/>
+        {{#if photos.pc4}}       
+        <img src="/upload/{{photos.pc4}}" id="photo4" alt=" " onerror="this.style.display='none'"/>
         {{else}}
          <span style="font-size:88px;justify-content:center;align-items:center;">
                   <img style="position:absolute;" id="photo4"><i class="far fa-image" ></i></img>
@@ -220,8 +220,8 @@
         </div>
 
              <div class="profile-pic-div image" style="display:flex;">
-        {{#if data.pc5}}       
-        <img src="/upload/{{data.pc5}}" id="photo5" alt=" " onerror="this.style.display='none'"/>
+        {{#if photos.pc5}}       
+        <img src="/upload/{{photos.pc5}}" id="photo5" alt=" " onerror="this.style.display='none'"/>
         {{else}}
          <span style="font-size:88px;justify-content:center;align-items:center;">
                   <img style="position:absolute;" id="photo5"><i class="far fa-image" ></i></img>
@@ -237,8 +237,8 @@
         </div>
 
              <div class="profile-pic-div image" style="display:flex;">
-        {{#if data.pc6}}       
-        <img src="/upload/{{data.pc6}}" id="photo6" alt=" " onerror="this.style.display='none'"/>
+        {{#if photos.pc6}}       
+        <img src="/upload/{{photos.pc6}}" id="photo6" alt=" " onerror="this.style.display='none'"/>
         {{else}}
          <span style="font-size:88px;justify-content:center;align-items:center;">
                   <img style="position:absolute;" id="photo6"><i class="far fa-image" ></i></img>

@@ -14,7 +14,7 @@ $(function () {
                   `<div class="wrapper active">
                   <div class="container-btn match-finish active">
                   <i class="fas fa-times close"></i>
-                  <p class="text">You have like the person!</p>
+                  <p class="text">You guys like each other!</p>
                   <a href="/chatroom" class="btn-match">Chat Now!</a>
                 </div>
                </div>`)
@@ -44,7 +44,7 @@ $(function () {
                   `<div class="wrapper-two active">
                 <div class="container-btn match-finish active">
                 <i class="fas fa-times close"></i>
-                <p class="text">You have like the person!</p>
+                <p class="text">You guys like each other!</p>
                 <a href="/chatroom" class="btn-match">Chat Now!</a>
               </div>
              </div>`)
@@ -62,6 +62,17 @@ $(function () {
         })
     })
 
+  }
+
+  if ($(".dislikeBtn")) {
+    $(".dislikeBtn").on("click", function (e) {
+      e.preventDefault();
+      let id = $(this).attr("data-id")
+      $.post(`/dislike/${id}`)
+        .done(() => {
+          window.location.href = "/findmatches"
+        })
+    })
   }
 
 })
