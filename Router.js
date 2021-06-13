@@ -22,7 +22,7 @@ function isLoggedIn(req, res, next) {
 async function hasToken(req, res, next) {
     let data = await knex('token').where('token.user_id', user_id)
     console.log(data)
-    if(data[0]){
+    if (data[0]) {
         if (data[0].likeme === true) {
             return next()
         }
@@ -74,7 +74,6 @@ class Router {
         //filter
         router.get('/filter', isLoggedIn, this.filter.bind(this))
         router.post('/editfilter', isLoggedIn, this.editFilter.bind(this))
-        // router.get('/filtererr', isLoggedIn, this.filtererr.bind(this))
         //browse
         router.get('/findmatches', isLoggedIn, this.findMatches.bind(this));
         router.get('/likeme', isLoggedIn, hasToken, this.likeMe.bind(this))
@@ -209,70 +208,80 @@ class Router {
         let fotodata4
         let fotodata5
         let fotodata6
-        if (req.files.upload1) {
-            foto1 = `${new Date().getTime().toString()}${req.files.upload1.name}`
-            fotodata1 = req.files.upload1.data
-            await this.Method.writefile(foto1, fotodata1)
-        } else {
-            let data = await this.Method.GetPhotos(user_id)
-            if (data[0]) {
-                foto1 = data[0].pc1
+        if (req.files) {
+            if (req.files.upload1) {
+                foto1 = `${new Date().getTime().toString()}${req.files.upload1.name}`
+                fotodata1 = req.files.upload1.data
+                await this.Method.writefile(foto1, fotodata1)
+            } else {
+                let data = await this.Method.GetPhotos(user_id)
+                if (data[0]) {
+                    foto1 = data[0].pc1
+                }
+                foto1 = null
             }
+            if (req.files.upload2) {
+                foto2 = `${new Date().getTime().toString()}${req.files.upload2.name}`
+                fotodata2 = req.files.upload2.data
+                await this.Method.writefile(foto2, fotodata2)
+            } else {
+                let data = await this.Method.GetPhotos(user_id)
+                if (data[0]) {
+                    foto2 = data[0].pc2
+                }
+                foto2 = null
+            }
+            if (req.files.upload3) {
+                foto3 = `${new Date().getTime().toString()}${req.files.upload3.name}`
+                fotodata3 = req.files.upload3.data
+                await this.Method.writefile(foto3, fotodata3)
+            } else {
+                let data = await this.Method.GetPhotos(user_id)
+                if (data[0]) {
+                    foto3 = data[0].pc3
+                }
+                foto3 = null
+            }
+            if (req.files.upload4) {
+                foto4 = `${new Date().getTime().toString()}${req.files.upload4.name}`
+                fotodata4 = req.files.upload4.data
+                await this.Method.writefile(foto4, fotodata4)
+            } else {
+                let data = await this.Method.GetPhotos(user_id)
+                if (data[0]) {
+                    foto4 = data[0].pc4
+                }
+                foto4 = null
+            }
+            if (req.files.upload5) {
+                foto5 = `${new Date().getTime().toString()}${req.files.upload5.name}`
+                fotodata5 = req.files.upload5.data
+                await this.Method.writefile(foto5, fotodata5)
+            } else {
+                let data = await this.Method.GetPhotos(user_id)
+                if (data[0]) {
+                    foto5 = data[0].pc5
+                }
+                foto5 = null
+            }
+            if (req.files.upload6) {
+                foto6 = `${new Date().getTime().toString()}${req.files.upload6.name}`
+                fotodata6 = req.files.upload6.data
+                await this.Method.writefile(foto6, fotodata6)
+            } else {
+                let data = await this.Method.GetPhotos(user_id)
+                if (data[0]) {
+                    foto6 = data[0].pc6
+                }
+                foto6 = null
+            }
+
+        } else {
             foto1 = null
-        }
-        if (req.files.upload2) {
-            foto2 = `${new Date().getTime().toString()}${req.files.upload2.name}`
-            fotodata2 = req.files.upload2.data
-            await this.Method.writefile(foto2, fotodata2)
-        } else {
-            let data = await this.Method.GetPhotos(user_id)
-            if (data[0]) {
-                foto2 = data[0].pc2
-            }
             foto2 = null
-        }
-        if (req.files.upload3) {
-            foto3 = `${new Date().getTime().toString()}${req.files.upload3.name}`
-            fotodata3 = req.files.upload3.data
-            await this.Method.writefile(foto3, fotodata3)
-        } else {
-            let data = await this.Method.GetPhotos(user_id)
-            if (data[0]) {
-                foto3 = data[0].pc3
-            }
             foto3 = null
-        }
-        if (req.files.upload4) {
-            foto4 = `${new Date().getTime().toString()}${req.files.upload4.name}`
-            fotodata4 = req.files.upload4.data
-            await this.Method.writefile(foto4, fotodata4)
-        } else {
-            let data = await this.Method.GetPhotos(user_id)
-            if (data[0]) {
-                foto4 = data[0].pc4
-            }
             foto4 = null
-        }
-        if (req.files.upload5) {
-            foto5 = `${new Date().getTime().toString()}${req.files.upload5.name}`
-            fotodata5 = req.files.upload5.data
-            await this.Method.writefile(foto5, fotodata5)
-        } else {
-            let data = await this.Method.GetPhotos(user_id)
-            if (data[0]) {
-                foto5 = data[0].pc5
-            }
             foto5 = null
-        }
-        if (req.files.upload6) {
-            foto6 = `${new Date().getTime().toString()}${req.files.upload6.name}`
-            fotodata6 = req.files.upload6.data
-            await this.Method.writefile(foto6, fotodata6)
-        } else {
-            let data = await this.Method.GetPhotos(user_id)
-            if (data[0]) {
-                foto6 = data[0].pc6
-            }
             foto6 = null
         }
 
@@ -326,33 +335,6 @@ class Router {
         await this.Method.editFilter(user_id, preferredGender, min_age, max_age, min_height, max_height, distance, preferredEthnicity, preferredEducation)
         res.redirect('/findmatches')
     }
-
-    // async filtererr(req, res) {
-    //     let data = await this.Method.myFilter(user_id)
-    //     let user = await this.Method.GetProfile(user_id)
-    //     switch (data.preferredEducation) {
-    //         case 1:
-    //             data.preferredEducationName = "Secondary";
-    //             break;
-    //         case 2:
-    //             data.preferredEducationName = "Associate";
-    //             break;
-    //         case 3:
-    //             data.preferredEducationName = "Bachelor";
-    //             break;
-    //         case 4:
-    //             data.preferredEducationName = "Master";
-    //             break;
-    //         case 5:
-    //             data.preferredEducationName = "Doctor";
-    //             break;
-    //     }
-    //     let object = {
-    //         'data': data,
-    //         'user': user
-    //     }
-    //     res.render('filterErr', object)
-    // }
 
     // browse potential matches    
 
@@ -420,12 +402,12 @@ class Router {
         res.render('profiles', object)
     }
 
-    async viewMore(req,res){
-        let amount  = req.params.amount
+    async viewMore(req, res) {
+        let amount = req.params.amount
         let data = await this.Method.viewMore(user_id, amount)
-        if (data){
-           await this.Method.refresh(user_id)
-           res.redirect('/findmatches')
+        if (data) {
+            await this.Method.refresh(user_id)
+            res.redirect('/findmatches')
 
         } else {
             res.redirect('/wallet')
@@ -459,7 +441,7 @@ class Router {
         }
     }
 
-    async likeMeToken(req, res){
+    async likeMeToken(req, res) {
         let user = await this.Method.GetProfile(user_id)
         let coins = await this.Method.GetCoins(user_id)
         let object = {
@@ -469,10 +451,10 @@ class Router {
         res.render('likeMeToken', object)
     }
 
-    async getToken(req, res){
+    async getToken(req, res) {
         let amount = req.params.amount
         let result = await this.Method.getToken(user_id, amount)
-        if (result){
+        if (result) {
             res.redirect('/likeme')
         } else {
             res.redirect('/wallet')
@@ -502,7 +484,7 @@ class Router {
     async chatroom(req, res) {
         let data = await this.Method.createRoom(user_id)
         let user = await this.Method.GetProfile(user_id)
-        let coin = await this.Method.GetCoins(user_id)
+        let coins = await this.Method.GetCoins(user_id)
         let promiseArray = []
         for (let i = 0; i < data.length; i++) {
             promiseArray[i] = new Promise((resolve, reject) => {
@@ -521,13 +503,14 @@ class Router {
             let object = {
                 'data': data,
                 'user': user,
-                'coin': coin
+                'coins': coins
             }
             res.render('chatlist', object)
         })
     }
 
     async chat(req, res) {
+        let user = await this.Method.GetProfile(user_id)
         let list = await this.Method.createRoom(user_id)
         let data = await this.Method.GetChatInfo(req.params.id, user_id)
         let promiseArray = []
@@ -553,20 +536,21 @@ class Router {
                     'roomid': req.params.id,
                     'data': data,
                     'msg': parseMsg,
+                    'user': user
                 }
-              
+
                 res.render('chatroom', object)
             })
         })
-        
+
     }
 
     async unlike(req, res) {
         let unlike_id = req.params.id;
         let roomid = req.params.roomid;
-        await this.Method.unlike(user_id, unlike_id, roomid).then(() => {
-            res.redirect("/chatroom")
-        })
+        await this.Method.unlike(user_id, unlike_id, roomid)
+        res.redirect("/chatroom")
+    
     }
 
     //Coin

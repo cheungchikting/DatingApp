@@ -515,11 +515,13 @@ class Method {
             .where('matches.user_id', user_id)
 
         let like = data[0].like
-        like.splice(like.indexOf(unlike_id), 1)
-
+        let newLike = like.filter((x)=>{
+            return x != unlike_id
+        })
+    
         await knex('matches')
             .update({
-                like: JSON.stringify(like)
+                like: JSON.stringify(newLike)
             })
             .where('matches.user_id', user_id)
 
