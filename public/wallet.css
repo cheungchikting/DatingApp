@@ -29,6 +29,25 @@ body{
   .container-fluid{
     justify-content: space-between;
   }
+
+
+  .navbar_right{
+    display: flex;
+    margin-right: 20px;
+  }
+  
+  #myPoint{
+    margin-right: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #myPoint a:first-child{
+    margin:auto;
+    padding:auto;
+  }
   
   .action{
     /* position: fixed; */

@@ -15,6 +15,7 @@ html,body{
   place-items: center;
   background: #8e44ad;
   width: 100%;
+  overflow: scroll;
 }
 
 /* profile and menu */
