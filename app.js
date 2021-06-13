@@ -84,7 +84,7 @@ app.get("/auth/facebook/callback", passport.authenticate("facebook", {
         if (data[0] && data1[0]) {
             res.redirect('/findmatches');
         } else {
-            res.redirect('/filter');
+            res.redirect('/profilesetup');
         }
 
     }

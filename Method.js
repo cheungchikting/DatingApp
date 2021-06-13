@@ -183,6 +183,7 @@ class Method {
     async random(user_id) {
         let randomList = []
         let data = await knex.select('*').from('filter').innerJoin('usersProfile', 'usersProfile.user_id', 'filter.user_id').where('filter.user_id', user_id)
+        console.log(data)
         let reqMinyear = new Date().getFullYear() - data[0].max_age
         let reqMaxyear = new Date().getFullYear() - data[0].min_age
         let data2 = await knex.select('*')

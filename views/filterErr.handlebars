@@ -58,6 +58,7 @@
 
  <div class="container">
     <div class="title">My Filter</div>
+    <div><h3>Please fill up all filters.</h3></div>
     <div><p class="text-muted">(The filter selected this time will take effect when it is refreshed the next day)</p></div>
     <div class="content">
       <form action="/editfilter" method="POST">
@@ -68,7 +69,7 @@
                 {{#if data.preferredGender}}
                 <option value="{{data.preferredGender}}" selected>{{data.preferredGender}}</option >
                 {{else}}
-              <option value="" class="select">-Select-</option>
+                <option value="gender">-Select-</option>
                 {{/if}}
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
@@ -83,7 +84,7 @@
               {{#if data.min_age}}
               <option value="{{data.min_age}}" selected>{{data.min_age}}</option >
               {{else}}
-           <option value="" class="select">From</option>
+              <option value="min_age">From</option>
               {{/if}}
               </select>
 
@@ -91,7 +92,7 @@
               {{#if data.max_age}}
               <option value="{{data.max_age}}" selected>{{data.max_age}}</option >
               {{else}}
-              <option value="" class="select">To</option>
+              <option value="max_age">To</option>
               {{/if}}
               </select>
           </div>
@@ -105,7 +106,7 @@
               {{#if data.min_height}}
               <option value="{{data.min_height}}" selected>{{data.min_height}}</option>
               {{else}}
-              <option value="" class="select">Form</option>
+              <option value="min_height">From</option>
               {{/if}}
               </select>
 
@@ -113,7 +114,7 @@
               {{#if data.max_height}}
               <option value="{{data.max_height}}" selected>{{data.max_height}}</option>
               {{else}}
-              <option value="" class="select">To</option>
+              <option value="max_height">To</option>
               {{/if}}
               </select>
           </div> 
@@ -125,7 +126,7 @@
               {{#if data.preferredEducation}}
               <option value="{{data.preferredEducation}}" selected>{{data.preferredEducationName}}</option>
               {{else}}
-              <option value="" class="select">-Select-</option>
+              <option value="education">-Select-</option>
               {{/if}}
               </select>
             </div>
@@ -144,7 +145,7 @@
                 {{#if data.preferredEthnicity}}
                 <option value="{{data.preferredEthnicity}}" selected>{{data.preferredEthnicity}}</option>
                 {{else}}
-                <option value="" class="select">-Select-</option>
+                <option value="religion">-Select-</option>
                 {{/if}}
               </select>
             </div>
@@ -155,7 +156,7 @@
                 {{#if data.distance}}
                 <option value="{{data.distance}}" selected>{{data.distance}}</option>
                 {{else}}
-                <option value="" class="select">-Select-</option>
+                <option value="distance">-Select-</option>
                 {{/if}}
               </select>           
              </div>
@@ -274,15 +275,6 @@ $('#ethnicity').append(`<option value="${ethArr[i]}">${ethArr[i]}</option >`)
 
 </script> --}}
 
-{{!-- <script>
+<script>
 
-      $('#gender').append(`<option value="Female" selected>Female</option >`)
-      $('#min_age').append(`<option value="18" selected>18</option >`)
-      $('#max_age').append(`<option value="99" selected>99</option >`)
-      $('#min_height').append(`<option value="120" selected>120</option >`)
-      $('#max_height').append(`<option value="200" selected>200</option >`)
-      $('#education').append(`<option value="2" selected>Bachelor</option >`)
-      $('#ethnicity').append(`<option value="Asian" selected>Asian</option >`)
-      $('#distance').append(`<option value="100" selected>100</option >`)
-
-</script> --}}
+</script>
