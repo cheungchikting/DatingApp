@@ -52,6 +52,19 @@ function ageCal(birthday) {
     return calculated_age;
 }
 
+// async function hasFilter(req, res, next) {
+//     let data = await knex('filter').where('filter.user_id', user_id)
+//     if (!data[0]) {
+//         res.redirect("/filtererr");
+//     } else if (!data[0].preferredGender || !data[0].min_age || !data[0].max_age || !data[0].min_height || !data[0].max_height || !data[0].distance || !data[0].preferredEthnicity || !data[0].preferredEducation) {
+//         res.redirect("/filtererr");
+//     } else if (data[0].preferredGender == '-Select-' || data[0].min_age == 'From' || data[0].max_age == 'To' || data[0].min_height == 'From' || data[0].max_height == 'To' || data[0].distance == '-Select-' || data[0].preferredEthnicity == '-Select-' || data[0].preferredEducation == '-Select-') {
+//         res.redirect("/filtererr");
+//     } else {
+//         return next()
+//     }
+// }
+
 
 class Router {
     constructor(Method) {
@@ -72,6 +85,7 @@ class Router {
         //filter
         router.get('/filter', isLoggedIn, this.filter.bind(this))
         router.post('/editfilter', isLoggedIn, this.editFilter.bind(this))
+        router.get('/filtererr', isLoggedIn, this.filtererr.bind(this))
         //browse
         router.get('/findmatches', isLoggedIn, this.findMatches.bind(this));
         router.get('/likeme', isPaid, this.likeMe.bind(this))
@@ -80,7 +94,7 @@ class Router {
         router.get('/profiles/:id', isLoggedIn, this.profiles.bind(this))
         //chatlist
         router.get('/chatroom', isLoggedIn, this.chatroom.bind(this))
-        router.post('/unlike/:id', isLoggedIn, this.unlike.bind(this))
+        router.get('/unlike/:id/:roomid', isLoggedIn, this.unlike.bind(this))
         router.get('/chatroom/:id', isLoggedIn, this.chat.bind(this));
         //Coins
         router.get('/wallet', isLoggedIn, this.wallet.bind(this))
@@ -89,8 +103,9 @@ class Router {
         router.get('/cancel', isLoggedIn, this.cancel.bind(this))
         // login/Reg
         router.get('/login', this.login.bind(this));
+        router.get("/loginfail", this.loginfail.bind(this));
         router.get('/signup', this.signup.bind(this))
-        router.get("/err", this.err.bind(this));
+        router.get("/signupfail", this.signupfail.bind(this));
         router.get('/logout', this.logout.bind(this));
 
         return router;
@@ -271,8 +286,8 @@ class Router {
         res.redirect("/filter")
     }
 
-    async checklike(req, res){
-        let data =  await this.Method.checklike(user_id, req.params.id)
+    async checklike(req, res) {
+        let data = await this.Method.checklike(user_id, req.params.id)
         res.send(data)
     }
 
@@ -318,11 +333,39 @@ class Router {
         res.redirect('/findmatches')
     }
 
+    async filtererr(req, res) {
+        let data = await this.Method.myFilter(user_id)
+        let user = await this.Method.GetProfile(user_id)
+        switch (data.preferredEducation) {
+            case 1:
+                data.preferredEducationName = "Secondary";
+                break;
+            case 2:
+                data.preferredEducationName = "Associate";
+                break;
+            case 3:
+                data.preferredEducationName = "Bachelor";
+                break;
+            case 4:
+                data.preferredEducationName = "Master";
+                break;
+            case 5:
+                data.preferredEducationName = "Doctor";
+                break;
+        }
+        let object = {
+            'data': data,
+            'user': user
+        }
+        res.render('filterErr', object)
+    }
+
     // browse potential matches    
 
     async findMatches(req, res) {
         let data = await this.Method.grabRandomList(user_id)
         let user = await this.Method.GetProfile(user_id)
+        let coin = await this.Method.GetCoins(user_id)
         if (data[0]) {
             for (let each of data) {
                 let photos = await this.Method.GetPhotos(each.id)
@@ -333,9 +376,9 @@ class Router {
 
             let object = {
                 'data': data,
-                'user': user
+                'user': user,
+                'coin': coin
             }
-            console.log(object)
             res.render('findMatches', object)
         } else {
             let object = {
@@ -413,6 +456,7 @@ class Router {
     async chatroom(req, res) {
         let data = await this.Method.createRoom(user_id)
         let user = await this.Method.GetProfile(user_id)
+        let coin = await this.Method.GetCoins(user_id)
         let promiseArray = []
         for (let i = 0; i < data.length; i++) {
             promiseArray[i] = new Promise((resolve, reject) => {
@@ -430,7 +474,8 @@ class Router {
         Promise.all(promiseArray).then(() => {
             let object = {
                 'data': data,
-                'user': user
+                'user': user,
+                'coin': coin
             }
             res.render('chatlist', object)
         })
@@ -470,8 +515,9 @@ class Router {
 
     unlike(req, res) {
         let unlike_id = req.params.id;
-        this.Method.unlike(user_id, unlike_id).then(() => {
-            res.redirect("/chat")
+        let roomid = req.params.roomid;
+        this.Method.unlike(user_id, unlike_id, roomid).then(() => {
+            res.redirect("/chatroom")
         })
     }
 
@@ -494,10 +540,10 @@ class Router {
 
     }
 
-    async checkstatus(req,res){
+    async checkstatus(req, res) {
         let amount = req.params.amount
         let result = await paymentsession.checkstatus(paymentIntent)
-        if(result.status === 'succeeded'){
+        if (result.status === 'succeeded') {
             await this.Method.AddCoins(user_id, parseInt(amount))
             res.render('success')
         }
@@ -514,12 +560,16 @@ class Router {
         res.render("login");
     }
 
+    loginfail(req, res) {
+        res.render("loginfail");
+    }
+
     signup(req, res) {
         res.render("signup");
     }
 
-    err(req, res) {
-        res.render("err");
+    signupfail(req, res) {
+        res.render("signupfail");
     }
 
     logout(req, res) {
