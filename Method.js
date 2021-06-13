@@ -286,23 +286,29 @@ class Method {
             let result = data2.filter((x) => {
                 return geolib.getDistance(data[0].location, x.location) / 1000 < data[0].distance
             })
-            if (result[0]) {
-                for (let each of result) {
-                    let data3 = await knex('matches').where('matches.user_id', user_id)
-                    if (data3[0]) {
-                        if (data3[0].like && data3[0].dislike) {
-                            let seen = [...data3[0].like, ...data3[0].dislike]
-                            for (let x of seen) {
-                                if (each.id == x) {
-                                    let index = result.indexOf(each)
-                                    result.splice(index, 1)
-                                }
-                            }
-                        }
-                    }
+
+            let data4 = await knex('matches').where('matches.user_id', user_id)
+            let seen
+            if (data4[0]) {
+                if (!data4[0].like) {
+                    data4[0].like = []
                 }
-                if (result[0]) {
-                    for (let each of result) {
+                if (!data4[0].dislike) {
+                    data4[0].dislike = []
+                }
+                seen = [...data4[0].like, ...data4[0].dislike]
+            } else {
+                seen = []
+            }
+
+            if (result[0]) {
+
+                let filterList = result.filter((x) => {
+                    return !seen.includes(x.id)
+                })
+
+                if (filterList[0]) {
+                    for (let each of filterList) {
                         let data4 = await knex('matches').where('matches.user_id', each.id)
                         if (data4[0].like) {
                             if (data4[0].like.indexOf(user_id) > -1) {
@@ -490,7 +496,6 @@ class Method {
         return []
     }
 
-
     async GetChatInfo(roomId, user_id) {
         let data = await knex('chatroom').where('id', roomId)
         let targetId = data[0].matchedPair.split(',').filter((x) => {
@@ -608,6 +613,46 @@ class Method {
         }
     }
 
+    async getToken(user_id, amount) {
+        let data = await knex('coins').where('coins.user_id', user_id)
+        if (data[0]) {
+            if (data[0].balance >= amount) {
+                let balance = data[0].balance
+                balance -= parseInt(amount)
+                let transactions = data[0].transactions
+                let cur_date = new Date();
+                let time = cur_date.toLocaleString()
+                transactions.push({
+                    'amount': `-${amount.toString()}`,
+                    'item': 'View who liked me',
+                    'data': time
+                })
+                let object = {
+                    'balance': balance,
+                    'transactions': JSON.stringify(transactions),
+                }
+                await knex('coins')
+                    .update(object)
+                    .where('coins.user_id', user_id)
+                let token = await knex('token').where('token.user_id', user_id)
+                if (token[0]) {
+                    await knex('token').update({
+                        'likeme': true
+                    }).where('token.user_id', user_id)
+                } else {
+                    await knex.insert({
+                        'likeme': true,
+                        'user_id': user_id
+                    }).into('token')
+                }
+                return true
+            } else {
+                return false
+            }
+        } else {
+            return false
+        }
+    }
 }
 
 module.exports = Method;
