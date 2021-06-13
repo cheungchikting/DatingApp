@@ -142,16 +142,20 @@ body{
   }
   /* end of profile and menu button */
 
+.container-allPart{
+  justify-content: center;
+}
 
 .profile-header {
     background:#fff;
-    width:100%;
+    width:90%;
+    margin-left:5%;
+    margin-right:5%;
     display:flex;
     height:190px;
     margin-top:20px;
     position:relative;
     box-shadow: 0px 3px 4px rgba(0,0,0,0.2);
-    max-width:1400px;
 }
 .profile-img {
     float:left;
@@ -343,8 +347,9 @@ button.passbtn i {
 }
 
 .right-side{
-    width:100%;
-    max-width: 1100px;
+  width:90%;
+  margin-left:5%;
+  margin-right:5%;
 }
 
 .nav ul{
@@ -542,7 +547,7 @@ button.passbtn i {
       transition: all 0.3s ease;
     }
     .gallery .image:hover img{
-      transform: scale(1.1);
+      transform: scale(1);
     }
     .preview-box{
       position: fixed;
@@ -643,7 +648,134 @@ button.passbtn i {
       display: none;
       background: rgba(0,0,0,0.45);
     }
-    @media(max-width: 1000px){
+
+    .profile-pic-div{
+      height: 240px;
+      width: 360px;
+      position: relative;
+      /* top:50%; */
+      /* left:50%; */
+      /* transform:translate(-50%,-50%); */
+      border-radius: 0%;
+      overflow:hidden;
+      border: 1px solid grey;
+      /* border-style: none; */
+    }
+    
+    #photo1,#photo2,#photo3,#photo4,#photo5,#photo6{
+      height:100%;
+      width:100%;
+    }
+    
+    #picFile1,#picFile2,#picFile3,#picFile4,#picFile5,#picFile6{
+       display:none;
+    }
+    
+    #uploadBtn1,#uploadBtn2,#uploadBtn3,#uploadBtn4,#uploadBtn5,#uploadBtn6{
+       height:50px;
+       width:360px;
+       position:absolute;
+       bottom:0;
+       left:50%;
+       transform:translateX(-50%);
+       text-align: center;
+       background: rgba(128, 128, 128, 0.8);
+       color:wheat;
+       line-height: 30px;
+       font-family: sans-serif;
+       font-size:15px;
+       cursor:pointer;
+       display:none;
+    }
+    
+    #uploadBtn1 img,#uploadBtn2 img,#uploadBtn3 img,#uploadBtn4 img,#uploadBtn5 img,#uploadBtn6 img{
+      object-fit: contain;
+      color: #fff;
+    }
+    .wrapper{
+      max-width: 1100px;
+    }
+    .gallery{
+      display: flex;
+      flex-wrap: wrap;
+      column-count: 3;
+      column-gap: calc(80px/3);
+      padding-left:100px;
+    }
+    .gallery .image{
+      width: 240px;
+      height: 360px;
+      margin: 15px 0 0 0;
+      padding: 0px;
+      /* width: calc(100% / 3); */
+    }
+    .gallery .image span{
+      display: flex;
+      width: 100%;
+      overflow: hidden;
+    }
+    .gallery .image img{
+      object-fit: cover;
+      vertical-align: middle;
+      transition: all 0.5s ease-in-out;
+      border: 1px solid grey;
+    }
+    .gallery .image:hover img{
+      transform: scale(1)
+    }
+
+    .image-box img{
+      width: 100%;
+      border-radius: 0 0 3px 3px;
+    }
+    
+    .shadow{
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      z-index: 2;
+      display: none;
+      background: rgba(0,0,0,0.45);
+    }
+    
+    @media(max-width: 800px){
+      .container{
+        width: 700px
+      }
+      .gallery{
+        display: flex;
+        flex-wrap: wrap;
+        column-count: 2;
+        column-gap: 10px;
+      }
+      .gallery .image{
+        width: 240px;
+        height: 360px;
+        margin: 10px auto;
+        padding: 0px;
+        /* width: calc(100% / 3); */
+      }
+    }
+    @media(max-width: 510px){
+      .container{
+        width: 320px
+      }
+      .gallery{
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .gallery .image{
+        width: 240px;
+        height: 360px;
+        margin: 10px auto;
+        padding: 0px;
+        /* w
+    }
+  
+    /* uploaded button end */
+    /* @media(max-width: 1000px){ */
       /* .gallery .image{
         width: calc(100% / 3);
       } */
@@ -654,3 +786,30 @@ button.passbtn i {
         padding: 4px;
       }
     }
+  }
+
+
+.myButton {
+	box-shadow:inset 0px 1px 0px 0px #dcecfb;
+	background:linear-gradient(to bottom, #bddbfa 5%, #80b5ea 100%);
+	background-color:#bddbfa;
+	border-radius:6px;
+	border:1px solid #84bbf3;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #528ecc;
+}
+.myButton:hover {
+	background:linear-gradient(to bottom, #80b5ea 5%, #bddbfa 100%);
+	background-color:#80b5ea;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}

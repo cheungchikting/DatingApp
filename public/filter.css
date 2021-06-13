@@ -28,6 +28,7 @@ body{
   
   .container-fluid{
     justify-content: space-between;
+    padding:0;
   }
   
   .action{
@@ -239,11 +240,14 @@ form .input-box span.details{
  }
  form .button{
    height: 45px;
-   margin: 35px 0
+   margin: 35px 0;
+   display: flex;
+   justify-content: center;
  }
+
  form .button input{
    height: 100%;
-   width: 100%;
+   width: 50%;
    border-radius: 5px;
    border: none;
    color: #fff;
