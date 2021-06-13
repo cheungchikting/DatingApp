@@ -101,6 +101,7 @@ class Router {
         router.post('/create-checkout-session/:amount', isLoggedIn, this.checkoutsession.bind(this))
         router.get('/success/:amount', isLoggedIn, this.checkstatus.bind(this))
         router.get('/cancel', isLoggedIn, this.cancel.bind(this))
+        router.get('/viewmore/:amount', isLoggedIn, this.viewMore.bind(this))
         // login/Reg
         router.get('/login', this.login.bind(this));
         router.get("/loginfail", this.loginfail.bind(this));
@@ -382,7 +383,8 @@ class Router {
             res.render('findMatches', object)
         } else {
             let object = {
-                'user': user
+                'user': user,
+                'coin': coin
             }
             res.render('noResult', object)
         }
@@ -546,6 +548,18 @@ class Router {
         if (result.status === 'succeeded') {
             await this.Method.AddCoins(user_id, parseInt(amount))
             res.render('success')
+        }
+    }
+
+    async viewMore(req,res){
+        let amount  = req.params.amount
+        let data = await this.Method.viewMore(user_id, amount)
+        if (data){
+           await this.Method.refresh(user_id)
+           res.redirect('/findmatches')
+
+        } else {
+            res.redirect('/wallet')
         }
     }
 
