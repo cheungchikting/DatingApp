@@ -290,6 +290,7 @@ body{
 .right-side{
     width:100%;
     max-width: 1100px;
+    height: auto;
 }
 
 .nav ul{

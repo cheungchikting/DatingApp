@@ -426,7 +426,6 @@ class Method {
 
     async checklike(user_id, target_id){
         let data = await knex('matches').where('matches.user_id', target_id)
-        console.log(user_id)
         if(data[0] && data[0].like && data[0].like[0]){
             if(data[0].like.indexOf(JSON.parse(user_id)) > -1){
                 return true
@@ -494,7 +493,7 @@ class Method {
         return result
     }
 
-    async unlike(user_id, unlike_id) {
+    async unlike(user_id, unlike_id, roomId) {
         let data = await knex("matches")
             .where('matches.user_id', user_id)
 
@@ -506,6 +505,8 @@ class Method {
                 like: JSON.stringify(like)
             })
             .where('matches.user_id', user_id)
+
+        await knex('chatroom').where('id', roomId).del()
     }
 
     //points
