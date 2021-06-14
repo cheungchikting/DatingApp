@@ -305,6 +305,7 @@ class Router {
     async filter(req, res) {
         let data = await this.Method.myFilter(user_id)
         let user = await this.Method.GetProfile(user_id)
+        let coins = await this.Method.GetCoins(user_id)
         switch (data.preferredEducation) {
             case 1:
                 data.preferredEducationName = "Secondary";
@@ -324,7 +325,8 @@ class Router {
         }
         let object = {
             'data': data,
-            'user': user
+            'user': user,
+            'coins': coins
         }
         res.render('filter', object)
     }

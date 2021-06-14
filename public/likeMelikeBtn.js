@@ -20,7 +20,7 @@ $(function () {
                </div>`)
                setTimeout(() => {
                 window.location.href = "/likeme"
-              }, 3000);
+              }, 2000);
               } else {
                 window.location.href = "/likeme"
               }
