@@ -453,6 +453,17 @@ class Method {
         return false
     }
 
+    async iflike(user_id, target_id) {
+        let data = await knex('matches').where('matches.user_id', user_id)
+        if (data[0] && data[0].like && data[0].like[0]) {
+            if (data[0].like.indexOf(JSON.parse(target_id)) > -1) {
+                return true
+            }
+            return false
+        }
+        return false
+    }
+
     //chat
 
     async createRoom(user_id) {
