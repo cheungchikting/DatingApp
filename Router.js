@@ -21,7 +21,6 @@ function isLoggedIn(req, res, next) {
 
 async function hasToken(req, res, next) {
     let data = await knex('token').where('token.user_id', user_id)
-    console.log(data)
     if (data[0]) {
         if (data[0].likeme === true) {
             return next()
@@ -440,7 +439,7 @@ class Router {
                 'user': user,
                 'coins': coins
             }
-            res.render('noResult', object)
+            res.render('likeme', object)
         }
     }
 
