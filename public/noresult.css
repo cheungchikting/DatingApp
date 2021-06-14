@@ -220,7 +220,8 @@ background: linear-gradient(to top, #fff1eb 0%, #ace0f9 100%);
 
 .button{
   height: 45px;
-  margin: 35px 0
+  margin: 35px 0;
+  width: 15rem;
 }
 
 

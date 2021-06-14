@@ -177,12 +177,12 @@
                                 <i class="far fa-heart" ></i>
                                 Like
                             </button>
-                            <a href="/dislike/{{data.id}}">
-                            <button class="passbtn" id="pass">
+          
+                            <button class="passbtn" id="pass" data-id="{{data.id}}">
                                 <i class="fas fa-times"></i>
                                 Pass
                             </button>
-                            </a>
+                     
                         </div>
 
                         {{!-- <div class="user-rating">
@@ -384,7 +384,7 @@ window.onload = ()=>{
 let getid = document.querySelector('#getid')
 let id = getid.getAttribute('data-id')
 $(document).ready(function() {
-       $.get(`/check/${id}`).done((data)=>{
+       $.get(`/iflike/${id}`).done((data)=>{
             if(!data){
                 $("button.chatbtn").css("display","block")
                 $('button.passbtn').css("display","block")

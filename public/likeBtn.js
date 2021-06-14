@@ -19,7 +19,7 @@ $(function () {
                </div>`)
                setTimeout(() => {
                 window.location.href = "/findmatches"
-              }, 3000);
+              }, 2000);
               } else {
                 window.location.href = "/findmatches"
               }
@@ -48,7 +48,7 @@ $(function () {
              </div>`)
                 setTimeout(() => {
                   window.location.href = `/profiles/${id}`
-                }, 3000);
+                }, 2000);
               } else {
                   window.location.href = `/profiles/${id}`
               }
@@ -64,6 +64,17 @@ $(function () {
 
   if ($(".dislikeBtn")) {
     $(".dislikeBtn").on("click", function (e) {
+      e.preventDefault();
+      let id = $(this).attr("data-id")
+      $.post(`/dislike/${id}`)
+        .done(() => {
+          window.location.href = "/findmatches"
+        })
+    })
+  }
+
+  if ($(".passbtn")) {
+    $(".passbtn").on("click", function (e) {
       e.preventDefault();
       let id = $(this).attr("data-id")
       $.post(`/dislike/${id}`)
