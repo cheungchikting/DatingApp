@@ -140,7 +140,21 @@ body{
   }
   /* end of profile and menu button */
 
+.profile-side{
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 auto 0 0;
+}
 
+.profile-nav-info .address{
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  font-weight: 700;
+  margin: 0 auto 0 0;
+}
 .profile-header {
     background:#fff;
     width:100%;
