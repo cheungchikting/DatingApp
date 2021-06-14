@@ -365,6 +365,7 @@ class Router {
         } else {
             let object = {
                 'user': user,
+
                 'coins': coins
             }
             res.render('noResult', object)

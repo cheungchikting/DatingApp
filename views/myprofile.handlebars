@@ -230,11 +230,11 @@
       </div>
     </div>
       
-        <div class="content" style="display: flex;justify-content:center;padding:20px;">
+        <div class="content" style="display: flex;justify-content:center;">
     <form action="/photoupload" method="POST" id="myform1" enctype="multipart/form-data">
 
         <div class="button" >
-          <input type="submit" value="Change" style="padding: 20px 200px;">
+          <input type="submit" value="Change">
         </div>
       </form>
     </div>
@@ -357,9 +357,9 @@
               <input type="text" name="location" id="location" style="display: none"required >
             </div>
 
-            <div class="input-box" id="input_aboutme">
+            <div class="input-box" id="input_aboutme" style="width:100%">
               <label for="aboutme">About Me</label>
-              <textarea id="aboutme" name="aboutme" rows="5" cols="78"  required>{{data.aboutme}}</textarea>
+              <textarea id="aboutme" name="aboutme"  style="width:100%" required>{{data.aboutme}}</textarea>
             </div>
           </div>
 

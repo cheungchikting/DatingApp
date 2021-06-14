@@ -394,8 +394,11 @@ button.passbtn i {
     padding: 0;
     margin:0;
     background-color: #fff;
-    min-height:800px;
+    min-height:100%;
+    display: flex;
+    justify-content: center;
 }
+
 
 .profile-info-box{
   padding:50px;
@@ -510,21 +513,23 @@ button.passbtn i {
       color: #fff;
       background: #007bff;
     }
-    /* body{
-      padding: 10px;
+
+    .profile-posts{
       display: flex;
-      align-items: center;
       justify-content: center;
-      min-height: 100vh;
-    } */
+    }
+
     .wrapper{
-      max-width: 1100px;
+      display: flex;
+      justify-content: center;
+      /* max-width: 1100px; */
     }
     .gallery{
       display: flex;
       flex-wrap: wrap;
       /* justify-content: center; */
       /* justify-content: flex-start; */
+      max-width: 1000px;
     }
     .gallery .image{
       /* padding: 7px; */
@@ -660,7 +665,7 @@ button.passbtn i {
       border: 1px solid grey;
       /* border-style: none; */
     }
-    
+
     #photo1,#photo2,#photo3,#photo4,#photo5,#photo6{
       height:100%;
       width:100%;
@@ -668,6 +673,7 @@ button.passbtn i {
     
     #picFile1,#picFile2,#picFile3,#picFile4,#picFile5,#picFile6{
        display:none;
+       z-index: 999;
     }
     
     #uploadBtn1,#uploadBtn2,#uploadBtn3,#uploadBtn4,#uploadBtn5,#uploadBtn6{
@@ -684,7 +690,7 @@ button.passbtn i {
        font-family: sans-serif;
        font-size:15px;
        cursor:pointer;
-       display:none;
+       /* display:none; */
     }
     
     #uploadBtn1 img,#uploadBtn2 img,#uploadBtn3 img,#uploadBtn4 img,#uploadBtn5 img,#uploadBtn6 img{
@@ -692,14 +698,14 @@ button.passbtn i {
       color: #fff;
     }
     .wrapper{
-      max-width: 1100px;
+      /* max-width: 1100px; */
     }
     .gallery{
       display: flex;
       flex-wrap: wrap;
       column-count: 3;
       column-gap: calc(80px/3);
-      padding-left:100px;
+      /* padding-left:100px; */
     }
     .gallery .image{
       width: 240px;
@@ -708,6 +714,8 @@ button.passbtn i {
       padding: 0px;
       /* width: calc(100% / 3); */
     }
+
+
     .gallery .image span{
       display: flex;
       width: 100%;
@@ -739,6 +747,11 @@ button.passbtn i {
       background: rgba(0,0,0,0.45);
     }
     
+    @media(min-width:800px){
+      .gallery{
+        justify-content: center;
+      }
+    }
     @media(max-width: 800px){
       .container{
         width: 700px
@@ -779,10 +792,11 @@ button.passbtn i {
         width: calc(100% / 3);
       } */
     }
+
     @media(max-width: 600px){
       .gallery .image{
-        width: 100%;
-        padding: 4px;
+        /* width: 100%;
+        padding: 4px; */
       }
     }
   }
@@ -825,7 +839,7 @@ button.passbtn i {
   background-color: #fff;
   padding: 0px 30px;
   border-radius: 5px;
-  box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+  box-shadow: 0 0px 0px rgba(0,0,0,0.15);
   transform: translateY(50px);
   margin-bottom: 10%;
   overflow-y: auto;
@@ -957,7 +971,6 @@ form .input-box span.details{
  }
  form .button input{
    height: 100%;
-   width: 100%;
    border-radius: 5px;
    border: none;
    color: #fff;
@@ -966,11 +979,26 @@ form .input-box span.details{
    letter-spacing: 1px;
    cursor: pointer;
    transition: all 0.3s ease;
-   background: linear-gradient(60deg, #abecd6 0%, #fbed96 100%);
+    backface-visibility: hidden;
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  white-space: nowrap;
+  background: #fff;
+  border-radius: 100px;
+  border: 4px solid #c93;
+  border-width: 4px 4px 4px 4px;
+  padding: 5px 20px 5px 20px;
+    color: #c93;
+  font-size: 16px;
+  font-family: Helvetica Neue;
+  font-weight: 900;
+  font-style: normal
  }
  form .button input:hover{
-  /* transform: scale(0.99); */
-  background: linear-gradient(60deg, #abecd6 0%, #fbed96 100%);}
+  transform: scale(1.1);
+  /* background: linear-gradient(60deg, #abecd6 0%, #fbed96 100%);} */
+ }
 
   select{
     width:100%;
@@ -1001,7 +1029,7 @@ form .input-box span.details{
 
   @media(max-width: 689px),(min-width:584){
     #aboutme{
-      width: 220%;
+      /* width: 220%; */
     }
   }
 
@@ -1031,4 +1059,9 @@ form .user-details .input-box{
   .container .content .category{
     flex-direction: column;
   }
+}
+
+.content #myform2 button{
+  margin: 0;
+  padding:0;
 }

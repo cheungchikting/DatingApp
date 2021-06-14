@@ -170,7 +170,7 @@ display: flex;
 justify-content: center;
 align-items: center;
 flex-direction: column;
-border: 1px solid red;
+border: 1px solid rgba(255, 0, 0, 0.13);
 height: 100%;
 background: #e5e5e5
 }
@@ -180,6 +180,7 @@ background: #e5e5e5
   height: 100%;
   width: 100%;
   border-radius: 5px;
+  padding: 10px 20px;
   border: none;
   color: #fff;
   font-size: 18px;

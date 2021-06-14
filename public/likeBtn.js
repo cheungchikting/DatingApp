@@ -13,7 +13,6 @@ $(function () {
                 $('.navbar_container').parent().append(
                   `<div class="wrapper active">
                   <div class="container-btn match-finish active">
-                  <i class="fas fa-times close"></i>
                   <p class="text">You guys like each other!</p>
                   <a href="/chatroom" class="btn-match">Chat Now!</a>
                 </div>
@@ -43,7 +42,6 @@ $(function () {
                 $('.navbar_container').parent().append(
                   `<div class="wrapper-two active">
                 <div class="container-btn match-finish active">
-                <i class="fas fa-times close"></i>
                 <p class="text">You guys like each other!</p>
                 <a href="/chatroom" class="btn-match">Chat Now!</a>
               </div>
