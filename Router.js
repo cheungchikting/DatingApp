@@ -216,10 +216,9 @@ class Router {
                 await this.Method.writefile(foto1, fotodata1)
             } else {
                 let data = await this.Method.GetPhotos(user_id)
-                if (data[0]) {
-                    foto1 = data[0].pc1
-                }
-                foto1 = null
+            
+                    foto1 = data.pc1
+            
             }
             if (req.files.upload2) {
                 foto2 = `${new Date().getTime().toString()}${req.files.upload2.name}`
@@ -227,10 +226,9 @@ class Router {
                 await this.Method.writefile(foto2, fotodata2)
             } else {
                 let data = await this.Method.GetPhotos(user_id)
-                if (data[0]) {
-                    foto2 = data[0].pc2
-                }
-                foto2 = null
+      
+                    foto2 = data.pc2
+            
             }
             if (req.files.upload3) {
                 foto3 = `${new Date().getTime().toString()}${req.files.upload3.name}`
@@ -238,10 +236,9 @@ class Router {
                 await this.Method.writefile(foto3, fotodata3)
             } else {
                 let data = await this.Method.GetPhotos(user_id)
-                if (data[0]) {
-                    foto3 = data[0].pc3
-                }
-                foto3 = null
+      
+                    foto3 = data.pc3
+              
             }
             if (req.files.upload4) {
                 foto4 = `${new Date().getTime().toString()}${req.files.upload4.name}`
@@ -249,10 +246,9 @@ class Router {
                 await this.Method.writefile(foto4, fotodata4)
             } else {
                 let data = await this.Method.GetPhotos(user_id)
-                if (data[0]) {
-                    foto4 = data[0].pc4
-                }
-                foto4 = null
+        
+                    foto4 = data.pc4
+             
             }
             if (req.files.upload5) {
                 foto5 = `${new Date().getTime().toString()}${req.files.upload5.name}`
@@ -260,10 +256,9 @@ class Router {
                 await this.Method.writefile(foto5, fotodata5)
             } else {
                 let data = await this.Method.GetPhotos(user_id)
-                if (data[0]) {
-                    foto5 = data[0].pc5
-                }
-                foto5 = null
+       
+                    foto5 = data.pc5
+          
             }
             if (req.files.upload6) {
                 foto6 = `${new Date().getTime().toString()}${req.files.upload6.name}`
@@ -271,10 +266,9 @@ class Router {
                 await this.Method.writefile(foto6, fotodata6)
             } else {
                 let data = await this.Method.GetPhotos(user_id)
-                if (data[0]) {
-                    foto6 = data[0].pc6
-                }
-                foto6 = null
+          
+                    foto6 = data.pc6
+          
             }
 
         } else {
@@ -444,7 +438,7 @@ class Router {
         } else {
             let object = {
                 'user': user,
-                'coin': coin
+                'coins': coins
             }
             res.render('noResult', object)
         }
