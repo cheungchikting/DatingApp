@@ -68,8 +68,8 @@ html,body{
 
 .action .profile{
   position:relative;
-  width: 90px;
-  height: 90px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   overflow:hidden;
   cursor:pointer;
@@ -162,13 +162,13 @@ html,body{
 
 .row{
   height: 100%;
-  /* padding-top: 20px; */
+  padding-top: 120px;
   background:#8e44ad;
 }
 
 .container .box{
   /* max-height: 50%; */
-  width: 190px;
+  max-width: 190px;
   height: 400px;
   background: #fff;
   display: flex;
@@ -349,6 +349,19 @@ color: #17c0eb
 .btns button:hover{
   color: #fff;
 } */
+
+.random-card .box-container .container .box .name_job{
+  width:150px;
+} 
+
+.random-card .box-container .container .box p{
+  width:150px;
+  height: 20px;
+  text-align: center;
+  overflow: auto;
+  text-overflow: ellipsis;
+} 
+
 
 .random-cardIcon{
     display: flex;

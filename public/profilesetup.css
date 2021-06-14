@@ -14,6 +14,7 @@ body{
   /* padding: 10px; */
   background: linear-gradient(60deg, #abecd6 0%, #fbed96 100%);
   background-size: contain;
+  overflow: hidden;
 }
 
 .container{
@@ -27,6 +28,7 @@ body{
   box-shadow: 0 5px 10px rgba(0,0,0,0.15);
   transform: translateY(50px);
   margin-bottom: 10%;
+  overflow-y: auto;
 }
 
 .container .top-info .title{

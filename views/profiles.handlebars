@@ -123,8 +123,10 @@
 
             <div class="profile-option">
                 <div class="notification">
-                    <i class="fa fa-bell"></i>
-                    <span class="alert-message">1</span>
+                          <h4>About Me:</h4>
+                          <p>{{data.aboutme}}</p>
+                    {{!-- <i class="fa fa-bell"></i>
+                    <span class="alert-message">1</span> --}}
                 </div>
             </div>
         </div>
@@ -206,7 +208,7 @@
                     <div class="nav">
                         <ul>
                             <li class="user-foto active" onclick="tabs(0)">Photos</li>
-                            <li class="user-profile" onclick="tabs(1)">Profile</li>
+                            {{!-- <li class="user-profile" onclick="tabs(1)">Profile</li> --}}
                             {{!-- <li class="user-Comment" onclick="tabs(2)">Comment</li> --}}
                         </ul>
                     </div>
@@ -307,15 +309,6 @@ tabs(0);
 
 </script>
 
-<<<<<<< HEAD
-{{!-- <script>
-function myFunction() {
-  alert("You have liked this person!!!");
-}
-</script> --}}
-
-=======
->>>>>>> main
 <script>
 //getting all required elements
 const gallery  = document.querySelectorAll(".image"),
