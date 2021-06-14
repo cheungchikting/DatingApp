@@ -71,6 +71,7 @@ class Router {
         router.get('/photosetup', isLoggedIn, this.photosetup.bind(this))
         router.post('/photoupload', isLoggedIn, this.photoupload.bind(this))
         router.get('/check/:id', isLoggedIn, this.checklike.bind(this))
+        router.get('/iflike/:id', isLoggedIn, this.iflike.bind(this))
         //filter
         router.get('/filter', isLoggedIn, this.filter.bind(this))
         router.post('/editfilter', isLoggedIn, this.editFilter.bind(this))
@@ -294,6 +295,11 @@ class Router {
         res.send(data)
     }
 
+    async iflike(req, res) {
+        let data = await this.Method.iflike(user_id, req.params.id)
+        res.send(data)
+    }
+
     // filter
 
     async filter(req, res) {
@@ -359,7 +365,7 @@ class Router {
         } else {
             let object = {
                 'user': user,
-                'coin': coin
+                'coins': coins
             }
             res.render('noResult', object)
         }

@@ -187,7 +187,7 @@ background: #e5e5e5
   letter-spacing: 1px;
   cursor: pointer;
   transition: all 0.3s ease;
-  background: linear-gradient(60deg, #abecd6 0%, #fbed96 100%);
+  background: linear-gradient(60deg, #96168f 0%, #107999 100%);
   
 }
 
@@ -196,7 +196,8 @@ background: #e5e5e5
 
 .button{
   height: 45px;
-  margin: 35px 0
+  margin: 35px 0;
+  width: 15rem;
 }
 
 
