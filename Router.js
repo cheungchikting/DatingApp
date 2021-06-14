@@ -359,7 +359,7 @@ class Router {
         } else {
             let object = {
                 'user': user,
-                'coin': coin
+                // 'coin': coin
             }
             res.render('noResult', object)
         }
