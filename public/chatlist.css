@@ -20,6 +20,7 @@ body{
     place-items:center;
 }
 
+
 /* profile and menu */
 .navbar_container{
     width: 100%;
@@ -173,9 +174,9 @@ body{
         "new-message-container chat-form" 78px
         / 275px 1fr;
     /* max-width: 1000px; */
-    min-height: 90vh;
-    max-height: 100vh;
+    min-height: 100vh;
     width:100%;
+    padding-top: 100px;
     /* height: 95vh; */
     background: #FFF;
     border-radius:10px;
