@@ -212,7 +212,7 @@ background: linear-gradient(to top, #fff1eb 0%, #ace0f9 100%);
   cursor: pointer;
   transition: all 0.3s ease;
   background: linear-gradient(45deg, #ee9ca7 0%, #ffdde1 100%);
-
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 }
 
 

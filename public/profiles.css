@@ -251,6 +251,15 @@ body{
     font-weight:bold;
 }
 
+.profile-option .notification{
+ 
+}
+.profile-option .notification p{
+  max-height: 100px;
+  max-width: 70%;
+  overflow: scroll;
+}
+
 .main-bd {
     width:100%;
     display: flex;
