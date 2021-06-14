@@ -889,7 +889,7 @@ button.passbtn i {
    font-family: sans-serif;
    font-size:15px;
    cursor:pointer;
-   display:none;
+   /* display:none; */
 }
 
 #uploadBtn img{
