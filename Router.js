@@ -1,5 +1,4 @@
 const express = require("express");
-const path = require("path")
 const knexFile = require('./knexfile').development;
 const knex = require('knex')(knexFile);
 const paymentsession = require('./stripe')
@@ -20,12 +19,16 @@ function isLoggedIn(req, res, next) {
     res.redirect("/login");
 }
 
-async function isPaid(req, res, next) {
-    let data = knex('token').where('token.user_id', user_id)
-    if (req.isAuthenticated() === true && data[0] && data[0].likeme === true) {
-        return next()
+async function hasToken(req, res, next) {
+    let data = await knex('token').where('token.user_id', user_id)
+    console.log(data)
+    if (data[0]) {
+        if (data[0].likeme === true) {
+            return next()
+        }
+    } else {
+        res.redirect("/likemetoken");
     }
-    res.redirect("/wallet");
 }
 
 function ageCal(birthday) {
@@ -52,20 +55,6 @@ function ageCal(birthday) {
     return calculated_age;
 }
 
-// async function hasFilter(req, res, next) {
-//     let data = await knex('filter').where('filter.user_id', user_id)
-//     if (!data[0]) {
-//         res.redirect("/filtererr");
-//     } else if (!data[0].preferredGender || !data[0].min_age || !data[0].max_age || !data[0].min_height || !data[0].max_height || !data[0].distance || !data[0].preferredEthnicity || !data[0].preferredEducation) {
-//         res.redirect("/filtererr");
-//     } else if (data[0].preferredGender == '-Select-' || data[0].min_age == 'From' || data[0].max_age == 'To' || data[0].min_height == 'From' || data[0].max_height == 'To' || data[0].distance == '-Select-' || data[0].preferredEthnicity == '-Select-' || data[0].preferredEducation == '-Select-') {
-//         res.redirect("/filtererr");
-//     } else {
-//         return next()
-//     }
-// }
-
-
 class Router {
     constructor(Method) {
         this.Method = Method;
@@ -85,12 +74,12 @@ class Router {
         //filter
         router.get('/filter', isLoggedIn, this.filter.bind(this))
         router.post('/editfilter', isLoggedIn, this.editFilter.bind(this))
-        router.get('/filtererr', isLoggedIn, this.filtererr.bind(this))
         //browse
         router.get('/findmatches', isLoggedIn, this.findMatches.bind(this));
-        router.get('/likeme', isPaid, this.likeMe.bind(this))
+        router.get('/likeme', isLoggedIn, hasToken, this.likeMe.bind(this))
+        router.get('/likemetoken', isLoggedIn, this.likeMeToken.bind(this))
         router.post('/like/:id', isLoggedIn, this.like.bind(this))
-        router.get('/dislike/:id', isLoggedIn, this.dislike.bind(this))
+        router.post('/dislike/:id', isLoggedIn, this.dislike.bind(this))
         router.get('/profiles/:id', isLoggedIn, this.profiles.bind(this))
         //chatlist
         router.get('/chatroom', isLoggedIn, this.chatroom.bind(this))
@@ -101,6 +90,8 @@ class Router {
         router.post('/create-checkout-session/:amount', isLoggedIn, this.checkoutsession.bind(this))
         router.get('/success/:amount', isLoggedIn, this.checkstatus.bind(this))
         router.get('/cancel', isLoggedIn, this.cancel.bind(this))
+        router.get('/viewmore/:amount', isLoggedIn, this.viewMore.bind(this))
+        router.get('/gettoken/:amount', isLoggedIn, this.getToken.bind(this))
         // login/Reg
         router.get('/login', this.login.bind(this));
         router.get("/loginfail", this.loginfail.bind(this));
@@ -124,6 +115,7 @@ class Router {
     async myprofile(req, res) {
         let data = await this.Method.GetProfile(user_id)
         let photos = await this.Method.GetPhotos(user_id)
+        let coins = await this.Method.GetCoins(user_id)
         let bday = data.birthday.toISOString().split('T')[0]
         data.birthday = bday
         switch (data.education) {
@@ -145,7 +137,8 @@ class Router {
         }
         let object = {
             'data': data,
-            'photos': photos
+            'photos': photos,
+            'coins': coins
         }
         res.render('myprofile', object)
     }
@@ -215,70 +208,80 @@ class Router {
         let fotodata4
         let fotodata5
         let fotodata6
-        if (req.files.upload1) {
-            foto1 = `${new Date().getTime().toString()}${req.files.upload1.name}`
-            fotodata1 = req.files.upload1.data
-            await this.Method.writefile(foto1, fotodata1)
-        } else {
-            let data = await this.Method.GetPhotos(user_id)
-            if (data[0]) {
-                foto1 = data[0].pc1
+        if (req.files) {
+            if (req.files.upload1) {
+                foto1 = `${new Date().getTime().toString()}${req.files.upload1.name}`
+                fotodata1 = req.files.upload1.data
+                await this.Method.writefile(foto1, fotodata1)
+            } else {
+                let data = await this.Method.GetPhotos(user_id)
+                if (data[0]) {
+                    foto1 = data[0].pc1
+                }
+                foto1 = null
             }
+            if (req.files.upload2) {
+                foto2 = `${new Date().getTime().toString()}${req.files.upload2.name}`
+                fotodata2 = req.files.upload2.data
+                await this.Method.writefile(foto2, fotodata2)
+            } else {
+                let data = await this.Method.GetPhotos(user_id)
+                if (data[0]) {
+                    foto2 = data[0].pc2
+                }
+                foto2 = null
+            }
+            if (req.files.upload3) {
+                foto3 = `${new Date().getTime().toString()}${req.files.upload3.name}`
+                fotodata3 = req.files.upload3.data
+                await this.Method.writefile(foto3, fotodata3)
+            } else {
+                let data = await this.Method.GetPhotos(user_id)
+                if (data[0]) {
+                    foto3 = data[0].pc3
+                }
+                foto3 = null
+            }
+            if (req.files.upload4) {
+                foto4 = `${new Date().getTime().toString()}${req.files.upload4.name}`
+                fotodata4 = req.files.upload4.data
+                await this.Method.writefile(foto4, fotodata4)
+            } else {
+                let data = await this.Method.GetPhotos(user_id)
+                if (data[0]) {
+                    foto4 = data[0].pc4
+                }
+                foto4 = null
+            }
+            if (req.files.upload5) {
+                foto5 = `${new Date().getTime().toString()}${req.files.upload5.name}`
+                fotodata5 = req.files.upload5.data
+                await this.Method.writefile(foto5, fotodata5)
+            } else {
+                let data = await this.Method.GetPhotos(user_id)
+                if (data[0]) {
+                    foto5 = data[0].pc5
+                }
+                foto5 = null
+            }
+            if (req.files.upload6) {
+                foto6 = `${new Date().getTime().toString()}${req.files.upload6.name}`
+                fotodata6 = req.files.upload6.data
+                await this.Method.writefile(foto6, fotodata6)
+            } else {
+                let data = await this.Method.GetPhotos(user_id)
+                if (data[0]) {
+                    foto6 = data[0].pc6
+                }
+                foto6 = null
+            }
+
+        } else {
             foto1 = null
-        }
-        if (req.files.upload2) {
-            foto2 = `${new Date().getTime().toString()}${req.files.upload2.name}`
-            fotodata2 = req.files.upload2.data
-            await this.Method.writefile(foto2, fotodata2)
-        } else {
-            let data = await this.Method.GetPhotos(user_id)
-            if (data[0]) {
-                foto2 = data[0].pc2
-            }
             foto2 = null
-        }
-        if (req.files.upload3) {
-            foto3 = `${new Date().getTime().toString()}${req.files.upload3.name}`
-            fotodata3 = req.files.upload3.data
-            await this.Method.writefile(foto3, fotodata3)
-        } else {
-            let data = await this.Method.GetPhotos(user_id)
-            if (data[0]) {
-                foto3 = data[0].pc3
-            }
             foto3 = null
-        }
-        if (req.files.upload4) {
-            foto4 = `${new Date().getTime().toString()}${req.files.upload4.name}`
-            fotodata4 = req.files.upload4.data
-            await this.Method.writefile(foto4, fotodata4)
-        } else {
-            let data = await this.Method.GetPhotos(user_id)
-            if (data[0]) {
-                foto4 = data[0].pc4
-            }
             foto4 = null
-        }
-        if (req.files.upload5) {
-            foto5 = `${new Date().getTime().toString()}${req.files.upload5.name}`
-            fotodata5 = req.files.upload5.data
-            await this.Method.writefile(foto5, fotodata5)
-        } else {
-            let data = await this.Method.GetPhotos(user_id)
-            if (data[0]) {
-                foto5 = data[0].pc5
-            }
             foto5 = null
-        }
-        if (req.files.upload6) {
-            foto6 = `${new Date().getTime().toString()}${req.files.upload6.name}`
-            fotodata6 = req.files.upload6.data
-            await this.Method.writefile(foto6, fotodata6)
-        } else {
-            let data = await this.Method.GetPhotos(user_id)
-            if (data[0]) {
-                foto6 = data[0].pc6
-            }
             foto6 = null
         }
 
@@ -333,39 +336,12 @@ class Router {
         res.redirect('/findmatches')
     }
 
-    async filtererr(req, res) {
-        let data = await this.Method.myFilter(user_id)
-        let user = await this.Method.GetProfile(user_id)
-        switch (data.preferredEducation) {
-            case 1:
-                data.preferredEducationName = "Secondary";
-                break;
-            case 2:
-                data.preferredEducationName = "Associate";
-                break;
-            case 3:
-                data.preferredEducationName = "Bachelor";
-                break;
-            case 4:
-                data.preferredEducationName = "Master";
-                break;
-            case 5:
-                data.preferredEducationName = "Doctor";
-                break;
-        }
-        let object = {
-            'data': data,
-            'user': user
-        }
-        res.render('filterErr', object)
-    }
-
     // browse potential matches    
 
     async findMatches(req, res) {
         let data = await this.Method.grabRandomList(user_id)
         let user = await this.Method.GetProfile(user_id)
-        let coin = await this.Method.GetCoins(user_id)
+        let coins = await this.Method.GetCoins(user_id)
         if (data[0]) {
             for (let each of data) {
                 let photos = await this.Method.GetPhotos(each.id)
@@ -377,12 +353,13 @@ class Router {
             let object = {
                 'data': data,
                 'user': user,
-                'coin': coin
+                'coins': coins
             }
             res.render('findMatches', object)
         } else {
             let object = {
-                'user': user
+                'user': user,
+                'coin': coin
             }
             res.render('noResult', object)
         }
@@ -393,6 +370,7 @@ class Router {
         let data = await this.Method.GetProfile(id)
         let user = await this.Method.GetProfile(user_id)
         let photos = await this.Method.GetPhotos(id)
+        let coins = await this.Method.GetCoins(user_id)
         let age = ageCal(data.birthday)
         data.age = age
 
@@ -415,34 +393,84 @@ class Router {
         }
 
         let object = {
-            data: data,
-            photos: photos,
-            user: user
+            'data': data,
+            'photos': photos,
+            'user': user,
+            'coins': coins
+
         }
         res.render('profiles', object)
+    }
+
+    async viewMore(req, res) {
+        let amount = req.params.amount
+        let data = await this.Method.viewMore(user_id, amount)
+        if (data) {
+            await this.Method.refresh(user_id)
+            res.redirect('/findmatches')
+
+        } else {
+            res.redirect('/wallet')
+        }
     }
 
     async likeMe(req, res) {
         let data = await this.Method.likeMe(user_id)
         let user = await this.Method.GetProfile(user_id)
+        let coins = await this.Method.GetCoins(user_id)
+        if (data[0]) {
+            for (let each of data) {
+                let photos = await this.Method.GetPhotos(each.id)
+                let age = ageCal(each.birthday)
+                each.age = age
+                each.photos = photos
+            }
 
-        object = {
-            'data': data,
-            'user': data
+            let object = {
+                'data': data,
+                'user': user,
+                'coins': coins
+            }
+            res.render('likeme', object)
+        } else {
+            let object = {
+                'user': user,
+                'coin': coin
+            }
+            res.render('noResult', object)
         }
-        res.render('likeMe', object)
+    }
+
+    async likeMeToken(req, res) {
+        let user = await this.Method.GetProfile(user_id)
+        let coins = await this.Method.GetCoins(user_id)
+        let object = {
+            'user': user,
+            'coins': coins
+        }
+        res.render('likeMeToken', object)
+    }
+
+    async getToken(req, res) {
+        let amount = req.params.amount
+        let result = await this.Method.getToken(user_id, amount)
+        if (result) {
+            res.redirect('/likeme')
+        } else {
+            res.redirect('/wallet')
+        }
     }
 
     async like(req, res) {
         let like_id = parseInt(req.params.id)
-        let data = await this.Method.like(user_id, like_id)
+        await this.Method.like(user_id, like_id)
         res.end()
     }
 
     async dislike(req, res) {
         let dislike_id = parseInt(req.params.id)
         await this.Method.dislike(user_id, dislike_id)
-        res.redirect('/findmatches')
+        res.end()
     }
 
     unDislike(req, res) {
@@ -456,7 +484,7 @@ class Router {
     async chatroom(req, res) {
         let data = await this.Method.createRoom(user_id)
         let user = await this.Method.GetProfile(user_id)
-        let coin = await this.Method.GetCoins(user_id)
+        let coins = await this.Method.GetCoins(user_id)
         let promiseArray = []
         for (let i = 0; i < data.length; i++) {
             promiseArray[i] = new Promise((resolve, reject) => {
@@ -475,13 +503,14 @@ class Router {
             let object = {
                 'data': data,
                 'user': user,
-                'coin': coin
+                'coins': coins
             }
             res.render('chatlist', object)
         })
     }
 
     async chat(req, res) {
+        let user = await this.Method.GetProfile(user_id)
         let list = await this.Method.createRoom(user_id)
         let data = await this.Method.GetChatInfo(req.params.id, user_id)
         let promiseArray = []
@@ -507,20 +536,21 @@ class Router {
                     'roomid': req.params.id,
                     'data': data,
                     'msg': parseMsg,
+                    'user': user
                 }
-              
+
                 res.render('chatroom', object)
             })
         })
-        
+
     }
 
-    unlike(req, res) {
+    async unlike(req, res) {
         let unlike_id = req.params.id;
         let roomid = req.params.roomid;
-        this.Method.unlike(user_id, unlike_id, roomid).then(() => {
-            res.redirect("/chatroom")
-        })
+        await this.Method.unlike(user_id, unlike_id, roomid)
+        res.redirect("/chatroom")
+    
     }
 
     //Coin
@@ -551,7 +581,6 @@ class Router {
         }
     }
 
-
     cancel(req, res) {
         res.render('cancel')
     }
@@ -579,9 +608,6 @@ class Router {
         res.redirect("/login")
     }
 
-    //test start//
-
-    //test end//
 }
 
 module.exports = Router;

@@ -12,10 +12,21 @@
                     <span class="navbar-toggler-icon"></span>
                   </button>
                   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div class="navbar-nav">
-                      <a class="nav-link" href="/likeme"><img src="https://img.icons8.com/nolan/64/filled-like.png"/>See Who Likes You</a>
-                      <a class="nav-link" href="/chatroom"><img src="https://img.icons8.com/nolan/64/love-message.png"/>Talk to them</a>
-                    </div>
+                      <div class="navbar-nav">
+                        <a class="nav-link" href="/findmatches">
+                         <span style="font-size: 30px;color:#8e44ad;">
+                             <i class="fas fa-search"></i>
+                         </span>
+                         Find Matches
+                         </a>
+
+                        <a class="nav-link" href="/chatroom">
+                        <span style="font-size: 30px;color:#8e44ad;">
+                            <i class="far fa-comments"></i>
+                        </span>
+                        Talk to them
+                        </a>         
+                      </div>
                   </div>
                 </div>
               
@@ -32,7 +43,7 @@
                       </span>
                     </a>
                      <span class="coin">    
-                      {{coin.balance}} Coin
+                      {{coins.balance}} Coin
                     </span>
                   </div>
 
@@ -65,11 +76,11 @@
             </nav>
           </div>
           <div class="content">
-            <h1>You deserve more.</h1>
-            <h2> Meet more people your type with 100 coins.</h2>
-            <a href="/viewmore/100">
+            <h1>You are more popular than you know.</h1>
+            <h2> Checkout who liked you with 300 coins.</h2>
+            <a href="/gettoken/300">
             <div class="button">
-                <input type="submit" value="Use 100 Coins" id="useCoin">
+                <input type="submit" value="Use 300 Coins" id="useCoin">
             </div>
             </a>
           </div>

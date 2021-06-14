@@ -44,7 +44,7 @@
                                 </span>
                                 </a>
                                  <span class="coin">    
-                                  {{coin.balance}} Coin
+                                  {{coins.balance}} Coin
                                 </span>
                                  </div>
                          
@@ -180,13 +180,12 @@
                           </span>
                         </button>
                       
-                        <a href="/dislike/{{id}}" class="btn-open-dislike">
-                        <button>
+                        <button class="dislikeBtn" data-id="{{id}}">
                           <span style="font-size: 30px; color: white;">
                           <i class="fas fa-times"></i>
                           </span>
                         </button>
-                        </a>
+                
 
                       </div>
                     </div>

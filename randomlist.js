@@ -24,27 +24,32 @@ const job = schedule.scheduleJob('1 * * * *', async function () {
                 let result = data2.filter((x) => {
                     return geolib.getDistance(data[0].location, x.location) / 1000 < data[0].distance
                 })
-                if (result[0]) {
-                    for (let each of result) {
-                        let data4 = await knex('matches').where('matches.user_id', id.id)
-                        if (data4[0]) {
-                            if (data4[0].like && data4[0].dislike) {
-                                let seen = [...data4[0].like, ...data4[0].dislike]
-                                for (let x of seen) {
-                                    if (each.id == x) {
-                                        let index = result.indexOf(each)
-                                        result.splice(index, 1)
-                                    }
-                                }
-                            }
-                        }
-                    }
 
+                let data4 = await knex('matches').where('matches.user_id', id.id)
+                let seen
+                if (data4[0]) {
+                    if (!data4[0].like) {
+                        data4[0].like = []
+                    }
+                    if (!data4[0].dislike) {
+                        data4[0].dislike = []
+                    }
+                    seen = [...data4[0].like, ...data4[0].dislike]
+                } else {
+                    seen = []
+                }
+
+                if (result[0]) {
+
+                    let filterList = result.filter((x) => {
+                        return !seen.includes(x.id)
+                    })
+    
                     for (let i = 0; i < 10; i++) {
-                        if (result[0]) {
-                            let randomIndex = Math.floor(Math.random() * result.length)
-                            let randomItem = result[randomIndex]
-                            result.splice(randomIndex, 1)
+                        if (filterList[0]) {
+                            let randomIndex = Math.floor(Math.random() * filterList.length)
+                            let randomItem = filterList[randomIndex]
+                            filterList.splice(randomIndex, 1)
                             randomList.push(randomItem)
                         }
                     }
