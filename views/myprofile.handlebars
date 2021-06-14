@@ -67,7 +67,7 @@
                                  </div>
                                  
                                  <div class="menu">
-                                   <h3>{{user.firstname}}</h3>
+                                   <h3>{{data.firstname}}</h3>
                                      {{!-- <h3>Someone Famous<br><span>Website De</span></h3> --}}
                                      <ul>
                                          <li><img src="https://img.icons8.com/material/64/000000/user-male-circle--v1.png"/><a href="/myprofile">My Profile</a></li>
@@ -108,33 +108,7 @@
 {{!-- profile file part --}}
 <div class="container-allPart">
 
-        <div class="profile-header">
-            
-            <div class="profile-img">
-                <img src="/upload/{{data.profilepic}}" width="200" alt="">
-            </div>
-
-            <div class="profile-nav-info">
-                <h3 class="user-name">{{data.firstname}}</h3>
-                <div class="address">
-                    {{!-- <p class="state">New York,</p> --}}
-                    <span class="country">{{data.hometown}}</span>
-                    <p class="user-age">{{data.age}}</p>
-                </div>
-            </div>
-
-            <div class="profile-option">
-                {{!-- <div class="notification">
-                    <i class="fa fa-bell"></i>
-                    <span class="alert-message">1</span>
-                </div> --}}
-            </div>
-        </div>
-
-
             <div class="main-bd">
-
-    
 
                 <div class="right-side">
                     <div class="nav">
@@ -158,7 +132,7 @@
                   <img style="position:absolute;" id="photo1"><i class="far fa-image" ></i></img>
         </span>
         {{/if}}
-        <input type="file" id="picFile1" name="upload1" accept="image/*" form="myform">
+        <input type="file" id="picFile1" name="upload1" accept="image/*" form="myform1">
         <label for="picFile1" id="uploadBtn1">
          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
             width="42" height="42"
@@ -176,7 +150,7 @@
                   <img style="position:absolute;" id="photo2"><i class="far fa-image" ></i></img>
         </span>
         {{/if}}
-        <input type="file" id="picFile2" name="upload2" accept="image/*" form="myform">
+        <input type="file" id="picFile2" name="upload2" accept="image/*" form="myform1">
         <label for="picFile2" id="uploadBtn2">
          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
             width="42" height="42"
@@ -193,7 +167,7 @@
                   <img style="position:absolute;" id="photo3"><i class="far fa-image" ></i></img>
         </span>
         {{/if}}
-        <input type="file" id="picFile3" name="upload3" accept="image/*" form="myform">
+        <input type="file" id="picFile3" name="upload3" accept="image/*" form="myform1">
         <label for="picFile3" id="uploadBtn3">
          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
             width="42" height="42"
@@ -210,7 +184,7 @@
                   <img style="position:absolute;" id="photo4"><i class="far fa-image" ></i></img>
         </span>
         {{/if}}
-        <input type="file" id="picFile4" name="upload4" accept="image/*" form="myform">
+        <input type="file" id="picFile4" name="upload4" accept="image/*" form="myform1">
         <label for="picFile4" id="uploadBtn4">
          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
             width="42" height="42"
@@ -227,7 +201,7 @@
                   <img style="position:absolute;" id="photo5"><i class="far fa-image" ></i></img>
         </span>
         {{/if}}
-        <input type="file" id="picFile5" name="upload5" accept="image/*" form="myform">
+        <input type="file" id="picFile5" name="upload5" accept="image/*" form="myform1">
         <label for="picFile5" id="uploadBtn5">
          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
             width="42" height="42"
@@ -244,7 +218,7 @@
                   <img style="position:absolute;" id="photo6"><i class="far fa-image" ></i></img>
         </span>
         {{/if}}
-        <input type="file" id="picFile6" name="upload6" accept="image/*" form="myform">
+        <input type="file" id="picFile6" name="upload6" accept="image/*" form="myform1">
         <label for="picFile6" id="uploadBtn6">
          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
             width="42" height="42"
@@ -257,10 +231,10 @@
     </div>
       
         <div class="content" style="display: flex;justify-content:center;padding:20px;">
-    <form action="/photoupload" method="POST" id="myform" enctype="multipart/form-data">
+    <form action="/photoupload" method="POST" id="myform1" enctype="multipart/form-data">
 
         <div class="button" >
-          <input type="submit" value="Next" style="padding: 20px 200px;">
+          <input type="submit" value="Change" style="padding: 20px 200px;">
         </div>
       </form>
     </div>
@@ -292,59 +266,112 @@
   
                         </div>
                         <div class="profile-review tab profile-box">
-  <div class="content">
-      <form action="">
+
+     <div class="container-profile-info">
+     
+    <div class="top-info">
+      <div>
+         <h3 class="user-name">{{data.firstname}}</h3>
+                <div class="address">
+                    {{!-- <p class="state">New York,</p> --}}
+                    <span class="country">{{data.hometown}}</span>
+                    <p class="user-age">{{data.age}}</p>
+                </div>
+      </div>
+       <div class="profile-pic-div-around">
+        <img scr="/upload/{{data.profilepic}}" id="photo">
+        <input type="file" id="picFile" name="upload" accept="image/*" form="myform2" required/>
+        <label for="picFile" id="uploadBtn">
+         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+            width="32" height="32"
+            viewBox="0 0 172 172"
+            style=" fill:#000000;"><g transform="translate(25.8,25.8) scale(0.7,0.7)"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#ffffff"><path d="M101.18718,14.31934l-30.40235,0.02799c-4.00617,0 -7.83787,1.68047 -10.55404,4.63314l-8.88835,9.6862h-22.67578c-7.88333,0 -14.33333,6.45 -14.33333,14.33333v86c0,7.88333 6.45,14.33333 14.33333,14.33333h114.66667c7.88333,0 14.33333,-6.45 14.33333,-14.33333v-86c0,-7.88333 -6.45,-14.33333 -14.33333,-14.33333h-22.63379l-8.94434,-9.71419c-2.71617,-2.95267 -6.5547,-4.63314 -10.56803,-4.63314zM86,50.16667c20.06667,0 35.83333,15.76667 35.83333,35.83333c0,20.06667 -15.76667,35.83333 -35.83333,35.83333c-20.06667,0 -35.83333,-15.76667 -35.83333,-35.83333c0,-20.06667 15.76667,-35.83333 35.83333,-35.83333zM86,64.5c-11.87412,0 -21.5,9.62588 -21.5,21.5c0,11.87412 9.62588,21.5 21.5,21.5c11.87412,0 21.5,-9.62588 21.5,-21.5c0,-11.87412 -9.62588,-21.5 -21.5,-21.5z"></path></g><path d="M86,172c-47.49649,0 -86,-38.50351 -86,-86v0c0,-47.49649 38.50351,-86 86,-86v0c47.49649,0 86,38.50351 86,86v0c0,47.49649 -38.50351,86 -86,86z" fill="none"></path><path d="M86,168.56c-45.59663,0 -82.56,-36.96337 -82.56,-82.56v0c0,-45.59663 36.96337,-82.56 82.56,-82.56v0c45.59663,0 82.56,36.96337 82.56,82.56v0c0,45.59663 -36.96337,82.56 -82.56,82.56z" fill="none"></path><path d="M86,172c-47.49649,0 -86,-38.50351 -86,-86v0c0,-47.49649 38.50351,-86 86,-86v0c47.49649,0 86,38.50351 86,86v0c0,47.49649 -38.50351,86 -86,86z" fill="none"></path><path d="M86,168.56c-45.59663,0 -82.56,-36.96337 -82.56,-82.56v0c0,-45.59663 36.96337,-82.56 82.56,-82.56v0c45.59663,0 82.56,36.96337 82.56,82.56v0c0,45.59663 -36.96337,82.56 -82.56,82.56z" fill="none"></path></g></g></svg>
+        </label>
+        </div>
+    </div>
+   
+
+    <div class="content">
+
+ <form action="/setup" method="POST" id="myform2" enctype="multipart/form-data">
         <div class="user-details">
+          <div class="input-box">
+            <label for="gender">Gender</label>
+              <select name="gender" id="gender" disabled>
+                <option value="{{data.gender}}" class="select">{{data.gender}}</option>
+              </select>
+          </div>
 
           <div class="input-box">
-            <span class="details">Age</span>
-            <p id="now_age"></p>
+             <div class="row" style="display: flex;">
+                <div style="width:60%">
+                  <label for="birthday">Birthday</label>
+                </div>
+
+                  <div  style="width: 40%;">
+                  <p id="now_age"></p>
+                </div>
+            </div>
+              <input type="date" id="start" name="birthday" max="" value="{{data.birthday}}" disabled>
           </div>
 
-            <input type="date" id="start" name="birthday"  disabled="disabled" value="{{data.birthday}}" style="display: none;">
-    
-
             <div class="input-box">
-              <span class="details">Height</span>
-              {{data.height}} cm
+              <label for="height">Height</label>
+              <select name="height" id="height" required>
+              <option value="{{data.height}}" class="select">{{data.height}} cm</option>
+              </select>
             </div>
 
             <div class="input-box">
-              <span class="details">Education</span>
-              {{data.educationName}}
+              <label for="education">Education</label>
+              <select name="education" id="education" required>
+              <option value="data.education" class="select">{{data.educationName}}</option>
+              </select>
             </div>
 
             <div class="input-box">
-              <span class="details">Ethnicity</span>
-              {{data.ethnicity}}
+              <label for="ethnicity">Ethnicity</label>
+              <select name="ethnicity" id="ethnicity" disabled>
+            <option value="data.ethnicity" class="select">{{data.ethnicity}}</option>
+              </select>
             </div>
 
             <div class="input-box">
-              <span class="details">Religion</span>
-              {{data.religion}}
+              <label for="religion">Religion</label>
+              <select name="religion" id="religion" required>
+           <option value="data.religion" class="select">{{data.religion}}</option>
+              </select>
             </div>
 
-            <div class="input-box">
+            <div class="input-box" id="input_work">
               <span class="details">Job Title</span>
-              {{data.work}}
+              <input type="text" name="work" placeholder="Enter your job tilte" value="{{data.work}}" required>
             </div>
 
-            <div class="input-box">
+            <div class="input-box" id="input_hometown">
               <span class="details">Home Town</span>
-              {{data.hometown}}
+              <input type="text" name="hometown" placeholder="Enter your location" value="{{data.hometown}}" required>
             </div>
 
-            <div class="input-box" >
-              <span class="details">About Me</span>
-              <span>{{data.aboutme}}</span>
+            <div class="input-box" id="input_location">
+              <input type="text" name="location" id="location" style="display: none"required >
             </div>
 
+            <div class="input-box" id="input_aboutme">
+              <label for="aboutme">About Me</label>
+              <textarea id="aboutme" name="aboutme" rows="5" cols="78"  required>{{data.aboutme}}</textarea>
+            </div>
           </div>
+
         <div class="button">
-          <input type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" value="Change">
+          <input type="submit" value="Next" id="submit">
         </div>
       </form>
     </div>
+  </div>
+
+
+
   </div>
                         
                     </div>
@@ -387,81 +414,118 @@ tabs(0);
 </script>
 
 <script>
-function myFunction() {
-  alert("You have liked this person!!!");
-}
+document.getElementById('start').max = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0];
+
+// $('#age').append([...Array(100).keys()].map((i,j) => `<option value="${i}">${i}</option >`)) 
+
+  for(let i =122;i<250;i++){
+
+    $('#height').append(`<option value="${i}">${i}</option >`)
+  }
+
+  eduArr = ['Secondary','Associate','Bachelor','Master','Doctor'];
+  for(let i = 0;i<eduArr.length;i++){
+    $('#education').append(`<option value="${i+1}">${eduArr[i]}</option >`)
+  }
+
+  relArr = ['Buddhist','Christian','Catholic','Hindu','Jewish','Muslim','Sikh','Shinto','Spiritual but not religious','Neither religious nor spiritual','Other'];
+  for(let i = 0;i<relArr.length;i++){
+    $('#religion').append(`<option value="${relArr[i]}">${relArr[i]}</option >`)
+  }
+
 </script>
 
-{{!-- <script>
-//getting all required elements
-const gallery  = document.querySelectorAll(".image"),
-previewBox = document.querySelector(".preview-box"),
-previewImg = previewBox.querySelector(".image-box img"),
-closeIcon = previewBox.querySelector(".icon"),
-currentImg = previewBox.querySelector(".current-img"),
-totalImg = previewBox.querySelector(".total-img"),
-shadow = document.querySelector(".shadow");
+<script>
+  const successCallback = (position) => {
+    let coords = {
+      latitude:position.coords.latitude,
+      longitude:position.coords.longitude
+      }
+    document.getElementById('location').value = JSON.stringify(coords)
+  }
 
-window.onload = ()=>{
-    for (let i = 0; i < gallery.length; i++) {
-        totalImg.textContent = gallery.length; //passing total img length to totalImg variable
-        let newIndex = i; //passing i value to newIndex variable
-        let clickedImgIndex; //creating new variable
-        
-        gallery[i].onclick = () =>{
-            clickedImgIndex = i; //passing cliked image index to created variable (clickedImgIndex)
-            function preview(){
-                currentImg.textContent = newIndex + 1; //passing current img index to currentImg varible with adding +1
-                let imageURL = gallery[newIndex].querySelector("img").src; //getting user clicked img url
-                previewImg.src = imageURL; //passing user clicked img url in previewImg src
-            }
-            preview(); //calling above function
+  const errorCallback = (error) => {
+    console.error(error);
+  }
+
+  const watchId = navigator.geolocation.getCurrentPosition(successCallback,errorCallback)
+</script>
+
+{{!-- calculate age --}}
+<script>
+  document.getElementById("start").addEventListener("change",()=>{
+
+var birth_date = new Date(document.getElementById("start").value);
+var birth_date_day = birth_date.getDate();
+var birth_date_month = birth_date.getMonth();
+var birth_date_year = birth_date.getFullYear();
+
+var today_date =new Date();
+var today_day = today_date.getDate(); //if getDay is Monday to Sunday
+console.log(today_day)
+var today_month = today_date.getMonth();
+var today_year = today_date.getFullYear();
+
+var calculated_age;
+
+if(today_month > birth_date_month){
+  calculated_age = today_year - birth_date_year;
+}else if(today_month == birth_date_month){
+  if(today_day >= birth_date_day){
+    calculated_age = today_year - birth_date_year;
+  }else{
+    calculated_age = today_year - birth_date_year - 1;
+  }
+}else{
+    calculated_age = today_year - birth_date_year - 1;
+  }
+
+  document.getElementById("now_age").innerHTML = "Age : " + calculated_age ;
+})
+
+</script>
+
+{{!-- add foto in the button --}}
+<script>
+
+    //declearing html elements
+
+    const imgDiv = document.querySelector(".profile-pic-div");
+    const img = document.querySelector("#photo");
+    const file = document.querySelector("#picFile");
+    const uploadBtn = document.querySelector("#uploadBtn");
+
+
+    uploadBtn.style.display = "block";
+    //if user hover on profile div
+
+    imgDiv.addEventListener("mouseenter",function(){
+        uploadBtn.style.display = "block";
+    })
+
+    imgDiv.addEventListener("mouseleave",function(){
+        uploadBtn.style.display = "none";
+    })
+
     
-            const prevBtn = document.querySelector(".prev");
-            const nextBtn = document.querySelector(".next");
-            if(newIndex == 0){ //if index value is equal to 0 then hide prevBtn
-                prevBtn.style.display = "none"; 
-            }
-            if(newIndex >= gallery.length - 1){ //if index value is greater and equal to gallery length by -1 then hide nextBtn
-                nextBtn.style.display = "none"; 
-            }
-            prevBtn.onclick = ()=>{ 
-                newIndex--; //decrement index
-                if(newIndex == 0){
-                    preview(); 
-                    prevBtn.style.display = "none"; 
-                }else{
-                    preview();
-                    nextBtn.style.display = "block";
-                } 
-            }
-            nextBtn.onclick = ()=>{ 
-                newIndex++; //increment index
-                if(newIndex >= gallery.length - 1){
-                    preview(); 
-                    nextBtn.style.display = "none";
-                }else{
-                    preview(); 
-                    prevBtn.style.display = "block";
-                }
-            }
-            document.querySelector("body").style.overflow = "hidden";
-            previewBox.classList.add("show"); 
-            shadow.style.display = "block"; 
-            closeIcon.onclick = ()=>{
-                newIndex = clickedImgIndex; //assigning user first clicked img index to newIndex
-                prevBtn.style.display = "block"; 
-                nextBtn.style.display = "block";
-                previewBox.classList.remove("show");
-                shadow.style.display = "none";
-                document.querySelector("body").style.overflow = "scroll";
-            }
+    //when we choose a foto to upload
+    file.addEventListener("change",function(){
+        const choosedFile = this.files[0];
+
+        if(choosedFile) {
+            //FileReader is a predefined function of JS
+            const reader = new FileReader();
+
+            reader.addEventListener('load',function(){
+                img.setAttribute("src",reader.result);
+            });
+
+            reader.readAsDataURL(choosedFile);
         }
-        
-    }
-    
-}
-</script> --}}
+    })
+
+</script>
+
 
 {{!-- add foto in the button --}}
 <script>
