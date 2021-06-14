@@ -13,6 +13,7 @@ $(function () {
                 $('.navbar_container').parent().append(
                   `<div class="wrapper active">
                   <div class="container-btn match-finish active">
+                  <a href="/findmatches">  <i class="fas fa-times close"></i></a>
                   <p class="text">You guys like each other!</p>
                   <a href="/chatroom" class="btn-match">Chat Now!</a>
                 </div>
@@ -41,6 +42,7 @@ $(function () {
                 console.log("hit me")
                 $('.navbar_container').parent().append(
                   `<div class="wrapper-two active">
+                  <a href="/findmatches">  <i class="fas fa-times close"></i></a>
                 <div class="container-btn match-finish active">
                 <p class="text">You guys like each other!</p>
                 <a href="/chatroom" class="btn-match">Chat Now!</a>
