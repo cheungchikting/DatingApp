@@ -11,7 +11,7 @@ const client = redis.createClient({
 let user_id;
 let paymentIntent;
 
-function isLoggedIn(req, res, next) {
+function isLoggedIn(req, res, next) { 
     if (req.isAuthenticated()) {
         user_id = req.user.id
         return next();
@@ -73,6 +73,7 @@ class Router {
         router.get('/iflike/:id', isLoggedIn, this.iflike.bind(this))
         //filter
         router.get('/filter', isLoggedIn, this.filter.bind(this))
+        router.get('/filtersetup', isLoggedIn, this.filtersetup.bind(this))
         router.post('/editfilter', isLoggedIn, this.editFilter.bind(this))
         //browse
         router.get('/findmatches', isLoggedIn, this.findMatches.bind(this));
@@ -280,7 +281,7 @@ class Router {
         }
 
         await this.Method.photoUpload(user_id, foto1, foto2, foto3, foto4, foto5, foto6)
-        res.redirect("/filter")
+        res.redirect("/filtersetup")
     }
 
     async checklike(req, res) {
@@ -294,6 +295,14 @@ class Router {
     }
 
     // filter
+
+    async filtersetup(req, res) {
+        let data = await this.Method.GetProfile(user_id)
+        let object = {
+            'user': data
+        }
+        res.render('filtersetup', object)
+    }
 
     async filter(req, res) {
         let data = await this.Method.myFilter(user_id)
@@ -570,8 +579,7 @@ class Router {
     async checkoutsession(req, res) {
         const session = await paymentsession[req.params.amount]
         paymentIntent = session.payment_intent
-        res.json(session);
-
+        res.json({ id: session.id });
     }
 
     async checkstatus(req, res) {
