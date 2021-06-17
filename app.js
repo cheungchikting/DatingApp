@@ -62,16 +62,14 @@ hbs.handlebars.registerHelper('ifeq', function (a, b, options) {
 
 app.set('view engine', 'handlebars');
 
-
-
 app.post('/signup', signup.authenticate('local-signup', {
     successRedirect: '/profilesetup',
-    failureRedirect: '/err',
+    failureRedirect: '/signupfail',
 }));
 
 app.post('/login', login.authenticate('local-login', {
-    successRedirect: '/done',
-    failureRedirect: '/err'
+    successRedirect: '/findmatches',
+    failureRedirect: '/loginfail'
 }));
 
 app.get("/auth/facebook", passport.authenticate("facebook", {
@@ -82,8 +80,9 @@ app.get("/auth/facebook/callback", passport.authenticate("facebook", {
     }),
     async function (req, res) {
         let data = await knex('usersProfile').where('user_id', req.user.id)
-        if (data[0]) {
-            res.redirect('/done');
+        let data1 = await knex('filter').where('user_id', req.user.id)
+        if (data[0] && data1[0]) {
+            res.redirect('/findmatches');
         } else {
             res.redirect('/profilesetup');
         }
@@ -100,7 +99,7 @@ app.get('/auth/google/callback', passport.authenticate('google', {
     async function (req, res) {
         let data = await knex('usersProfile').where('user_id', req.user.id)
         if (data[0]) {
-            res.redirect('/done');
+            res.redirect('/findmatches');
         } else {
             res.redirect('/profilesetup');
         }

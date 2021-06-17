@@ -1,0 +1,250 @@
+    <link rel="stylesheet" href="/wallet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+
+
+<div class="navbar_container container-fluid">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light top_navbar fixed-top">
+              <div class="container-fluid">
+                  
+                   <div class="navbar_left">
+                     <a class="navbar-brand" >LoveBetter</a>
+                   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                     <span class="navbar-toggler-icon"></span>
+                   </button>
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                       <div class="navbar-nav">
+                        <a class="nav-link" href="/findmatches">
+                         <span style="font-size: 30px;color:#8e44ad;">
+                             <i class="fas fa-search"></i>
+                         </span>
+                         Find Matches
+                         </a>
+                        <a class="nav-link" href="/likeme">
+                         <span style="font-size: 30px;color:#8e44ad;">
+                             <i class="far fa-eye"></i>
+                         </span>
+                         See Who Likes You
+                         </a>
+
+                        <a class="nav-link" href="/chatroom">
+                        <span style="font-size: 30px;color:#8e44ad;">
+                            <i class="far fa-comments"></i>
+                        </span>
+                        Talk to them
+                        </a>         
+                        </div>
+                     </div>
+                  </div>
+              
+                       <div class="navbar_right">
+
+                             
+                                <div id="myPoint">
+                                <a href="/wallet">
+                                <span style="font-size: 50px;color:rgba(241, 241, 68, 0.884)">
+                                  {{!-- <img src="https://img.icons8.com/nolan/64/coin-wallet.png"/> --}}
+                                  <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                                   width="50" height="50"
+                                   viewBox="0 0 172 172"
+                                   style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#8e44ad"><path d="M47.03125,73.90625c-22.30625,0 -40.3125,5.77813 -40.3125,12.76563v16.125c0,3.35938 4.03125,6.45 10.75,8.73438c2.55313,0.94062 5.375,-1.075 5.375,-3.7625v-7.65937c0,-1.74688 -1.20937,-3.35937 -2.95625,-3.89688c-1.74687,-0.5375 -3.35937,-1.075 -4.8375,-1.74687c-3.35937,-1.34375 -3.35937,-6.04687 0,-7.39062c7.39063,-3.09063 18.94688,-5.10625 31.98125,-5.10625c13.03438,0 24.59063,2.01563 31.98125,4.97187c3.35938,1.34375 3.35938,6.04688 0,7.525c-7.39062,2.95625 -18.94687,4.97187 -31.98125,4.97187c-2.15,0 -4.43438,0 -6.45,-0.13437c-2.28437,-0.13437 -4.3,1.74687 -4.3,4.03125v8.0625c0,2.15 1.6125,3.89688 3.7625,4.03125c2.28437,0.13437 4.56875,0.13437 6.9875,0.13437c22.30625,0 40.3125,-5.77813 40.3125,-12.76562v-16.125c0,-6.9875 -18.00625,-12.76562 -40.3125,-12.76562zM81.56563,117.44375c-7.12188,3.7625 -19.8875,6.18125 -34.53437,6.18125c-2.15,0 -4.43438,0 -6.45,-0.13437c-2.28437,-0.13437 -4.3,1.74687 -4.3,4.03125v8.0625c0,2.15 1.6125,3.89688 3.7625,4.03125c2.28437,0.13438 4.56875,0.13438 6.9875,0.13438c22.30625,0 40.3125,-5.77812 40.3125,-12.76562v-5.9125c0,-2.95625 -3.225,-4.97187 -5.77813,-3.62812zM19.8875,120.26563c-2.82187,-0.80625 -5.24062,-1.74688 -7.25625,-2.82187c-2.6875,-1.34375 -5.9125,0.5375 -5.9125,3.62812v5.9125c0,3.35938 4.03125,6.45 10.75,8.73438c2.55313,0.94062 5.375,-1.075 5.375,-3.7625v-7.65937c0,-1.88125 -1.20937,-3.49375 -2.95625,-4.03125zM81.56563,141.63125c-7.12187,3.62813 -19.8875,6.18125 -34.53437,6.18125c-2.15,0 -4.43438,0 -6.45,-0.13438c-2.28437,-0.13437 -4.3,1.74688 -4.3,4.03125v8.0625c0,2.15 1.6125,3.89688 3.7625,4.03125c2.28437,0.13438 4.56875,0.13438 6.9875,0.13438c22.30625,0 40.3125,-5.77812 40.3125,-12.76562v-5.9125c0,-2.95625 -3.225,-4.97188 -5.77813,-3.62813zM19.8875,144.45313c-2.82187,-0.80625 -5.24062,-1.74687 -7.25625,-2.82188c-2.6875,-1.34375 -5.9125,0.5375 -5.9125,3.62813v5.9125c0,3.35938 4.03125,6.45 10.75,8.73438c2.55313,0.94062 5.375,-1.075 5.375,-3.7625v-7.65937c0,-1.88125 -1.20937,-3.49375 -2.95625,-4.03125zM121.74375,8.19688h-0.13437c-25.12812,0.40312 -48.375,1.74687 -66.78438,3.7625c-35.74375,4.03125 -38.7,9.1375 -38.7,13.57188v33.59375c0,2.28438 1.74687,4.03125 4.03125,4.03125v0c2.28438,0 4.03125,-1.74687 4.03125,-4.03125v-25.8c5.50938,2.01563 14.91562,4.03125 30.50313,5.77812c22.70938,2.55313 52.94375,3.89688 85.05937,3.89688h1.34375c5.24062,0 9.40625,4.16562 9.40625,9.40625v5.24063c0,2.01563 1.34375,3.7625 3.225,4.16562c2.55313,0.5375 4.8375,-1.47812 4.8375,-3.89688v-5.375c0,-8.73437 -6.45,-15.99062 -14.78125,-17.2v-5.24063c0,-12.3625 -9.94375,-22.0375 -22.0375,-21.90313zM167.96875,73.90625h-25.66563c-9.80937,0 -18.14062,7.525 -18.67812,17.2c-0.5375,10.48125 7.79375,19.08125 18.14063,19.08125h8.73438v20.15625c0,5.24062 -4.16563,9.40625 -9.40625,9.40625h-1.34375c-12.63125,0 -24.32187,-0.26875 -34.80313,-0.5375c-2.28437,-0.13438 -4.16562,1.74687 -4.16562,4.03125c0,2.15 1.74688,3.89687 3.89688,4.03125c11.2875,0.40312 22.97812,0.5375 35.07187,0.5375h1.34375c9.675,0 17.46875,-7.79375 17.46875,-17.46875v-20.15625h9.40625c2.28438,0 4.03125,-1.74688 4.03125,-4.03125v-28.21875c0,-2.28437 -1.74687,-4.03125 -4.03125,-4.03125zM163.9375,102.125h-22.17187c-5.50938,0 -10.07812,-4.56875 -10.07812,-10.07812c0,-5.50937 4.56875,-10.07812 10.07813,-10.07812h22.17188z"></path></g></g>
+                                   </svg>
+                                </span>
+                                </a>
+                                   <span>    
+                                   {{coin.balance}} Coin
+                                  </span>
+                                </div>
+                             
+                        
+                        
+
+                              <div class="action">
+                                 <div class="profile" onclick="menuToggle();">
+                                     <img src="/upload/{{user.profilepic}}">
+                                 </div>
+                                 
+                                 <div class="menu">
+                                   <h3>{{user.firstname}}</h3>
+                                     {{!-- <h3>Someone Famous<br><span>Website De</span></h3> --}}
+                                     <ul>
+                                         <li><img src="https://img.icons8.com/material/64/000000/user-male-circle--v1.png"/><a href="/myprofile">My Profile</a></li>
+                                        <li><img src="https://img.icons8.com/material/64/000000/user-male-circle--v1.png"/><a href="/filter">Filter</a></li>
+                                         {{!-- <li><img src="https://img.icons8.com/ios-glyphs/24/000000/edit-property.png"/><a href="#">Edit Profile</a></li> --}}
+                                         {{!-- <li><img src="https://img.icons8.com/material/64/000000/coins--v1.png"/><a href="#">Get Coins</a></li> --}}
+                                         {{!-- <li><img src="https://img.icons8.com/ios-glyphs/24/000000/gear.png"/><a href="#">Settings</a></li> --}}
+                                         {{!-- <li><img src="https://img.icons8.com/ios-glyphs/24/000000/help.png"/><a href="#">Help</a></li> --}}
+                                         <li><img src="https://img.icons8.com/material/64/000000/logout-rounded-left--v1.png"/><a href="/logout">Log Out</a></li>
+                                     </ul>
+                                </div>
+
+                        
+
+                                    <div class="menu">
+                                      <h3>{{user.firstname}}</h3>
+                                        {{!-- <h3>Someone Famous<br><span>Website De</span></h3> --}}
+                                        <ul>
+                                            <li><img src="https://img.icons8.com/ios-glyphs/24/000000/test-account.png"/><a href="/myprofile">My Profile</a></li>
+                                            {{!-- <li><img src="https://img.icons8.com/ios-glyphs/24/000000/edit-property.png"/><a href="#">Edit Profile</a></li> --}}
+                                            <li><img src="https://img.icons8.com/ios-glyphs/24/000000/inbox.png"/><a href="#">Inbox</a></li>
+                                            {{!-- <li><img src="https://img.icons8.com/ios-glyphs/24/000000/gear.png"/><a href="#">Settings</a></li> --}}
+                                            {{!-- <li><img src="https://img.icons8.com/ios-glyphs/24/000000/help.png"/><a href="#">Help</a></li> --}}
+                                            <li><img src="https://img.icons8.com/ios-glyphs/24/000000/exit.png"/><a href="/logout">Log Out</a></li>
+                                        </ul>
+                                    </div>
+
+                            </div>
+                </div>
+  
+              </div>
+            </nav>
+      </div>
+
+
+{{!-- profile file part --}}
+<div class="container-allPart">
+
+
+            <div class="main-bd">
+                <div class="left-side">
+                    <div class="profile-side">
+                        <div class="wallet-div">
+                            <img src="https://img.icons8.com/cotton/128/000000/coin-wallet--v1.png"/>
+                        </div>
+
+
+
+                        <div>
+                            <h2>Total Balance</h2>
+                        </div>
+
+                        <div>
+                               <span>
+                                 <h2>{{coin.balance}}</h2>
+                                </span>
+                        </div>
+                             
+
+
+                    </div>
+                </div>
+
+                <div class="right-side">
+                    <div class="nav">
+                        <ul>
+                            <li class="user-foto active" onclick="tabs(0)">Shop</li>
+                            <li class="user-profile" onclick="tabs(1)">History</li>
+                            {{!-- <li class="user-Comment" onclick="tabs(2)">Comment</li> --}}
+                        </ul>
+                    </div>
+                    <div class="profile-body">
+                        <div class="profile-posts tab profile-box">
+
+                            <div class="container-shopbox">
+
+                                <div class="card">
+                                    <div class="circle">
+                                        <h2>100 Coins</h2>
+                                    </div>
+                                    <div class="content">
+                                        <h2>HK$100</h2>
+                                        <h4>Get 100 coins to browse more matches!</h4>
+                                        <a href="" class="checkout" data-amount="100">BUY</a>
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="circle">
+                                        <h2>300 Coins</h2>
+                                    </div>
+                                    <div class="content">
+                                        <h2>HK$270</h2>
+                                        <h4>Get 300 coins to see who likes you!</h4>
+                                        <a href="" class="checkout" data-amount="300">BUY</a>
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="circle">
+                                        <h2>1000 Coins</h2>
+                                    </div>
+                                    <div class="content">
+                                        <h2>HK$800</h2>
+                                        <h4>BUY MORE!</h4>
+                                        <h4>SAVE MORE!</h4>
+                                        <a href="" class="checkout" data-amount="1000">BUY</a>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                           
+                        </div>
+
+                        <div class="profile-review tab profile-box">
+
+                           <div class="container-history">
+                                <table>
+
+                                  <tr>
+                                      <th>Amount</th>
+                                      <th>Items</th>
+                                      <th>Date</th>
+                                  </tr>
+                                {{#each coin.transactions}}
+                                  <tr>
+                                      <td>{{amount}}</td>
+                                      <td>{{item}}</td>
+                                      <td>{{data}}</td>
+
+                                  </tr>
+                                {{/each}}
+                                </table>
+                           </div>
+                            
+                        </div>
+                        {{!-- <div class="profile-setting tab">
+                            <h1>Account Setting</h1>
+                            <p>Bye</p>
+                        </div> --}}
+                    </div>
+                </div>
+
+            </div>
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://js.stripe.com/v3/"></script>
+<script src="/stripeBtn.js"></script>
+
+
+{{!-- profile button toggle --}}
+ <script>
+        function menuToggle(){
+            const toggleMenu = document.querySelector(".menu");
+            toggleMenu.classList.toggle("active")
+        }
+</script>
+
+
+{{!-- right-side nav change effect --}}
+<script>
+    $('.nav ul li').click(function(){
+
+    $(this).addClass("active").siblings().removeClass('active')
+})
+
+const tabBtn = document.querySelectorAll(".nav ul li");
+const tab = document.querySelectorAll(".tab");
+
+function tabs(panelIndex) {
+    tab.forEach(function(node){
+        node.style.display = "none";
+    })
+    tab [panelIndex].style.display = "block";
+}
+tabs(0);
+
+</script>
+

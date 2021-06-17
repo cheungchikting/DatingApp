@@ -2,8 +2,7 @@
 exports.up = function(knex) {
     return knex.schema.createTable("shop", (table) => {
         table.increments();
-        table.string("itemname");
-        table.string("emoji");
+        table.string("token");
         table.integer('price')
     })
 };

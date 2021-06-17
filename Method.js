@@ -5,6 +5,7 @@ const fs = require("fs")
 const path = require("path")
 const uploadDir = path.join(__dirname, "public", "upload")
 
+
 class Method {
     constructor(knex) {
         this.knex = knex;
@@ -34,24 +35,6 @@ class Method {
         }
     }
 
-    async GetPoints(user_id) {
-        let data = await knex('points').where('points.user_id', user_id)
-        if (data[0]) {
-            return data[0]
-        } else {
-            return []
-        }
-    }
-
-    async GetInventory(user_id) {
-        let data = await knex('inventory').where('inventory.user_id', user_id)
-        if (data[0]) {
-            return data[0]
-        } else {
-            return []
-        }
-    }
-
     async addProfile(user_id, profilepic, gender, birthday, height, work, education, ethnicity, religion, hometown, location, aboutme) {
         let data = await knex('usersProfile').where('usersProfile.user_id', user_id)
         if (!data[0]) {
@@ -73,15 +56,16 @@ class Method {
         }
     }
 
-    async editProfile(user_id, profilepic, height, work, education, religion, location, aboutme) {
+    async editProfile(user_id, profilepic, height, education, religion, work, location, hometown, aboutme) {
         await knex('usersProfile')
             .update({
                 profilepic: profilepic,
                 height: height,
-                work: work,
                 education: education,
                 religion: religion,
+                work: work,
                 location: location,
+                hometown: hometown,
                 aboutme: aboutme
             })
             .where('usersProfile.user_id', user_id)
@@ -96,6 +80,32 @@ class Method {
             }
         })
     }
+
+    async photoUpload(user_id, foto1, foto2, foto3, foto4, foto5, foto6) {
+        let data = await knex('photos').where('photos.user_id', user_id)
+        if (data[0]) {
+            await knex('photos')
+                .update({
+                    pc1: foto1,
+                    pc2: foto2,
+                    pc3: foto3,
+                    pc4: foto4,
+                    pc5: foto5,
+                    pc6: foto6,
+                }).where('photos.user_id', user_id)
+        } else {
+            await knex.insert({
+                pc1: foto1,
+                pc2: foto2,
+                pc3: foto3,
+                pc4: foto4,
+                pc5: foto5,
+                pc6: foto6,
+                user_id: user_id
+            }).into('photos')
+        }
+    }
+
 
 
     // Filter
@@ -166,9 +176,15 @@ class Method {
                 randomlist: JSON.stringify(data3)
             }).where('matches.user_id', user_id)
         }
-
         let data4 = await knex('matches').where('matches.user_id', user_id)
         return data4[0].randomlist
+    }
+
+    async refresh(user_id) {
+        let data = await this.random(user_id)
+        await knex('matches').update({
+            randomlist: JSON.stringify(data)
+        }).where('matches.user_id', user_id)
     }
 
     async random(user_id) {
@@ -189,28 +205,32 @@ class Method {
             let result = data2.filter((x) => {
                 return geolib.getDistance(data[0].location, x.location) / 1000 < data[0].distance
             })
+
+            let data4 = await knex('matches').where('matches.user_id', user_id)
+            let seen
+            if (data4[0]) {
+                if (!data4[0].like) {
+                    data4[0].like = []
+                }
+                if (!data4[0].dislike) {
+                    data4[0].dislike = []
+                }
+                seen = [...data4[0].like, ...data4[0].dislike]
+            } else {
+                seen = []
+            }
+    
             if (result[0]) {
 
-                for (let each of result) {
-                    let data4 = await knex('matches').where('matches.user_id', user_id)
-                    if (data4[0]) {
-                        if (data4[0].like && data4[0].dislike) {
-                            let seen = [...data4[0].like, ...data4[0].dislike]
-                            for (let x of seen) {
-                                if (each.id == x) {
-                                    let index = result.indexOf(each)
-                                    result.splice(index, 1)
-                                }
-                            }
-                        }
-                    }
-                }
+                let filterList = result.filter((x) => {
+                    return !seen.includes(x.id)
+                })
 
                 for (let i = 0; i < 10; i++) {
-                    if (result[0]) {
-                        let randomIndex = Math.floor(Math.random() * result.length)
-                        let randomItem = result[randomIndex]
-                        result.splice(randomIndex, 1)
+                    if (filterList[0]) {
+                        let randomIndex = Math.floor(Math.random() * filterList.length)
+                        let randomItem = filterList[randomIndex]
+                        filterList.splice(randomIndex, 1)
                         randomList.push(randomItem)
                     }
                 }
@@ -235,7 +255,10 @@ class Method {
                                 break;
                         }
                     }
-                    return randomList
+                    let findmatcheslist = randomList.filter((x) => {
+                        return x.id !== user_id
+                    })
+                    return findmatcheslist
                 } else {
                     return []
                 }
@@ -263,23 +286,29 @@ class Method {
             let result = data2.filter((x) => {
                 return geolib.getDistance(data[0].location, x.location) / 1000 < data[0].distance
             })
-            if (result[0]) {
-                for (let each of result) {
-                    let data3 = await knex('matches').where('matches.user_id', user_id)
-                    if (data3[0]) {
-                        if (data3[0].like && data3[0].dislike) {
-                            let seen = [...data3[0].like, ...data3[0].dislike]
-                            for (let x of seen) {
-                                if (each.id == x) {
-                                    let index = result.indexOf(each)
-                                    result.splice(index, 1)
-                                }
-                            }
-                        }
-                    }
+
+            let data4 = await knex('matches').where('matches.user_id', user_id)
+            let seen
+            if (data4[0]) {
+                if (!data4[0].like) {
+                    data4[0].like = []
                 }
-                if (result[0]) {
-                    for (let each of result) {
+                if (!data4[0].dislike) {
+                    data4[0].dislike = []
+                }
+                seen = [...data4[0].like, ...data4[0].dislike]
+            } else {
+                seen = []
+            }
+
+            if (result[0]) {
+
+                let filterList = result.filter((x) => {
+                    return !seen.includes(x.id)
+                })
+
+                if (filterList[0]) {
+                    for (let each of filterList) {
                         let data4 = await knex('matches').where('matches.user_id', each.id)
                         if (data4[0].like) {
                             if (data4[0].like.indexOf(user_id) > -1) {
@@ -320,7 +349,6 @@ class Method {
         return []
     }
 
-
     async like(user_id, like_id) {
         let data = await knex("matches").where('matches.user_id', user_id)
         let like
@@ -359,8 +387,6 @@ class Method {
                 })
                 .where('matches.user_id', user_id)
         }
-
-        return await knex('matches').where('matches.user_id', like_id)
     }
 
     async dislike(user_id, dislike_id) {
@@ -416,73 +442,74 @@ class Method {
             .where('matches.user_id', user_id)
     }
 
+    async checklike(user_id, target_id) {
+        let data = await knex('matches').where('matches.user_id', target_id)
+        if (data[0] && data[0].like && data[0].like[0]) {
+            if (data[0].like.indexOf(JSON.parse(user_id)) > -1) {
+                return true
+            }
+            return false
+        }
+        return false
+    }
+
+    async iflike(user_id, target_id) {
+        let data = await knex('matches').where('matches.user_id', user_id)
+        if (data[0] && data[0].like && data[0].like[0]) {
+            if (data[0].like.indexOf(JSON.parse(target_id)) > -1) {
+                return true
+            }
+            return false
+        }
+        return false
+    }
+
     //chat
 
-    async ChatList(user_id) {
+    async createRoom(user_id) {
         let data = await knex.select('*').from('matches').where('matches.user_id', user_id);
-        if (data[0]) {
-            if (data[0].like) {
-                if (data[0].like[0]) {
-                    let matches = []
-                    let chatrooms = []
-                    for (let each of data[0].like) {
-                        let room = []
-                        let data1 = await knex('matches').where('matches.user_id', each)
-                        if (data1[0]) {
-                            if (data1[0].like) {
-                                if (data1[0].like[0]) {
-                                    if (data1[0].like.indexOf(user_id) > -1) {
-                                        matches.push(each)
-                                        room.push(user_id)
-                                        room.push(each)
-                                        room.sort()
-                                        chatrooms.push(JSON.stringify(room))
-                                    }
-                                }
-                            }
-                        }
-                    }
+        if (data[0] && data[0].like && data[0].like[0]) {
+            let chatrooms = []
+            let profiles = []
 
-                    let profiles = []
-                    if (matches[0]) {
-                        for (let item of matches) {
-                            let data2 = await knex('usersProfile').innerJoin('users', 'users.id', 'usersProfile.user_id').where('usersProfile.user_id', item)
-                            profiles.push(data2[0])
+            for (let each of data[0].like) {
+                let room = []
+                let data1 = await knex('matches').where('matches.user_id', each)
+                if (data1[0] && data1[0].like && data1[0].like[0]) {
+                    if (data1[0].like.indexOf(user_id) > -1) {
+                        room.push(user_id)
+                        room.push(each)
+                        let sortRoom = room.sort((a, b) => a - b)
+                        chatrooms.push(sortRoom)
+                        let data2 = await knex('chatroom').where('matchedPair', sortRoom.toString());
+                        if (!data2[0]) {
+                            await knex.insert({
+                                'matchedPair': sortRoom.toString()
+                            }).into('chatroom')
                         }
+                        let profile = await this.GetProfile(each)
+                        profiles.push(profile)
                     }
-
-                    let roomId = []
-                    if (chatrooms[0]) {
-                        for (let every of chatrooms) {
-                            let data3 = await knex('chatroom').where('matchedPair', every);
-                            if (!data3[0]) {
-                                await knex.insert({
-                                    'matchedPair': every
-                                }).into('chatroom')
-                            }
-                            roomId.push(data3[0])
-                        }
-                    }
-
-                    for (let x of profiles) {
-                        for (let y of roomId) {
-                            if (JSON.parse(y.matchedPair).indexOf(x.id) > -1) {
-                                x.chatroom = y.id
-                            }
-                        }
-                    }
-                    return profiles
                 }
-                return []
+
             }
-            return []
+
+            for (let item of chatrooms) {
+                let data3 = await knex('chatroom').where('matchedPair', item.toString());
+                for (let x of profiles) {
+                    if (data3[0].matchedPair.split(',').indexOf(x.id.toString()) > -1) {
+                        x.chatroom = data3[0].id
+                    }
+                }
+            }
+            return profiles
         }
         return []
     }
 
     async GetChatInfo(roomId, user_id) {
         let data = await knex('chatroom').where('id', roomId)
-        let targetId = JSON.parse(data[0].matchedPair).filter((x) => {
+        let targetId = data[0].matchedPair.split(',').filter((x) => {
             return x != user_id
         })
         let user = await knex('users').where('id', user_id)
@@ -494,80 +521,150 @@ class Method {
         return result
     }
 
-    async unlike(user_id, unlike_id) {
+    async unlike(user_id, unlike_id, roomId) {
         let data = await knex("matches")
             .where('matches.user_id', user_id)
 
         let like = data[0].like
-        like.splice(like.indexOf(unlike_id), 1)
-
+        let newLike = like.filter((x)=>{
+            return x != unlike_id
+        })
+    
         await knex('matches')
             .update({
-                like: JSON.stringify(like)
+                like: JSON.stringify(newLike)
             })
             .where('matches.user_id', user_id)
+
+        await knex('chatroom').where('id', roomId).del()
     }
 
-    //points
+    //Coins
 
-    async AddPoint(user_id, addPoints) {
-        let data = await knex('points').where('points.user_id', user_id)
+    async GetCoins(user_id) {
+        let data = await knex('coins').where('coins.user_id', user_id)
+        if (data[0]) {
+            return data[0]
+        } else {
+            await knex.insert({
+                balance: 0,
+                transactions: JSON.stringify([]),
+                user_id: user_id
+            }).into('coins')
+            let data = await knex('coins').where('coins.user_id', user_id)
+            return data
+        }
+    }
+
+    async AddCoins(user_id, addPoints) {
+        let data = await knex('coins').where('coins.user_id', user_id)
         if (data[0]) {
             let balance = data[0].balance
             balance += addPoints
             let transactions = data[0].transactions
-            transactions.push(addPoints)
+            let cur_date = new Date();
+            let time = cur_date.toLocaleString()
+            transactions.push({
+                'amount': `+${addPoints.toString()}`,
+                'item': 'New Purchase',
+                'data': time
+            })
             let object = {
                 'balance': balance,
                 'transactions': JSON.stringify(transactions),
             }
-            await knex('points')
+            await knex('coins')
                 .update(object)
-                .where('points.user_id', user_id)
+                .where('coins.user_id', user_id)
         } else {
             let balance = 0
             balance += addPoints
             let transactions = []
-            transactions.push(addPoints)
-
+            let cur_date = new Date();
+            let time = cur_date.toLocaleString()
+            transactions.push({
+                'amount': `+${addPoints.toString()}`,
+                'item': 'New Purchase',
+                'data': time
+            })
             let object = {
                 'user_id': user_id,
                 'balance': balance,
                 'transactions': JSON.stringify(transactions),
             }
-            await knex.insert(object).into('points')
+            await knex.insert(object).into('coins')
         }
     }
 
-    async usePoint(user_id, usePoints) {
-        let data = await knex('points').where('points.user_id', user_id)
+    async viewMore(user_id, amount) {
+        let data = await knex('coins').where('coins.user_id', user_id)
         if (data[0]) {
-            if (data[0].balance >= usePoints) {
+            if (data[0].balance >= amount) {
                 let balance = data[0].balance
-                balance -= usePoints
+                balance -= parseInt(amount)
                 let transactions = data[0].transactions
-                transactions.push(-usePoints)
+                let cur_date = new Date();
+                let time = cur_date.toLocaleString()
+                transactions.push({
+                    'amount': `-${amount.toString()}`,
+                    'item': 'View Extra Matches',
+                    'data': time
+                })
                 let object = {
                     'balance': balance,
                     'transactions': JSON.stringify(transactions),
                 }
-                await knex('points')
+                await knex('coins')
                     .update(object)
-                    .where('points.user_id', user_id)
+                    .where('coins.user_id', user_id)
+                return true
             } else {
-                return null
+                return false
             }
         } else {
-            return null
+            return false
         }
     }
 
-    async viewLikeMeToken(user_id) {
-        await knex('points')
-            .update({
-                viewLikeMeToken: true
-            })
-            .where('points.user_id', user_id)
+    async getToken(user_id, amount) {
+        let data = await knex('coins').where('coins.user_id', user_id)
+        if (data[0]) {
+            if (data[0].balance >= amount) {
+                let balance = data[0].balance
+                balance -= parseInt(amount)
+                let transactions = data[0].transactions
+                let cur_date = new Date();
+                let time = cur_date.toLocaleString()
+                transactions.push({
+                    'amount': `-${amount.toString()}`,
+                    'item': 'View who liked me',
+                    'data': time
+                })
+                let object = {
+                    'balance': balance,
+                    'transactions': JSON.stringify(transactions),
+                }
+                await knex('coins')
+                    .update(object)
+                    .where('coins.user_id', user_id)
+                let token = await knex('token').where('token.user_id', user_id)
+                if (token[0]) {
+                    await knex('token').update({
+                        'likeme': true
+                    }).where('token.user_id', user_id)
+                } else {
+                    await knex.insert({
+                        'likeme': true,
+                        'user_id': user_id
+                    }).into('token')
+                }
+                return true
+            } else {
+                return false
+            }
+        } else {
+            return false
+        }
     }
 }
 

@@ -10,7 +10,7 @@ exports.up = function (knex) {
         table.string("religion");
         table.string("hometown");
         table.json("location");
-        table.string("aboutme");
+        table.text("aboutme");
         table.integer('user_id').unsigned();
         table.foreign('user_id').references('users.id')
     })

@@ -263,6 +263,11 @@ a:hover{
     background-position: right;
 }
 
+#fail_row{
+    padding-bottom: 20px;
+    color: rgb(240, 216, 0);
+}
+
 #signup_row{
     display: inline-flex;
     color:rgb(245, 245, 245);

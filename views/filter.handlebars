@@ -1,24 +1,64 @@
-    <link rel="stylesheet" href="filter.css">
+    <link rel="stylesheet" href="/filter.css">
+     <link rel="stylesheet" href="/navbar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
 
-     <div class="navbar_container">
+<div class="navbar_container container-fluid">
             <nav class="navbar navbar-expand-lg navbar-light bg-light top_navbar">
               <div class="container-fluid">
+                  
                    <div class="navbar_left">
-                         <a class="navbar-brand">Lonely</a>
+                     <a class="navbar-brand" >LoveBetter</a>
                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                      <span class="navbar-toggler-icon"></span>
                    </button>
                     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                        <div class="navbar-nav">
-                        <a class="nav-link" href="/match">Get Matches</a>
-                       </div>
+                        <a class="nav-link" href="/findmatches">
+                         <span style="font-size: 30px;color:#8e44ad;">
+                             <i class="fas fa-search"></i>
+                         </span>
+                         Find Matches
+                         </a>
+                        <a class="nav-link" href="/likeme">
+                         <span style="font-size: 30px;color:#8e44ad;">
+                             <i class="far fa-eye"></i>
+                         </span>
+                         See Who Likes You
+                         </a>
+
+                        <a class="nav-link" href="/chatroom">
+                        <span style="font-size: 30px;color:#8e44ad;">
+                            <i class="far fa-comments"></i>
+                        </span>
+                        Talk to them
+                        </a>         
+                        </div>
                      </div>
                   </div>
               
-                        <div class="navbar_right">
-                              <div class="action">
+                       <div class="navbar_right">
 
+                             
+                                <div id="myPoint">
+                                <a href="/wallet">
+                                <span style="font-size: 50px;color:rgba(241, 241, 68, 0.884)">
+                                  {{!-- <img src="https://img.icons8.com/nolan/64/coin-wallet.png"/> --}}
+                                  <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                                   width="50" height="50"
+                                   viewBox="0 0 172 172"
+                                   style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,172v-172h172v172z" fill="none"></path><g fill="#8e44ad"><path d="M47.03125,73.90625c-22.30625,0 -40.3125,5.77813 -40.3125,12.76563v16.125c0,3.35938 4.03125,6.45 10.75,8.73438c2.55313,0.94062 5.375,-1.075 5.375,-3.7625v-7.65937c0,-1.74688 -1.20937,-3.35937 -2.95625,-3.89688c-1.74687,-0.5375 -3.35937,-1.075 -4.8375,-1.74687c-3.35937,-1.34375 -3.35937,-6.04687 0,-7.39062c7.39063,-3.09063 18.94688,-5.10625 31.98125,-5.10625c13.03438,0 24.59063,2.01563 31.98125,4.97187c3.35938,1.34375 3.35938,6.04688 0,7.525c-7.39062,2.95625 -18.94687,4.97187 -31.98125,4.97187c-2.15,0 -4.43438,0 -6.45,-0.13437c-2.28437,-0.13437 -4.3,1.74687 -4.3,4.03125v8.0625c0,2.15 1.6125,3.89688 3.7625,4.03125c2.28437,0.13437 4.56875,0.13437 6.9875,0.13437c22.30625,0 40.3125,-5.77813 40.3125,-12.76562v-16.125c0,-6.9875 -18.00625,-12.76562 -40.3125,-12.76562zM81.56563,117.44375c-7.12188,3.7625 -19.8875,6.18125 -34.53437,6.18125c-2.15,0 -4.43438,0 -6.45,-0.13437c-2.28437,-0.13437 -4.3,1.74687 -4.3,4.03125v8.0625c0,2.15 1.6125,3.89688 3.7625,4.03125c2.28437,0.13438 4.56875,0.13438 6.9875,0.13438c22.30625,0 40.3125,-5.77812 40.3125,-12.76562v-5.9125c0,-2.95625 -3.225,-4.97187 -5.77813,-3.62812zM19.8875,120.26563c-2.82187,-0.80625 -5.24062,-1.74688 -7.25625,-2.82187c-2.6875,-1.34375 -5.9125,0.5375 -5.9125,3.62812v5.9125c0,3.35938 4.03125,6.45 10.75,8.73438c2.55313,0.94062 5.375,-1.075 5.375,-3.7625v-7.65937c0,-1.88125 -1.20937,-3.49375 -2.95625,-4.03125zM81.56563,141.63125c-7.12187,3.62813 -19.8875,6.18125 -34.53437,6.18125c-2.15,0 -4.43438,0 -6.45,-0.13438c-2.28437,-0.13437 -4.3,1.74688 -4.3,4.03125v8.0625c0,2.15 1.6125,3.89688 3.7625,4.03125c2.28437,0.13438 4.56875,0.13438 6.9875,0.13438c22.30625,0 40.3125,-5.77812 40.3125,-12.76562v-5.9125c0,-2.95625 -3.225,-4.97188 -5.77813,-3.62813zM19.8875,144.45313c-2.82187,-0.80625 -5.24062,-1.74687 -7.25625,-2.82188c-2.6875,-1.34375 -5.9125,0.5375 -5.9125,3.62813v5.9125c0,3.35938 4.03125,6.45 10.75,8.73438c2.55313,0.94062 5.375,-1.075 5.375,-3.7625v-7.65937c0,-1.88125 -1.20937,-3.49375 -2.95625,-4.03125zM121.74375,8.19688h-0.13437c-25.12812,0.40312 -48.375,1.74687 -66.78438,3.7625c-35.74375,4.03125 -38.7,9.1375 -38.7,13.57188v33.59375c0,2.28438 1.74687,4.03125 4.03125,4.03125v0c2.28438,0 4.03125,-1.74687 4.03125,-4.03125v-25.8c5.50938,2.01563 14.91562,4.03125 30.50313,5.77812c22.70938,2.55313 52.94375,3.89688 85.05937,3.89688h1.34375c5.24062,0 9.40625,4.16562 9.40625,9.40625v5.24063c0,2.01563 1.34375,3.7625 3.225,4.16562c2.55313,0.5375 4.8375,-1.47812 4.8375,-3.89688v-5.375c0,-8.73437 -6.45,-15.99062 -14.78125,-17.2v-5.24063c0,-12.3625 -9.94375,-22.0375 -22.0375,-21.90313zM167.96875,73.90625h-25.66563c-9.80937,0 -18.14062,7.525 -18.67812,17.2c-0.5375,10.48125 7.79375,19.08125 18.14063,19.08125h8.73438v20.15625c0,5.24062 -4.16563,9.40625 -9.40625,9.40625h-1.34375c-12.63125,0 -24.32187,-0.26875 -34.80313,-0.5375c-2.28437,-0.13438 -4.16562,1.74687 -4.16562,4.03125c0,2.15 1.74688,3.89687 3.89688,4.03125c11.2875,0.40312 22.97812,0.5375 35.07187,0.5375h1.34375c9.675,0 17.46875,-7.79375 17.46875,-17.46875v-20.15625h9.40625c2.28438,0 4.03125,-1.74688 4.03125,-4.03125v-28.21875c0,-2.28437 -1.74687,-4.03125 -4.03125,-4.03125zM163.9375,102.125h-22.17187c-5.50938,0 -10.07812,-4.56875 -10.07812,-10.07812c0,-5.50937 4.56875,-10.07812 10.07813,-10.07812h22.17188z"></path></g></g>
+                                   </svg>
+                                </span>
+                                </a>
+                                   <span>    
+                                   {{coins.balance}} Coin
+                                  </span>
+                                </div>
+                             
+                        
+                        
+
+                              <div class="action">
                                  <div class="profile" onclick="menuToggle();">
                                      <img src="/upload/{{user.profilepic}}">
                                  </div>
@@ -27,17 +67,34 @@
                                    <h3>{{user.firstname}}</h3>
                                      {{!-- <h3>Someone Famous<br><span>Website De</span></h3> --}}
                                      <ul>
-                                         <li><img src="https://img.icons8.com/ios-glyphs/24/000000/test-account.png"/><a href="/myprofile">My Profile</a></li>
+                                         <li><img src="https://img.icons8.com/material/64/000000/user-male-circle--v1.png"/><a href="/myprofile">My Profile</a></li>
+                                        <li><img src="https://img.icons8.com/material/64/000000/user-male-circle--v1.png"/><a href="/filter">Filter</a></li>
                                          {{!-- <li><img src="https://img.icons8.com/ios-glyphs/24/000000/edit-property.png"/><a href="#">Edit Profile</a></li> --}}
-                                         <li><img src="https://img.icons8.com/ios-glyphs/24/000000/inbox.png"/><a href="#">Inbox</a></li>
+                                         {{!-- <li><img src="https://img.icons8.com/material/64/000000/coins--v1.png"/><a href="#">Get Coins</a></li> --}}
                                          {{!-- <li><img src="https://img.icons8.com/ios-glyphs/24/000000/gear.png"/><a href="#">Settings</a></li> --}}
                                          {{!-- <li><img src="https://img.icons8.com/ios-glyphs/24/000000/help.png"/><a href="#">Help</a></li> --}}
-                                         <li><img src="https://img.icons8.com/ios-glyphs/24/000000/exit.png"/><a href="/logout">Log Out</a></li>
+                                         <li><img src="https://img.icons8.com/material/64/000000/logout-rounded-left--v1.png"/><a href="/logout">Log Out</a></li>
                                      </ul>
                                 </div>
 
-                              </div>
-                        </div>
+                        
+
+                                    <div class="menu">
+                                      <h3>{{user.firstname}}</h3>
+                                        {{!-- <h3>Someone Famous<br><span>Website De</span></h3> --}}
+                                        <ul>
+                                            <li><img src="https://img.icons8.com/ios-glyphs/24/000000/test-account.png"/><a href="/myprofile">My Profile</a></li>
+                                            {{!-- <li><img src="https://img.icons8.com/ios-glyphs/24/000000/edit-property.png"/><a href="#">Edit Profile</a></li> --}}
+                                            <li><img src="https://img.icons8.com/ios-glyphs/24/000000/inbox.png"/><a href="#">Inbox</a></li>
+                                            {{!-- <li><img src="https://img.icons8.com/ios-glyphs/24/000000/gear.png"/><a href="#">Settings</a></li> --}}
+                                            {{!-- <li><img src="https://img.icons8.com/ios-glyphs/24/000000/help.png"/><a href="#">Help</a></li> --}}
+                                            <li><img src="https://img.icons8.com/ios-glyphs/24/000000/exit.png"/><a href="/logout">Log Out</a></li>
+                                        </ul>
+                                    </div>
+
+                            </div>
+                </div>
+  
               </div>
             </nav>
       </div>
@@ -45,13 +102,18 @@
 
  <div class="container">
     <div class="title">My Filter</div>
+    <div><p class="text-muted">(The filter selected this time will take effect when it is refreshed the next day)</p></div>
     <div class="content">
       <form action="/editfilter" method="POST">
         <div class="user-details">
           <div class="input-box">
             <label for="gender">Gender</label>
-              <select name="preferredGender" id="gender" value={{filter.preferredGender}} required>
-                <option value="gender">-Select-</option>
+              <select name="preferredGender" id="gender" required>
+                {{#if data.preferredGender}}
+                <option value="{{data.preferredGender}}" selected>{{data.preferredGender}}</option >
+                {{else}}
+              <option value="" class="select">-Select-</option>
+                {{/if}}
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
               </select>
@@ -61,12 +123,20 @@
                 <label for="age" id="label_age">Age</label>
               </div>
 
-              <select name="min_age" id="min_age" value={{filter.min_age}} required>
-              <option value="min_age">From</option>
+              <select name="min_age" id="min_age" required>
+              {{#if data.min_age}}
+              <option value="{{data.min_age}}" selected>{{data.min_age}}</option >
+              {{else}}
+           <option value="" class="select">From</option>
+              {{/if}}
               </select>
 
-              <select name="max_age" id="max_age" value={{filter.max_age}} required>
-              <option value="max_age">To</option>
+              <select name="max_age" id="max_age" required>
+              {{#if data.max_age}}
+              <option value="{{data.max_age}}" selected>{{data.max_age}}</option >
+              {{else}}
+              <option value="" class="select">To</option>
+              {{/if}}
               </select>
           </div>
 
@@ -75,20 +145,32 @@
                 <label for="height">Height</label>
               </div>
 
-              <select name="min_height" id="min_height" value={{filter.min_height}} required>
-              <option value="min_height">From</option>
+              <select name="min_height" id="min_height" required>
+              {{#if data.min_height}}
+              <option value="{{data.min_height}}" selected>{{data.min_height}}</option>
+              {{else}}
+              <option value="" class="select">Form</option>
+              {{/if}}
               </select>
 
-              <select name="max_height" id="max_height" value={{filter.max_height}} required>
-              <option value="max_height">To</option>
+              <select name="max_height" id="max_height" required>
+              {{#if data.max_height}}
+              <option value="{{data.max_height}}" selected>{{data.max_height}}</option>
+              {{else}}
+              <option value="" class="select">To</option>
+              {{/if}}
               </select>
           </div> 
             
 
             <div class="input-box">
               <label for="education">Education</label>
-              <select name="preferredEducation" id="education" value={{filter.preferredEducation}} required>
-                <option value="education">-Select-</option>
+              <select name="preferredEducation" id="education" required>
+              {{#if data.preferredEducation}}
+              <option value="{{data.preferredEducation}}" selected>{{data.preferredEducationName}}</option>
+              {{else}}
+              <option value="" class="select">-Select-</option>
+              {{/if}}
               </select>
             </div>
 
@@ -102,15 +184,23 @@
 
             <div class="input-box">
               <label for="ethnicity">Ethnicity</label>
-              <select name="preferredEthnicity" id="ethnicity" value={{filter.preferredEthnicity}} required>
-                <option value="religion">-Select-</option>
+              <select name="preferredEthnicity" id="ethnicity" required>
+                {{#if data.preferredEthnicity}}
+                <option value="{{data.preferredEthnicity}}" selected>{{data.preferredEthnicity}}</option>
+                {{else}}
+                <option value="" class="select">-Select-</option>
+                {{/if}}
               </select>
             </div>
 
             <div class="input-box">
               <span class="details" >Distance</span>
-              <select name="distance" id="distance" value={{filter.distance}}required>
-                <option value="distance">-Select-</option>
+              <select name="distance" id="distance" required>
+                {{#if data.distance}}
+                <option value="{{data.distance}}" selected>{{data.distance}}</option>
+                {{else}}
+                <option value="" class="select">-Select-</option>
+                {{/if}}
               </select>           
              </div>
              
@@ -118,11 +208,20 @@
         
 
         <div class="button">
-          <input type="submit" value="change">
+          <input type="submit" value="Update" class="btn-update">
         </div>
       </form>
     </div>
   </div>
+    
+      {{!-- <div class="wrapper">
+
+    <div class="container-btn like-finish">
+      <p class="text">You have like the person!</p>
+      <a href="" class="btn-like">OK</a>
+    </div>
+
+  </div> --}}
 
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -147,7 +246,7 @@
 
   eduArr = ['Secondary','Associate','Bachelor','Master','Doctor'];
   for(let i = 0;i<eduArr.length;i++){
-    $('#education').append(`<option value="${i}">${eduArr[i]}</option >`)
+    $('#education').append(`<option value="${i+1}">${eduArr[i]}</option >`)
   }
 
 ethArr = ['Asian','Arab','Black/Agrican-descent','Hispanic/Latino','Native American','Pacific Islander','South Asian','White/Caucasian','Other'];
@@ -196,5 +295,38 @@ $('#ethnicity').append(`<option value="${ethArr[i]}">${ethArr[i]}</option >`)
 </script>
 
 
+{{!-- test pre set value --}}
+{{!-- <script>
+      $('#gender').append(`<option value="Female" selected>Female</option >`)
+      $('#min_age').append(`<option value="18" selected>18</option >`)
+      $('#max_age').append(`<option value="99" selected>99</option >`)
+      $('#min_height').append(`<option value="120" selected>120</option >`)
+      $('#max_height').append(`<option value="200" selected>200</option >`)
+      $('#education').append(`<option value="2" selected>Bachelor</option >`)
+      $('#ethnicity').append(`<option value="Asian" selected>Asian</option >`)
+      $('#distance').append(`<option value="100" selected>100</option >`)
+</script> --}}
 
-</script>
+
+
+{{!-- the popup of like and dislike button --}}
+{{!-- <script>
+  $(".btn-update").click(function(){;
+      $(".like-success").toggleClass("active");
+      $(".wrapper").toggleClass("active");
+  })
+
+</script> --}}
+
+{{!-- <script>
+
+      $('#gender').append(`<option value="Female" selected>Female</option >`)
+      $('#min_age').append(`<option value="18" selected>18</option >`)
+      $('#max_age').append(`<option value="99" selected>99</option >`)
+      $('#min_height').append(`<option value="120" selected>120</option >`)
+      $('#max_height').append(`<option value="200" selected>200</option >`)
+      $('#education').append(`<option value="2" selected>Bachelor</option >`)
+      $('#ethnicity').append(`<option value="Asian" selected>Asian</option >`)
+      $('#distance').append(`<option value="100" selected>100</option >`)
+
+</script> --}}

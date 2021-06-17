@@ -14,6 +14,7 @@ body{
   /* padding: 10px; */
   background: linear-gradient(60deg, #abecd6 0%, #fbed96 100%);
   background-size: contain;
+  /* overflow: hidden; */
 }
 
 .container{
@@ -25,8 +26,9 @@ body{
   padding: 25px 30px;
   border-radius: 5px;
   box-shadow: 0 5px 10px rgba(0,0,0,0.15);
-  transform: translateY(50px);
+  transform: translateY(20px);
   margin-bottom: 10%;
+  overflow-y: auto;
 }
 
 .container .top-info .title{
@@ -99,7 +101,7 @@ body{
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin: 20px 0 12px 0;
+  /* margin: 20px 0 12px 0; */
 }
 form .user-details .input-box{
   margin-bottom: 15px;
@@ -164,8 +166,7 @@ form .input-box span.details{
    display: none;
  }
  form .button{
-   height: 45px;
-   margin: 35px 0
+   height: 45px; 
  }
  form .button input{
    height: 100%;
