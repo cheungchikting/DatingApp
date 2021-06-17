@@ -21,6 +21,10 @@ body{
   width: 100%;
 }
 
+.navbar-brand{
+  margin-left: 10px;
+}
+
 .navbar_left{
   display: flex;
   justify-content: center;

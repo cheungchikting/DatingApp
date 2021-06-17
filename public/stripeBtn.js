@@ -8,7 +8,6 @@ $(function () {
       method: "POST",
     })
     .then(function (response) {
-      console.log(response)
       return response.json();
     })
     .then(function (session) {
@@ -16,19 +15,15 @@ $(function () {
       return stripe.redirectToCheckout({ sessionId: session.id });
     })
     .then(function (result) {
-      console.log(result)
+      // If redirectToCheckout fails due to a browser or network
+      // error, you should display the localized error message to your
+      // customer using error.message.
       if (result.error) {
         alert(result.error.message);
-      } else {
-        if(result.paymentIntent.status === 'succeeded'){
-          
-        }
       }
     })
     .catch(function (error) {
       console.error("Error:", error);
     });
   })
-
-
 })
