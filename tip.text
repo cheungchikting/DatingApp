@@ -1,0 +1,26 @@
+npm rebuild bcrypt --build-from-source
+https://github.com/kelektiv/node.bcrypt.js/issues/635
+
+
+#if appear this problem
+
+  node:internal/modules/cjs/loader:1168
+  return process.dlopen(module, path.toNamespacedPath(filename));
+                 ^
+
+Error: dlopen(/Users/caspar/Desktop/Webdevelopment/Week_13/version/version_004/DatingApp/node_modules/bcrypt/lib/binding/napi-v3/bcrypt_lib.node, 1): no suitable image found.  Did find:
+        /Users/caspar/Desktop/Webdevelopment/Week_13/version/version_004/DatingApp/node_modules/bcrypt/lib/binding/napi-v3/bcrypt_lib.node: mach-o, but wrong architecture
+        /Users/caspar/Desktop/Webdevelopment/Week_13/version/version_004/DatingApp/node_modules/bcrypt/lib/binding/napi-v3/bcrypt_lib.node: mach-o, but wrong architecture
+    at Object.Module._extensions..node (node:internal/modules/cjs/loader:1168:18)
+    at Module.load (node:internal/modules/cjs/loader:989:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:829:14)
+    at Module.require (node:internal/modules/cjs/loader:1013:19)
+    at require (node:internal/modules/cjs/helpers:93:18)
+    at Object.<anonymous> (/Users/caspar/Desktop/Webdevelopment/Week_13/version/version_004/DatingApp/node_modules/bcrypt/bcrypt.js:6:16)
+    at Module._compile (node:internal/modules/cjs/loader:1109:14)
+    at Object.Module._extensions..js (node:internal/modules/cjs/loader:1138:10)
+    at Module.load (node:internal/modules/cjs/loader:989:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:829:14) {
+  code: 'ERR_DLOPEN_FAILED'
+}
+[nodemon] app crashed - waiting for file changes before starting...
